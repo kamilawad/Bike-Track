@@ -10,12 +10,12 @@
 > Bike Track aims to bring bike riders together by providing a user-friendly platform where bike drivers can find new places with our route feature and makes every ride fun and social. We believe in enhancing the cycling experience by providing real-time tracking, efficient route planning, and fostering a community of cyclists.
 
 ### User Stories
-- As a cyclist, I want to plan routes for my rides, so I can discover new biking trails and explore different areas.
+- As a user, I want to plan routes for my rides, so I can discover new biking trails and explore different areas.
 - As a user, I want to join collaborative events, so I can participate in group rides and meet other cycling.
 - As a user, I want to use the chat feature, so I can communicate with other users and share my experiences.
 - As a user, I want to participate in event races and marathons, so I can challenge myself and compete with others.
 - As a regular user, I want to track races from the mobile app, so I can follow the progress of the races and marathons.
-As an organizer, I want to create events on the app, so I can invite users to participate.
+- As an organizer, I want to create events on the app, so I can invite users to participate.
 
 <br><br>
 <!-- Tech stack -->
