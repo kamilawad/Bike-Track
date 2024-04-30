@@ -4,7 +4,10 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [ConfigModule.forRoot(),
+  imports: [ConfigModule.forRoot({
+    envFilePath: '.env',
+    isGlobal: true,
+  }),
   MongooseModule.forRoot('mongodb://localhost/biketrackdb'), UsersModule],
   controllers: [],
   providers: [],
