@@ -5,6 +5,7 @@ export class CreateUserDTO {
     @Length(4, 50)
     fullName: string;
 
+    @IsString()
     @IsEmail()
     email: string;
 
