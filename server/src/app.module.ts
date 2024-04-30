@@ -4,11 +4,14 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [ConfigModule.forRoot({
-    envFilePath: '.env',
-    isGlobal: true,
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
   }),
-  MongooseModule.forRoot('mongodb://localhost/biketrackdb'), UsersModule],
+  MongooseModule.forRoot(process.env.DB_URI),
+  UsersModule
+  ],
   controllers: [],
   providers: [],
 })
