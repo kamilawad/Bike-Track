@@ -14,8 +14,8 @@ export class UserService {
         return await newUser.save();
     }
 
-    getUsers() {
-        return this.userModel.find();
+    async getUsers() : Promise<User[]> {
+        return await this.userModel.find().exec();
     }
 
     getUserById(id: string) {
