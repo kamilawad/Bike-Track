@@ -4,6 +4,8 @@ import { Model } from "mongoose";
 import { User } from "src/schemas/user.schema";
 import { SignUpDto } from "./dto/signup.dto";
 
+import * as bcrypt from 'bcryptjs';
+
 @Injectable()
 export class AuthService {
     constructor(
@@ -13,5 +15,13 @@ export class AuthService {
 
     async signUp(signUpDto: SignUpDto) {
         const { fullName, email, password} = signUpDto;
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = await this.userModel.create({
+            fullName,
+            email,
+            password: hashedPassword
+        })
     }
 }
