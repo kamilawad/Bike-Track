@@ -9,16 +9,16 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 export class UserService {
     constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-    async createUser(createUserDto: CreateUserDto) : Promise<User> {
+    async createUser(createUserDto: CreateUserDto): Promise<User> {
         const newUser = new this.userModel(createUserDto);
         return await newUser.save();
     }
 
-    async getUsers() : Promise<User[]> {
+    async getUsers(): Promise<User[]> {
         return await this.userModel.find().exec();
     }
 
-    async getUserById(id: string) : Promise<User> {
+    async getUserById(id: string): Promise<User> {
         const user = await this.userModel.findById(id).exec();
         if (!user) {
             throw new NotFoundException('User not found');
@@ -26,7 +26,7 @@ export class UserService {
         return user;
     }
 
-    async updateUser(id: string, updateUserDto: UpdateUserDto) : Promise<User> {
+    async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
         const user = await this.userModel.findById(id);
         if (!user) {
             throw new NotFoundException('User not found');
@@ -38,5 +38,10 @@ export class UserService {
             user.password = updateUserDto.password;
         }
         return await user.save();
+    }
+
+    async deleteUser(id: string): Promise<User> {
+        const user = await this.userModel.findById(id);
+        return await this.userModel.findByIdAndDelete(id)
     }
 }
