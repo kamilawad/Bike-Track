@@ -11,8 +11,8 @@ export class UserController {
 
     @Post()
     @UsePipes(new ValidationPipe())
-    createUser(@Body() createUserDto: CreateUserDto) {
-        return this.userService.createUser(createUserDto);
+    async createUser(@Body() createUserDto: CreateUserDto) {
+        return await this.userService.createUser(createUserDto);
     }
 
     @Get()
