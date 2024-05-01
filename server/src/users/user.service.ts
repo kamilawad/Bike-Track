@@ -9,7 +9,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 export class UserService {
     constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-    async createUser(createUserDto: CreateUserDto) {
+    async createUser(createUserDto: CreateUserDto) : Promise<User> {
         const newUser = new this.userModel(createUserDto);
         return await newUser.save();
     }
