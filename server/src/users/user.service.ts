@@ -26,7 +26,7 @@ export class UserService {
         return user;
     }
 
-    async updateUser(id: string, updateUserDto: UpdateUserDto) {
+    async updateUser(id: string, updateUserDto: UpdateUserDto) : Promise<User> {
         const user = await this.userModel.findById(id);
         if (!user) {
             throw new NotFoundException('User not found');
@@ -37,9 +37,6 @@ export class UserService {
         if (updateUserDto.password) {
             user.password = updateUserDto.password;
         }
-        return user.save();
-        /*const { fullName, password } = updateUserDto;
-        return await this.userModel.findByIdAndUpdate(id, { fullName, password}, { new: true, runValidators: true, });
-        //return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });*/
+        return await user.save();
     }
 }
