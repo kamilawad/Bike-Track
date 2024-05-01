@@ -34,6 +34,8 @@ export class UserService {
             user.password = updateUserDto.password;
         }
         return user.save();
-        //return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });
+        /*const { fullName, password } = updateUserDto;
+        return await this.userModel.findByIdAndUpdate(id, { fullName, password}, { new: true, runValidators: true, });
+        //return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });*/
     }
 }
