@@ -36,4 +36,13 @@ export class UserController {
         }
         return updatedUser;
     }
+
+    @Delete(':id')
+    async deleteUser(@Param('id') id: string) {
+        const deletedUser = await this.userService.deleteUser(id);
+        if (!deletedUser) {
+            throw new NotFoundException('User not found');
+        }
+        return deletedUser;
+    }
 }
