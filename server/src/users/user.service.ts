@@ -49,8 +49,8 @@ export class UserService {
         return deletedUser;
     }
 
-    async updateLocation(userId: string, location: Location): Promise<User> {
-        const user = await this.userModel.findById(userId);
+    async updateLocation(id: string, location: Location): Promise<User> {
+        const user = await this.userModel.findById(id);
         if (!user) {
           throw new NotFoundException('User not found');
         }

@@ -3,6 +3,7 @@ import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import mongoose from "mongoose";
+import { Location } from '../schemas/location.schema';
 
 
 @Controller('users')
@@ -46,5 +47,10 @@ export class UserController {
             throw new NotFoundException('User not found');
         }
         return deletedUser;
+    }
+
+    @Patch(':id/location')
+    async updateLocation(@Param('id') id: string, @Body() location: Location) {
+    return this.userService.updateLocation(id, location);
     }
 }
