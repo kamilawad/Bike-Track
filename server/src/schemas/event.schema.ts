@@ -14,7 +14,7 @@ export class Event {
   startTime: Date;
 
   @Prop({ required: true })
-  endTime: Date
+  endTime: Date;
 
   @Prop({ required: true })
   duration: number;
