@@ -1,9 +1,11 @@
-import { Controller, Body, Get, Post, Put, UsePipes, ValidationPipe, Param, HttpException, Patch, NotFoundException, Delete } from "@nestjs/common";
+import { Controller, Body, Get, Post, Put, UsePipes, ValidationPipe, Param, HttpException, Patch, NotFoundException, Delete, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import mongoose from "mongoose";
 import { Location } from '../schemas/location.schema';
+import { AuthGuard } from "@nestjs/passport";
+import { User } from "src/schemas/user.schema";
 
 
 @Controller('users')
@@ -50,7 +52,8 @@ export class UserController {
     }
 
     @Patch(':id/location')
-    async updateLocation(@Param('id') id: string, @Body() location: Location) {
-    return this.userService.updateLocation(id, location);
+    @UseGuards(AuthGuard())
+    async updateLocation(@Param('id') id: string, @Body() location: Location):Promise<User> {
+        return this.userService.updateLocation(id, location);
     }
 }
