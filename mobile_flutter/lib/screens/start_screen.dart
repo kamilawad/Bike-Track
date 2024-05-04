@@ -19,7 +19,7 @@ class StartScreen extends StatelessWidget {
             Image.asset('assets/bike_logo.png'),
             Text(
               'biketrack',
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.knewave(
                 fontSize: 30,
                 color: Colors.white,
               ),
