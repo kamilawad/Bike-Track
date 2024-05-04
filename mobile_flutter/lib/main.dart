@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_flutter/screens/auth/login_screen.dart';
-import 'package:mobile_flutter/screens/auth/signup_screen.dart';
+import 'package:mobile_flutter/screens/Auth/login_screen.dart';
+import 'package:mobile_flutter/screens/Auth/signup_screen.dart';
 import 'package:mobile_flutter/screens/welcome_screen.dart';
 
 void main() {
@@ -13,15 +13,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Bike Track',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       routes: {
-        "/welcome": (context) => WelcomeScreen(),
-        "/signup": (context) => SignupScreen(),
-        "/login": (context) => LoginScreen(),
+        "/": (context) => const WelcomeScreen(),
+        "/signup": (context) => const SignupScreen(),
+        "/login": (context) => const LoginScreen(),
       }
     );
   }
