@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_flutter/screens/Auth/login_screen.dart';
 import 'package:mobile_flutter/screens/Auth/signup_screen.dart';
 import 'package:mobile_flutter/screens/splash_screen.dart';
+import 'package:mobile_flutter/screens/welcome_screen.dart';
 //import 'package:mobile_flutter/screens/welcome_screen.dart';
 
 void main() {
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         "/": (context) => const SplashScreen(),
+        "/welcome":(context) => const WelcomeScreen(),
         "/signup": (context) => const SignupScreen(),
         "/login": (context) => const LoginScreen(),
       }
