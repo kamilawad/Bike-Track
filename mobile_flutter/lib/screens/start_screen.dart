@@ -11,7 +11,21 @@ class StartScreen extends StatelessWidget {
         title: const Text("hello"),
         backgroundColor: Theme.of(context).primaryColor,
       ),*/
-      
+      backgroundColor: Theme.of(context).primaryColor,
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/bike_logo.png'),
+            Text(
+              'biketrack',
+              style: GoogleFonts.poppins(
+                fontSize: 30,
+                color: Colors.white,
+              ),
+            )
+          ],
+          ),
       ),
     );
   }
