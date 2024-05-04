@@ -28,6 +28,15 @@ class SignupScreen extends StatelessWidget {
                       width: 100,
                     ),
                   ),
+                  const SizedBox(height: 50),
+                  const Text(
+                    "Login",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 30,
+                    ),
+                  ),
                 ],
               ),
             ),
