@@ -10,6 +10,26 @@ class SignupScreen extends StatelessWidget {
         title: const Text("helloo"),
         centerTitle: true,
       ),
+
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+          child: Form(
+            child: Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.asset(
+                    "assets/logo.png",
+                    height: 100,
+                    width: 100,
+                  ),
+                )
+              ],
+              ),
+            ),
+          ),
+      ),
     );
   }
 }
