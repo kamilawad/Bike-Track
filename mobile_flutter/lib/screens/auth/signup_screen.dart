@@ -6,30 +6,34 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: const Text("helloo"),
         centerTitle: true,
-      ),
+      ),*/
 
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
-          child: Form(
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: Image.asset(
-                    "assets/logo.png",
-                    height: 100,
-                    width: 100,
+          child: Center(
+            child: Form(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Image.asset(
+                      "assets/logo.png",
+                      height: 100,
+                      width: 100,
+                    ),
                   ),
-                )
-              ],
+                ],
               ),
             ),
           ),
-      ),
+        ),
+      ),      
     );
   }
 }
