@@ -37,6 +37,15 @@ class SignupScreen extends StatelessWidget {
                       fontSize: 30,
                     ),
                   ),
+                  const SizedBox(height: 30),
+                  TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      labelText: "Email",
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.email),
+                    )
+                  )
                 ],
               ),
             ),
