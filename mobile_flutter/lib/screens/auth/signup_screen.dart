@@ -43,6 +43,16 @@ class SignupScreen extends StatelessWidget {
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
+                      labelText: "Full Name",
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.verified_user),
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
                       labelText: "Email",
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.email),
