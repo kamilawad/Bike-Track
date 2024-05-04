@@ -28,15 +28,17 @@ class SignupScreen extends StatelessWidget {
                       width: 100,
                     ),
                   ),
+
                   const SizedBox(height: 50),
                   const Text(
-                    "Login",
+                    "Create an account",
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
                       fontSize: 30,
                     ),
                   ),
+
                   const SizedBox(height: 30),
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
@@ -44,8 +46,18 @@ class SignupScreen extends StatelessWidget {
                       labelText: "Email",
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.email),
-                    )
-                  )
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      labelText: "Password",
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.lock),
+                    ),
+                  ),
                 ],
               ),
             ),
