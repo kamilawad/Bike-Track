@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Bike Track',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: createMaterialColor(Color(0xFFF05206)),
+        primarySwatch: createMaterialColor(const Color(0xFFF05206)),
         //primaryColor: const Color(0xFFF05206),
         //colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF05206)),
         useMaterial3: false,
