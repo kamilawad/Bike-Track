@@ -35,13 +35,16 @@ export class AuthService {
         return { token, user: userData }
     }
 
-    async login(loginDto: LogInDto): Promise<{ token: string }> {
+    async login(loginDto: LogInDto): Promise<{ token: string, user: User }> {
         const { email, password} = loginDto;
         const user = await this.userModel.findOne({ email });
 
         if (!user) {
             throw new UnauthorizedException('Invalid credentials');
         }
+
+        const userData = user.toObject();
+        delete userData.password;
 
         const isPasswordMatched = await bcrypt.compare(password, user.password);
         if (!isPasswordMatched) {
@@ -50,6 +53,6 @@ export class AuthService {
         
         const token = this.jwtService.sign({ id: user._id });
 
-        return { token };
+        return { token, user: userData };
     }
 }
