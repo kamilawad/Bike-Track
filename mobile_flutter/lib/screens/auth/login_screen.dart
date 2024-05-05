@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -29,7 +30,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
 
-                  
+                  const SizedBox(height: 30),
+                  Text(
+                    "Login",
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 28,
+                    ),
+                  ),
                 ],
               ),
             ),
