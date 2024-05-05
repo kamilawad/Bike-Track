@@ -38,6 +38,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontSize: 28,
                     ),
                   ),
+
+                  const SizedBox(height: 30),
+                  SizedBox(
+                    height: 50.0,
+                    child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(
+                        labelText: "Email",
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.email),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
