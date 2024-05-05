@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final _formkey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +54,7 @@ class SignupScreen extends StatelessWidget {
                     height: 50,
                     child: TextFormField(
                       keyboardType: TextInputType.name,
+                      controller: nameController,
                       decoration: const InputDecoration(
                         labelText: "Full Name",
                         border: OutlineInputBorder(),
@@ -57,6 +68,7 @@ class SignupScreen extends StatelessWidget {
                     height: 50.0,
                     child: TextFormField(
                       keyboardType: TextInputType.emailAddress,
+                      controller: emailController,
                       decoration: const InputDecoration(
                         labelText: "Email",
                         border: OutlineInputBorder(),
@@ -70,6 +82,7 @@ class SignupScreen extends StatelessWidget {
                     height: 50.0,
                     child: TextFormField(
                       keyboardType: TextInputType.text,
+                      controller: passwordController,
                       obscureText: true,
                       decoration: const InputDecoration(
                         labelText: "Password",
@@ -79,6 +92,50 @@ class SignupScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+
+                  const SizedBox(height: 60),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: const Color(0xFFF05206),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Don't have an account?",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      TextButton(onPressed: () {},
+                        child: const Text(
+                          "Signup",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
