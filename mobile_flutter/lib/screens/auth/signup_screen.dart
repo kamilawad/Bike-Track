@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -8,7 +9,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final _formkey = GlobalKey<FormState>();
+  //final _formkey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -40,10 +41,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
 
                   const SizedBox(height: 30),
-                  const Text(
+                  Text(
                     "Create an account",
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
+                    style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w600,
                       fontSize: 28,
                     ),
@@ -95,7 +95,9 @@ class _SignupScreenState extends State<SignupScreen> {
 
                   const SizedBox(height: 60),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      signUp(nameController.text, emailController.text, passwordController.text);
+                    },
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
@@ -119,18 +121,18 @@ class _SignupScreenState extends State<SignupScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Don't have an account?",
+                        "Already have an account?",
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w300,
                         ),
                       ),
                       TextButton(onPressed: () {},
                         child: const Text(
-                          "Signup",
+                          "Login",
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w300,
                           ),
                         ),
                       ),
