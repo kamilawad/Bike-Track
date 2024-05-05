@@ -51,6 +51,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: 50.0,
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        labelText: "Password",
+                        //contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.lock),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
