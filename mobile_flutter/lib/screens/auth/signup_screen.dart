@@ -24,48 +24,59 @@ class SignupScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     child: Image.asset(
                       "assets/logo.png",
-                      height: 100,
-                      width: 100,
+                      height: 80,
+                      width: 80,
                     ),
                   ),
 
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 30),
                   const Text(
                     "Create an account",
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
-                      fontSize: 30,
+                      fontSize: 28,
                     ),
                   ),
 
                   const SizedBox(height: 30),
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      labelText: "Full Name",
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.verified_user),
+                  SizedBox(
+                    height: 50,
+                    child: TextFormField(
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                        labelText: "Full Name",
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.person),
+                      ),
                     ),
                   ),
 
                   const SizedBox(height: 10),
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      labelText: "Email",
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.email),
+                  SizedBox(
+                    height: 50.0,
+                    child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(
+                        labelText: "Email",
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.email),
+                      ),
                     ),
                   ),
 
                   const SizedBox(height: 10),
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      labelText: "Password",
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.lock),
+                  SizedBox(
+                    height: 50.0,
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        labelText: "Password",
+                        //contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.lock),
+                      ),
                     ),
                   ),
                 ],
