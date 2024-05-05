@@ -112,10 +112,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
 
                   const SizedBox(height: 60),
-                  InkWell(
-                    onTap: () {
+                  ElevatedButton(
+                    onPressed: () {
                     signUp(nameController.text, emailController.text, passwordController.text, context);
-                  },
+                    },
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
@@ -124,7 +124,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       child: const Center(
                         child: Text(
-                          "Login",
+                          "Signup",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -155,7 +155,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
