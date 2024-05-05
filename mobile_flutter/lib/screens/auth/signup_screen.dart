@@ -145,7 +145,9 @@ class _SignupScreenState extends State<SignupScreen> {
                           fontWeight: FontWeight.w300,
                         ),
                       ),
-                      TextButton(onPressed: () {},
+                      TextButton(onPressed: () {
+                        Navigator.of(context).popAndPushNamed("/login");
+                      },
                         child: const Text(
                           "Login",
                           style: TextStyle(
