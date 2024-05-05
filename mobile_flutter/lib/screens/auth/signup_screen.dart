@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -6,6 +7,23 @@ class SignupScreen extends StatefulWidget {
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
+}
+
+Future<void> signUp(String fullName, String email, String password, BuildContext context) async {
+  final response = await http.post(
+    Uri.parse('http://192.168.0.105:3000/auth/signup'),
+    body: {'fullName': fullName, 'email':email, 'password': password},
+  );
+
+  if (response.statusCode == 201) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Signup successful'))
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Signup not successful'))
+    );
+  }
 }
 
 class _SignupScreenState extends State<SignupScreen> {
@@ -96,8 +114,8 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(height: 60),
                   InkWell(
                     onTap: () {
-                      signUp(nameController.text, emailController.text, passwordController.text);
-                    },
+                    signUp(nameController.text, emailController.text, passwordController.text, context);
+                  },
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
