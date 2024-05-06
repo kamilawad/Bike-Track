@@ -1,8 +1,8 @@
 class OnboardingModel {
   String title;
   String subTitle;
-  String image;
+  String imagePath;
   OnboardingModel(
-    {required this.title, required this.subTitle, required this.image}
+    {required this.title, required this.subTitle, required this.imagePath}
   );
 }

@@ -4,18 +4,18 @@ List<OnboardingModel> onboarding = [
     OnboardingModel(
       title: "Welcome to Biketrack",
       subTitle: "Track your rides", 
-      image: "assets/onboarding1.png",
+      imagePath: "assets/onboarding2.png",
     ),
 
     OnboardingModel(
       title: "Welcome to Biketrack",
       subTitle: "Track your rides", 
-      image: "assets/onboarding2.png",
+      imagePath: "assets/onboarding3.png",
     ),
 
     OnboardingModel(
       title: "Welcome to Biketrack",
       subTitle: "Track your rides", 
-      image: "assets/onboarding2.png",
+      imagePath: "assets/onboarding1.png",
     ),
 ];
