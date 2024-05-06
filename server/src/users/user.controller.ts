@@ -1,4 +1,4 @@
-import { Controller, Body, Get, Post, Put, UsePipes, ValidationPipe, Param, HttpException, Patch, NotFoundException, Delete, UseGuards } from "@nestjs/common";
+import { Controller, Request, Body, Get, Post, Put, UsePipes, ValidationPipe, Param, HttpException, Patch, NotFoundException, Delete, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
@@ -30,10 +30,18 @@ export class UserController {
         return user;
     }
 
+    @Patch('location')
+    @UseGuards(AuthGuard('jwt'))
+    async updateLocation(@Request() req, @Body() location: Location):Promise<User> {
+        console.log(req.user.id)
+        return this.userService.updateLocation(req.user.id, location);
+    }
+    
     @Patch(':id')
     @UsePipes(new ValidationPipe())
-    async updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-        const updatedUser = await this.userService.updateUser(id, updateUserDto);
+    //async updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    async updateUser(@Request() req, @Body() updateUserDto: UpdateUserDto) {
+        const updatedUser = await this.userService.updateUser(req.user.id, updateUserDto);
         if (!updatedUser) {
             throw new NotFoundException('User not found');
         }
@@ -49,11 +57,5 @@ export class UserController {
             throw new NotFoundException('User not found');
         }
         return deletedUser;
-    }
-
-    @Patch(':id/location')
-    @UseGuards(AuthGuard('jwt'))
-    async updateLocation(@Param('id') id: string, @Body() location: Location):Promise<User> {
-        return this.userService.updateLocation(id, location);
     }
 }
