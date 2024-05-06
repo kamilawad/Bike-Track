@@ -19,7 +19,7 @@ Future<void> signUp(String fullName, String email, String password, BuildContext
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Signup successful'))
     );
-    Navigator.of(context).popAndPushNamed("/home");
+    Navigator.of(context).popAndPushNamed("/welcome");
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Signup not successful'))

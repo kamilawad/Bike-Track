@@ -19,7 +19,7 @@ Future<void> login(String email, String password, BuildContext context) async {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Login successful'))
     );
-    Navigator.of(context).popAndPushNamed("/home");
+    Navigator.of(context).popAndPushNamed("/welcome");
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Login not successful'))
