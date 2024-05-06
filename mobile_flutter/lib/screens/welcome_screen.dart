@@ -5,6 +5,16 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            'assets/welcome.png',
+            fit: BoxFit.cover,
+          ),
+        ],
+      ),
+    );
   }
 }
