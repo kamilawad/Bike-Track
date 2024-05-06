@@ -48,7 +48,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           const Text(
                             "Welcome to Biketrack",
                             style: TextStyle(
-                              fontSize: 26,
+                              fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -58,7 +58,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           const Text(
                             "Track your ride",
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               color: Colors.white,
                             ),
                           ),
@@ -68,22 +68,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             controller: _controller,
                             count: 3,
                             effect: const ScrollingDotsEffect(
-                              dotWidth: 12,
-                              dotHeight: 12,
+                              dotWidth: 9,
+                              dotHeight: 9,
                               activeDotColor: Color(0xFFF05206),
                             ),
                           ),
 
                           const SizedBox(height: 20),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).popAndPushNamed("/signup");
+                            },
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(MediaQuery.of(context).size.width - 40, 50),
                             ),
                             child: const Text(
                               "Register",
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -91,7 +93,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                           const SizedBox(height: 20),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).popAndPushNamed("/login");
+                            },
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(MediaQuery.of(context).size.width - 40, 50),
                               backgroundColor: Colors.white,
