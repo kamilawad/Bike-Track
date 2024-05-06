@@ -29,7 +29,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
 
-
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -46,20 +45,28 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text("Welcome to Biketrack"),
-                          const Text("Track you ride."),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(MediaQuery.of(context).size.width - 40, 50),
+                          const Text(
+                            "Welcome to Biketrack",
+                            style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
-                            child: const Text(
-                              "Register",
-                              style: TextStyle(
-                                fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              ),
+                          ),
+
+                          const SizedBox(height: 10),
+                          const Text(
+                            "Track your ride",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
                             ),
+                          ),
+
+                          const SizedBox(height: 40),
+                          SmoothPageIndicator(
+                            controller: _controller,
+                            count: 3,
                           ),
 
                           const SizedBox(height: 20),
@@ -69,13 +76,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               minimumSize: Size(MediaQuery.of(context).size.width - 40, 50),
                             ),
                             child: const Text(
-                              "Login",
+                              "Register",
                               style: TextStyle(
-                                fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
+
+                          const SizedBox(height: 20),
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(MediaQuery.of(context).size.width - 40, 50),
+                              backgroundColor: Colors.white,
+                            ),
+                            child: const Text(
+                              "Login",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFFF05206),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 40),
                         ],
                       ),
                     ],
@@ -89,15 +114,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Text("page 3"),
                 ),
               ],
-            ),
-
-            Positioned(
-              bottom: 50,
-              left: 150,
-              child: SmoothPageIndicator(
-                controller: _controller,
-                count: 3
-              )
             ),
           ],
         ),
