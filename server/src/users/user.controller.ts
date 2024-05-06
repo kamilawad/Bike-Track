@@ -52,7 +52,7 @@ export class UserController {
     }
 
     @Patch(':id/location')
-    @UseGuards(AuthGuard())
+    @UseGuards(AuthGuard('jwt'))
     async updateLocation(@Param('id') id: string, @Body() location: Location):Promise<User> {
         return this.userService.updateLocation(id, location);
     }

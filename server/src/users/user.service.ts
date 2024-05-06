@@ -55,9 +55,12 @@ export class UserService {
           throw new NotFoundException('User not found');
         }
 
-        //user.location = location;
-        user.location.latitude = location.latitude;
-        user.location.longitude = location.longitude;
+        if (!user.location) {
+            user.location = location;
+        } else {
+            user.location.latitude = location.latitude;
+            user.location.longitude = location.longitude;
+        }
         return user.save();
     }
 }
