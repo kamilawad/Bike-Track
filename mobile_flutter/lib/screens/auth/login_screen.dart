@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
+}
+
+Future<void> login(String email, String password, BuildContext context) async {
+  final response = await http.post(
+    Uri.parse('http://192.168.0.105:3000/auth/login'),
+    body: {'email':email, 'password': password},
+  );
+  print(response.statusCode);
+  if (response.statusCode == 201) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Login successful'))
+    );
+    Navigator.of(context).popAndPushNamed("/home");
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Login not successful'))
+    );
+  }
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -47,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 50.0,
                     child: TextFormField(
                       keyboardType: TextInputType.emailAddress,
+                      controller: emailController,
                       decoration: const InputDecoration(
                         labelText: "Email",
                         border: OutlineInputBorder(),
@@ -60,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 50.0,
                     child: TextFormField(
                       keyboardType: TextInputType.text,
+                      controller: passwordController,
                       obscureText: true,
                       decoration: const InputDecoration(
                         labelText: "Password",
@@ -72,7 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 60),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      login(emailController.text, passwordController.text, context);
+                    },
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
