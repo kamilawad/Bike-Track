@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_flutter/screens/Auth/login_screen.dart';
 import 'package:mobile_flutter/screens/Auth/signup_screen.dart';
 import 'package:mobile_flutter/screens/Home/home_screen.dart';
+import 'package:mobile_flutter/screens/Onboarding/onboarding_screen.dart';
 import 'package:mobile_flutter/screens/splash_screen.dart';
 import 'package:mobile_flutter/screens/welcome_screen.dart';
 import 'utils/theme_util.dart';
@@ -25,8 +26,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       routes: {
-        //"/": (context) => const SplashScreen(),
-        "/": (context) => const (),
+        "/": (context) => const SplashScreen(),
+        "/onboarding": (context) => const OnboardingScreen(),
         "/welcome":(context) => const WelcomeScreen(),
         "/signup": (context) => const SignupScreen(),
         "/login": (context) => const LoginScreen(),
