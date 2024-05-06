@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       routes: {
-        "/": (context) => const SplashScreen(),
+        //"/": (context) => const SplashScreen(),
+        "/": (context) => const (),
         "/welcome":(context) => const WelcomeScreen(),
         "/signup": (context) => const SignupScreen(),
         "/login": (context) => const LoginScreen(),
