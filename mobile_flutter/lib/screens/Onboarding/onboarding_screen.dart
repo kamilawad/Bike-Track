@@ -18,6 +18,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: Stack(
           children: [
             PageView(
+              controller: _controller,
               children: [
                 Container(
                   child: const Center(
@@ -36,7 +37,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ],
             ),
-            
+
             Positioned(
               bottom: 50,
               left: 150,
