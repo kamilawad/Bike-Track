@@ -16,6 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(const Duration(seconds: 3), () {
       Navigator.of(context).popAndPushNamed("/onboarding");
+      //Navigator.of(context).popAndPushNamed("/signup");
     });
   }
 
@@ -40,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             )
           ],
-          ),
+        ),
       ),
     );
   }

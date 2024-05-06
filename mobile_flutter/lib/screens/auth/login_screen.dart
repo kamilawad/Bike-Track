@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.of(context).popAndPushNamed("/signup");
                       },
                         child: const Text(
-                          "Signup",
+                          "Sign Up",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w300,
