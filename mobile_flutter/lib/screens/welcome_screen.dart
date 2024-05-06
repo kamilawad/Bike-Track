@@ -13,6 +13,7 @@ class WelcomeScreen extends StatelessWidget {
             'assets/welcome.png',
             fit: BoxFit.cover,
           ),
+          
           Positioned(
             bottom: 0,
             left: 0,
@@ -44,7 +45,9 @@ class WelcomeScreen extends StatelessWidget {
 
                   const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).popAndPushNamed("/home");
+                    },
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
