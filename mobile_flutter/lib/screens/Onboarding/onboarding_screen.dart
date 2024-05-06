@@ -63,18 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                           ),
 
-                          const SizedBox(height: 40),
-                          SmoothPageIndicator(
-                            controller: _controller,
-                            count: 3,
-                            effect: const ScrollingDotsEffect(
-                              dotWidth: 9,
-                              dotHeight: 9,
-                              activeDotColor: Color(0xFFF05206),
-                            ),
-                          ),
-
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 70),
                           ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).popAndPushNamed("/signup");
@@ -123,6 +112,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Text("page 3"),
                 ),
               ],
+            ),
+            
+            Positioned(
+              bottom: 180,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: SmoothPageIndicator(
+                  controller: _controller,
+                  count: 3,
+                  effect: const ScrollingDotsEffect(
+                    dotWidth: 9,
+                    dotHeight: 9,
+                    activeDotColor: Color(0xFFF05206),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
