@@ -46,7 +46,7 @@ class WelcomeScreen extends StatelessWidget {
                   const SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).popAndPushNamed("/home");
+                      Navigator.of(context).popAndPushNamed("/main");
                     },
                     child: Container(
                       height: 50,

@@ -3,6 +3,7 @@ import 'package:mobile_flutter/screens/Auth/login_screen.dart';
 import 'package:mobile_flutter/screens/Auth/signup_screen.dart';
 import 'package:mobile_flutter/screens/Home/home_screen.dart';
 import 'package:mobile_flutter/screens/Onboarding/onboarding_screen.dart';
+import 'package:mobile_flutter/screens/main_screen.dart';
 import 'package:mobile_flutter/screens/splash_screen.dart';
 import 'package:mobile_flutter/screens/welcome_screen.dart';
 import 'utils/theme_util.dart';
@@ -21,6 +22,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: createMaterialColor(const Color(0xFFF05206)),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: Color(0xFFF05206),
+        ),
         //primaryColor: const Color(0xFFF05206),
         //colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF05206)),
         useMaterial3: false,
@@ -32,6 +37,7 @@ class MyApp extends StatelessWidget {
         "/signup": (context) => const SignupScreen(),
         "/login": (context) => const LoginScreen(),
         "/home": (context) => const HomeScreen(),
+        "/main": (context) => const MainScreen(),
       }
     );
   }

@@ -12,7 +12,11 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         title: const Text(
           'Home',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         centerTitle: true,
         actions: [
@@ -40,7 +44,6 @@ class HomeScreen extends StatelessWidget {
         padding: EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Text('Analysis', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -49,21 +52,21 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Text('Rides', style: TextStyle(fontSize: 18)),
                     SizedBox(height: 10),
-                    Text('0', style: TextStyle(fontSize: 20, color: Color(0xFFF05206))),
+                    Text('0', style: TextStyle(fontSize: 20, color: Color(0xFFF05206),fontWeight: FontWeight.w500)),
                   ],
                 ),
                 Column(
                   children: [
                     Text('Time', style: TextStyle(fontSize: 18)),
                     SizedBox(height: 10),
-                    Text('0h 00m', style: TextStyle(fontSize: 20, color: Color(0xFFF05206))),
+                    Text('0h 00m', style: TextStyle(fontSize: 20, color: Color(0xFFF05206), fontWeight: FontWeight.w500)),
                   ],
                 ),
                 Column(
                   children: [
                     Text('Distance', style: TextStyle(fontSize: 18)),
                     SizedBox(height: 10),
-                    Text('0.00 km', style: TextStyle(fontSize: 20, color: Color(0xFFF05206))),
+                    Text('0.00 km', style: TextStyle(fontSize: 20, color: Color(0xFFF05206), fontWeight: FontWeight.w500)),
                   ],
                 ),
               ],
