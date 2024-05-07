@@ -1,19 +1,17 @@
 import { Type } from "class-transformer";
-import { IsNotEmpty, ValidateNested } from "class-validator";
+import { ValidateNested } from "class-validator";
 import { LocationDto } from "src/locations/dto/location.dto";
 
-export class CreateRoutePlanDto {
+export class UpdateRoutePlanDto {
     @ValidateNested()
     @Type(() => LocationDto)
-    @IsNotEmpty()
-    startLocation: LocationDto;
+    startLocation?: LocationDto;
 
     @ValidateNested()
     @Type(() => LocationDto)
-    @IsNotEmpty()
-    endLocation: LocationDto;
+    endLocation?: LocationDto;
 
     @ValidateNested({ each: true })
     @Type(() => LocationDto)
-    waypoints: LocationDto[];
+    waypoints?: LocationDto[];
 }
