@@ -21,4 +21,12 @@ export class RoutePlanService {
         await user.save();
         return await newRoutePlan.save();
     }
+
+    async getSavedRoutes(userId: string): Promise<RoutePlan[]> {
+        const user = await this.userModel.findById(userId).populate('savedRoutes');
+        if (!user) {
+            throw new NotFoundException('User not found');
+        }
+        return user.savedRoutes;
+    }
 }
