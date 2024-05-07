@@ -29,4 +29,12 @@ export class RoutePlanService {
         }
         return user.savedRoutes;
     }
+
+    async getRoutePlanById(id: string): Promise<RoutePlan> {
+        const routePlan = await this.routePlanModel.findById(id);
+        if (!routePlan) {
+            throw new NotFoundException('Route plan not found');
+        }
+        return routePlan;
+    }
 }
