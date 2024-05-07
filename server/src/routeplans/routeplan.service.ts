@@ -4,6 +4,7 @@ import { Model } from "mongoose";
 import { RoutePlan } from "src/schemas/routeplan.schema";
 import { CreateRoutePlanDto } from "./dto/create-route.dto";
 import { User } from "src/schemas/user.schema";
+import { UpdateRoutePlanDto } from "./dto/update-route.dto";
 
 
 @Injectable()
@@ -36,5 +37,23 @@ export class RoutePlanService {
             throw new NotFoundException('Route plan not found');
         }
         return routePlan;
+    }
+
+    /*async updateRoutePlan(userId: string, id: string, updateRoutePlanDto: UpdateRoutePlanDto): Promise<RoutePlan> {
+        const routePlan = await this.routePlanModel.findById(id);
+        if (!routePlan) {
+            throw new NotFoundException('Route plan not found');
+        }
+        return await routePlan.save();
+    }*/
+
+    async deleteRoutePlan(userId: string, id: string): Promise<RoutePlan> {
+        const user = await this.userModel.findById(userId);
+        if (!user) {
+            throw new NotFoundException('User not found');
+        }
+        user.savedRoutes = user.savedRoutes.filter(routePlan => routePlan._id.toString() !== id);
+        await user.save();
+        return await this.routePlanModel.findByIdAndDelete(id);
     }
 }
