@@ -5,7 +5,7 @@ import 'package:mobile_flutter/screens/Home/home_screen.dart';
 import 'package:mobile_flutter/screens/Onboarding/onboarding_screen.dart';
 import 'package:mobile_flutter/screens/main_screen.dart';
 import 'package:mobile_flutter/screens/splash_screen.dart';
-import 'package:mobile_flutter/screens/welcome_screen.dart';
+import 'package:mobile_flutter/screens/Onboarding/welcome_screen.dart';
 import 'utils/theme_util.dart';
 
 void main() {
