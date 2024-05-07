@@ -21,6 +21,21 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
 
+      floatingActionButton: InkWell(
+        onTap: () {},
+        child: Container(
+          padding: const EdgeInsets.all(15.0),
+          decoration: const BoxDecoration(
+            color: Color(0xFFF05206),
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
+      ),
+
       body: const Padding(
         padding: EdgeInsets.all(8.0),
         child: Column(
