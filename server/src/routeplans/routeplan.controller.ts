@@ -8,5 +8,9 @@ import { CreateRoutePlanDto } from "./dto/create-route.dto";
 export class RoutePlanController {
     constructor(private readonly routePlanService: RoutePlanService) {}
 
-    
+    @Post()
+    @UseGuards(AuthGuard('jwt'))
+    async createRoutePlan(@Request() req, @Body() createRoutePlanDto: CreateRoutePlanDto) {
+        return this.routePlanService.createRoutePlan(req.user.id, createRoutePlanDto);
+    }
 }
