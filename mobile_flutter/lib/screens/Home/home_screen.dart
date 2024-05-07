@@ -91,35 +91,41 @@ class HomeScreen extends StatelessWidget {
             ),
 
             Card(
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: const Image(
-                      image: AssetImage('assets/onboarding2.png'),
-                      width: 80,
-                      height: 80,
-                      fit: BoxFit.cover,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: const Image(
+                        image: AssetImage('assets/onboarding2.png'),
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Event Name', style: TextStyle(fontSize: 18)),
-                        const Text('Event Description'),
-                        TextButton(
-                          onPressed: () {},
-                          child: const Text('Join'),
-                        ),
-                      ],
+
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Event Name', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                          const SizedBox(height: 5),
+                          const Text('Event Description'),
+
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Join'),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-
           ],
         ),
       ),
