@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
 
       floatingActionButton: InkWell(
         onTap: () {
-          Navigator.of(context).push("/event");
+          Navigator.pushNamed(context, '/event');
         },
         child: Container(
           padding: const EdgeInsets.all(15.0),

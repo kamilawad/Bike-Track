@@ -1,4 +1,4 @@
-import 'package:mobile_flutter/data/model/onboardingModel.dart';
+import 'package:mobile_flutter/data/model/onboarding_model.dart';
 
 List<OnboardingModel> onboarding = [
     OnboardingModel(
