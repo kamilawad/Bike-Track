@@ -5,14 +5,18 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-          NavigationDestination(icon: Icon(Icons.map_outlined), label: "MAps"),
-          NavigationDestination(icon: Icon(Icons.route), label: "Routes"),
-          NavigationDestination(icon: Icon(Icons.event), label: "Events"),
-          NavigationDestination(icon: Icon(Icons.person), label: "Profile"),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Home',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.chat, color: Color.fromARGB(151, 0, 0, 0))),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications, color: Color.fromARGB(151, 0, 0, 0)))
         ],
       ),
     );
