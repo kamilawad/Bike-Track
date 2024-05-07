@@ -1,6 +1,6 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
 import { Location, LocationSchema } from "./location.schema";
-import { RoutePlan, RoutePlanSchema } from "./routeplan.schema";
+import { RoutePlan, RoutePlanDocument, RoutePlanSchema } from "./routeplan.schema";
 
 export enum UserRole {
     USER = 'user',
@@ -28,7 +28,7 @@ export class User {
     location: Location;
 
     @Prop({ type: [RoutePlanSchema], default: [] })
-    savedRoutes: RoutePlan[];
+    savedRoutes: RoutePlanDocument[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -13,4 +13,10 @@ export class RoutePlanController {
     async createRoutePlan(@Request() req, @Body() createRoutePlanDto: CreateRoutePlanDto) {
         return this.routePlanService.createRoutePlan(req.user.id, createRoutePlanDto);
     }
+
+    @Get()
+    @UseGuards(AuthGuard('jwt'))
+    async getSavedRoutes(@Request() req) {
+        return this.routePlanService.getSavedRoutes(req.user.id);
+    }
 }
