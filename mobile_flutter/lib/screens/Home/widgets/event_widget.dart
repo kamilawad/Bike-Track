@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_flutter/data/model/eventModel.dart';
 
 class EventWidget extends StatelessWidget {
-  const EventWidget({super.key});
+  final EventModel event;
+
+  const EventWidget({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +15,8 @@ class EventWidget extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: const Image(
-                image: AssetImage('assets/onboarding2.png'),
+              child: Image(
+                image: AssetImage(event.imagePath),
                 width: 100,
                 height: 100,
                 fit: BoxFit.cover,
@@ -25,9 +28,9 @@ class EventWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Event Name', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                  Text(event.eventName, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                   const SizedBox(height: 5),
-                  const Text('Event Description'),
+                  Text(event.eventDescription),
 
                   const SizedBox(height: 20),
                   ElevatedButton(
