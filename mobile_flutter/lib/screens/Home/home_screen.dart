@@ -40,95 +40,94 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+      body: SingleChildScrollView(
         child: Column(
-          children: [
-            const SizedBox(height: 20),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    Text('Rides', style: TextStyle(fontSize: 18)),
-                    SizedBox(height: 10),
-                    Text('0', style: TextStyle(fontSize: 20, color: Color(0xFFF05206),fontWeight: FontWeight.w500)),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('Time', style: TextStyle(fontSize: 18)),
-                    SizedBox(height: 10),
-                    Text('0h 00m', style: TextStyle(fontSize: 20, color: Color(0xFFF05206), fontWeight: FontWeight.w500)),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('Distance', style: TextStyle(fontSize: 18)),
-                    SizedBox(height: 10),
-                    Text('0.00 km', style: TextStyle(fontSize: 20, color: Color(0xFFF05206), fontWeight: FontWeight.w500)),
-                  ],
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 20),
-                  child: const Text('Suggested Events', style: TextStyle(fontSize: 18))
-                ),
-                Container(
-                  margin: const EdgeInsets.only(right: 20),
-                  child: TextButton(
-                    onPressed: () {}, 
-                    child: const Text("See More")
-                  ),
-                ),
-              ],
-            ),
-
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(5),
-                      child: const Image(
-                        image: AssetImage('assets/onboarding2.png'),
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Event Name', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                          const SizedBox(height: 5),
-                          const Text('Event Description'),
-
-                          const SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text('Join'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+        children: [
+          const SizedBox(height: 20),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  Text('Rides', style: TextStyle(fontSize: 16)),
+                  SizedBox(height: 10),
+                  Text('0', style: TextStyle(fontSize: 18, color: Color(0xFFF05206),fontWeight: FontWeight.w500)),
+                ],
+              ),
+              Column(
+                children: [
+                  Text('Time', style: TextStyle(fontSize: 16)),
+                  SizedBox(height: 10),
+                  Text('0h 00m', style: TextStyle(fontSize: 18, color: Color(0xFFF05206), fontWeight: FontWeight.w500)),
+                ],
+              ),
+              Column(
+                children: [
+                  Text('Distance', style: TextStyle(fontSize: 16)),
+                  SizedBox(height: 10),
+                  Text('0.00 km', style: TextStyle(fontSize: 18, color: Color(0xFFF05206), fontWeight: FontWeight.w500)),
+                ],
+              ),
+            ],
+          ),
+      
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(left: 20),
+                child: const Text('Suggested Events', style: TextStyle(fontSize: 18))
+              ),
+              Container(
+                margin: const EdgeInsets.only(right: 20),
+                child: TextButton(
+                  onPressed: () {}, 
+                  child: const Text("See More")
                 ),
               ),
+            ],
+          ),
+      
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: const Image(
+                      image: AssetImage('assets/onboarding2.png'),
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+      
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Event Name', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                        const SizedBox(height: 5),
+                        const Text('Event Description'),
+      
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('Join'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+    ),
     );
   }
 }
