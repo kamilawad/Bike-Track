@@ -37,19 +37,19 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.map_outlined), 
             label: "Maps"
-            ),
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.route), 
             label: "Routes"
-            ),
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.event), 
             label: "Events"
-            ),
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: "Profile",
-            ),
+          ),
         ],
       ),
     );

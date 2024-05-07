@@ -40,12 +40,12 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
 
-      body: const Padding(
-        padding: EdgeInsets.all(8.0),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            SizedBox(height: 20),
-            Row(
+            const SizedBox(height: 20),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
@@ -71,9 +71,27 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 20),
+                  child: const Text('Suggested Events', style: TextStyle(fontSize: 18))
+                ),
+                Container(
+                  margin: const EdgeInsets.only(right: 20),
+                  child: TextButton(
+                    onPressed: () {}, 
+                    child: const Text("See More")
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
-      )
+      ),
     );
   }
 }
