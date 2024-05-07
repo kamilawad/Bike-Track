@@ -89,6 +89,37 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+
+            Card(
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: const Image(
+                      image: AssetImage('assets/onboarding2.png'),
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Event Name', style: TextStyle(fontSize: 18)),
+                        const Text('Event Description'),
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text('Join'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
           ],
         ),
       ),
