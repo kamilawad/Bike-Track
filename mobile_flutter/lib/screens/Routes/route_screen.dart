@@ -6,7 +6,7 @@ class RouteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Text("Route"),
+      body: Center(child: Text("Route")),
     );
   }
 }

@@ -14,12 +14,14 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
-  List<Widget> screens = [HomeScreen(), MapScreen(), RouteScreen(), EventScreen(), ProfileScreen()];
+  List<Widget> screens = [const HomeScreen(), const MapScreen(), const RouteScreen(), const EventScreen(), const ProfileScreen()];
+
   int currentScreen = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: screens[currentScreen],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentScreen,
         onTap: (value) {

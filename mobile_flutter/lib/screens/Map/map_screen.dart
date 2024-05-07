@@ -6,7 +6,7 @@ class MapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Text("MAPS"),
+      body: Center(child: Text("Map")),
     );
   }
 }
