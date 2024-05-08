@@ -60,11 +60,9 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
                   const SizedBox(height: 10),
                   GestureDetector(
-                    onTap: () {
-                      // Implement your logic to redirect to the map here
-                    },
+                    onTap: () {},
                     child: Container(
-                      height: 150.0, // Three times the previous height
+                      height: 150.0,
                       decoration: BoxDecoration(
                         border: Border.all(color: const Color(0xFFF05206)),
                         borderRadius: BorderRadius.circular(5),
@@ -77,6 +75,33 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                             SizedBox(width: 10),
                             Text(
                               "Add Route",
+                              style: TextStyle(
+                                color: Color(0xFFF05206),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 150.0,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: const Color(0xFFF05206)),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: const Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.photo, color: Color(0xFFF05206)),
+                            SizedBox(width: 10),
+                            Text(
+                              "Add Poster",
                               style: TextStyle(
                                 color: Color(0xFFF05206),
                               ),
