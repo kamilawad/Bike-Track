@@ -111,6 +111,36 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       ),
                     ),
                   ),
+
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                    onTap: () {
+                      // Implement your logic to show the time picker here
+                    },
+                    child: Container(
+                      height: 50.0,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black12),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.date_range_rounded, color: Colors.black54),
+                                SizedBox(width: 10),
+                                Text("Date"),
+                              ],
+                            ),
+                            Icon(Icons.keyboard_arrow_down_rounded, color: Colors.black54),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                   
                   const SizedBox(height: 60),
                   ElevatedButton(
