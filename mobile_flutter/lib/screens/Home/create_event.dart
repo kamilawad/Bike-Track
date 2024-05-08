@@ -9,11 +9,14 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
-  DateTime dateTime = DateTime(2024, 4, 22);
-  TimeOfDay time = const TimeOfDay(hour: 10, minute: 30);
+  DateTime dateTime = DateTime.now();
+  TimeOfDay time = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
+    final hours = time.hour.toString().padLeft(2, '0');
+    final minutes = time.minute.toString().padLeft(2, '0');
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -163,12 +166,14 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () async {
-                      showTimePicker(
+                      TimeOfDay? pickedTime = await showTimePicker(
                         context: context,
-                        initialTime: time
+                        initialTime: time,
                       );
-                      setState(() {
+                      if(pickedTime == null) return;
 
+                      setState(() {
+                        time = pickedTime;
                       });
                     },
                     style: ButtonStyle(
@@ -194,7 +199,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                 const Icon(Icons.access_time, color: Colors.black54),
                                 const SizedBox(width: 10),
                                 Text(
-                                  DateFormat('${time.hour}:${time.minute}').format(dateTime),
+                                  DateFormat('jm').format(DateTime(dateTime.year, dateTime.month, dateTime.day, time.hour, time.minute)),
                                   style: const TextStyle(color: Colors.black54)
                                 ),
                               ],
