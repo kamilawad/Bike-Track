@@ -184,6 +184,12 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       ),
                       padding: MaterialStateProperty.all(EdgeInsets.zero),
                       elevation: MaterialStateProperty.all(0),
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) return Colors.black12;
+                          return null;
+                        },
+                      ),
                     ),
                     child: SizedBox(
                       height: 50.0,
@@ -212,7 +218,18 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            height: MediaQuery.of(context).size.height * 0.5,
+                            color: Colors.white,
+                            child: const Center(
+                              child: Text('Partcipants'),
+                            ),
+                          );
+                        },
+                      );
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
@@ -224,6 +241,12 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       ),
                       padding: MaterialStateProperty.all(EdgeInsets.zero),
                       elevation: MaterialStateProperty.all(0),
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) return Colors.black12;
+                          return null;
+                        },
+                      ),
                     ),
                     child: const SizedBox(
                       height: 50.0,
