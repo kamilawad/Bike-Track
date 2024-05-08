@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CreateEventScreen extends StatelessWidget {
+class CreateEventScreen extends StatefulWidget {
   const CreateEventScreen({super.key});
 
+  @override
+  State<CreateEventScreen> createState() => _CreateEventScreenState();
+}
+
+class _CreateEventScreenState extends State<CreateEventScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +66,7 @@ class CreateEventScreen extends StatelessWidget {
                     child: Container(
                       height: 150.0, // Three times the previous height
                       decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFFF05206)),
+                        border: Border.all(color: const Color(0xFFF05206)),
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: const Center(
