@@ -11,11 +11,10 @@ class CreateEventScreen extends StatefulWidget {
 class _CreateEventScreenState extends State<CreateEventScreen> {
   DateTime dateTime = DateTime.now();
   TimeOfDay time = TimeOfDay.now();
+  Duration duration = Duration();
 
   @override
   Widget build(BuildContext context) {
-    final hours = time.hour.toString().padLeft(2, '0');
-    final minutes = time.minute.toString().padLeft(2, '0');
 
     return Scaffold(
       appBar: AppBar(
@@ -152,6 +151,54 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                 const SizedBox(width: 10),
                                 Text(
                                   DateFormat('MMMM d').format(dateTime),
+                                  style: const TextStyle(color: Colors.black54)
+                                ),
+                              ],
+                            ),
+                            const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.black54),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () async {
+                      TimeOfDay? pickedTime = await showTimePicker(
+                        context: context,
+                        initialTime: time,
+                      );
+                      if(pickedTime == null) return;
+
+                      setState(() {
+                        time = pickedTime;
+                      });
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          side: const BorderSide(color: Colors.black12),
+                        ),
+                      ),
+                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                      elevation: MaterialStateProperty.all(0),
+                    ),
+                    child: SizedBox(
+                      height: 50.0,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(Icons.access_time, color: Colors.black54),
+                                const SizedBox(width: 10),
+                                Text(
+                                  DateFormat('jm').format(DateTime(dateTime.year, dateTime.month, dateTime.day, time.hour, time.minute)),
                                   style: const TextStyle(color: Colors.black54)
                                 ),
                               ],
