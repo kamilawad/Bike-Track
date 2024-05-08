@@ -36,8 +36,10 @@ class ChatScreen extends StatelessWidget {
             labelText: "Search",
             prefixIcon: Icon(Icons.search),
             contentPadding: EdgeInsets.symmetric(vertical: 10),
-            border: OutlineInputBorder(
+            border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(25)),),
+            enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(25)),
+              borderSide: BorderSide(color: Colors.black12),
             ),
             
           ),
