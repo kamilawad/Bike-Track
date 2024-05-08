@@ -29,21 +29,30 @@ class ChatScreen extends StatelessWidget {
         ),
       ),
 
-      body: const Padding(
-        padding: EdgeInsets.all(10),
-        child: TextField(
-          decoration: InputDecoration(
-            labelText: "Search",
-            prefixIcon: Icon(Icons.search),
-            contentPadding: EdgeInsets.symmetric(vertical: 10),
-            border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(25)),),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(25)),
-              borderSide: BorderSide(color: Colors.black12),
+      body: const Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: "Search",
+                prefixIcon: Icon(Icons.search),
+                contentPadding: EdgeInsets.symmetric(vertical: 10),
+                border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(25)),),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                  borderSide: BorderSide(color: Colors.black12),
+                ),
+              ),
             ),
-            
           ),
-        ),
+          Expanded(
+            child: ListTile(
+              leading: CircleAvatar(),
+              title: Text('User'),
+            ),
+          ),
+        ],
       ),
     );
   }
