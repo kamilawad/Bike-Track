@@ -50,7 +50,32 @@ class CreateEventScreen extends StatelessWidget {
                     ),
                   ),
 
-                  
+                  const SizedBox(height: 60),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      side: const BorderSide(color: Color(0xFFF05206)),
+                      elevation: 0,
+                    ),
+                    
+                    onPressed: () {},
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Save",
+                          style: TextStyle(
+                            color: Color(0xFFF05206),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
