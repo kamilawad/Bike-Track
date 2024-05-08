@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MapScreen extends StatelessWidget {
-  const MapScreen({super.key});
+class TrackScreen extends StatelessWidget {
+  const TrackScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +23,11 @@ class MapScreen extends StatelessWidget {
         height: 70,
         width: 70,
         child: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/track');
-          },
+          onPressed: () {},
           backgroundColor: const Color(0xFFF05206),
           elevation: 0,
           highlightElevation: 0,
-          child: const Text(
-            'Start',
-            style: TextStyle(fontSize: 18),
-          ),
+          child: const Icon(Icons.stop)
         ),
       ),
       ),
