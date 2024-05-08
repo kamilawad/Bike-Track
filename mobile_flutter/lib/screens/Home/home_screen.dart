@@ -20,7 +20,12 @@ class HomeScreen extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.chat, color: Color.fromARGB(151, 0, 0, 0))),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/chat');
+            }, 
+            icon: const Icon(Icons.chat, color: Color.fromARGB(151, 0, 0, 0))
+          ),
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications, color: Color.fromARGB(151, 0, 0, 0))),
         ],
       ),

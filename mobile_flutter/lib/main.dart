@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_flutter/screens/Auth/login_screen.dart';
 import 'package:mobile_flutter/screens/Auth/signup_screen.dart';
+import 'package:mobile_flutter/screens/Home/chat_screen.dart';
 import 'package:mobile_flutter/screens/Home/create_event.dart';
 import 'package:mobile_flutter/screens/Home/home_screen.dart';
 import 'package:mobile_flutter/screens/Map/tracking_screen.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         "/event": (context) => const CreateEventScreen(),
         "/main": (context) => const MainScreen(),
         "/track":(context) => const TrackScreen(),
+        "/chat":(context) => const ChatScreen(),
       }
     );
   }
