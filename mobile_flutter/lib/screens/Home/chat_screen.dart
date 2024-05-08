@@ -50,6 +50,8 @@ class ChatScreen extends StatelessWidget {
             child: ListTile(
               leading: CircleAvatar(),
               title: Text('User'),
+              subtitle: Text('Last message...'),
+              trailing: Text('12:00 PM'),
             ),
           ),
         ],
