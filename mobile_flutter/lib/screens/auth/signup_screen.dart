@@ -77,6 +77,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       decoration: const InputDecoration(
                         labelText: "Full Name",
                         border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
                         prefixIcon: Icon(Icons.person),
                       ),
                     ),
@@ -91,6 +94,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       decoration: const InputDecoration(
                         labelText: "Email",
                         border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
                         prefixIcon: Icon(Icons.email),
                       ),
                     ),
@@ -107,6 +113,9 @@ class _SignupScreenState extends State<SignupScreen> {
                         labelText: "Password",
                         //contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                         border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
                         prefixIcon: Icon(Icons.lock),
                       ),
                     ),

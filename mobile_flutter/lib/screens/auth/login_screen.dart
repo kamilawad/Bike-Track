@@ -70,6 +70,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: const InputDecoration(
                         labelText: "Email",
                         border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
                         prefixIcon: Icon(Icons.email),
                       ),
                     ),
@@ -86,6 +89,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         labelText: "Password",
                         //contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                         border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
                         prefixIcon: Icon(Icons.lock),
                       ),
                     ),

@@ -31,21 +31,26 @@ class CreateEventScreen extends StatelessWidget {
 
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Center(
             child: Form(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 10),
                   SizedBox(
                     height: 50.0,
                     child: TextFormField(
                       keyboardType: TextInputType.text,
                       decoration: const InputDecoration(
-                        labelText: "Title",
-                        border: OutlineInputBorder(),
+                        hintText: "Title",
+                        /*border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color.fromARGB(255, 41, 218, 6)),
+                        ),*/
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
                       ),
                     ),
                   ),
