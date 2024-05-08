@@ -19,10 +19,42 @@ class CreateEventScreen extends StatelessWidget {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
+          icon: Transform.scale(
+            scale: 0.9,
+            child: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black),
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
+        ),
+      ),
+
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+          child: Center(
+            child: Form(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: 50.0,
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      decoration: const InputDecoration(
+                        labelText: "Title",
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+
+                  
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
