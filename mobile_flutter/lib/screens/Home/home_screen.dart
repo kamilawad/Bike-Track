@@ -15,9 +15,7 @@ class HomeScreen extends StatelessWidget {
         title: const Text(
           'Home',
           style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
+            color: Colors.black54,
           ),
         ),
         centerTitle: true,
