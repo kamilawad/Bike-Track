@@ -28,16 +28,50 @@ class TrackScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
-      child: SizedBox(
-        height: 70,
-        width: 70,
-        child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: const Color(0xFFF05206),
-          elevation: 0,
-          highlightElevation: 0,
-          child: const Icon(Icons.stop, size: 36,)
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          SizedBox(
+            height: 70,
+            width: 70,
+            child: FloatingActionButton(
+              onPressed: () {},
+              backgroundColor: const Color(0xFFF05206),
+              elevation: 0,
+              highlightElevation: 0,
+              child: const Icon(Icons.stop, size: 36,)
+            ),
+          ),
+          Container(
+            color: Colors.white,
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Text('Distance'),
+                      Text('0.0'),
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Text('Time'),
+                      Text('0:00:00'),
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Text('Avg Speed'),
+                      Text('0.0'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       ),
     );
