@@ -42,6 +42,8 @@ class TrackScreen extends StatelessWidget {
               child: const Icon(Icons.stop, size: 36,)
             ),
           ),
+
+          const SizedBox(height: 10),
           Container(
             color: Colors.white,
             child: const Padding(
