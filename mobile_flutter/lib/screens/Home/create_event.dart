@@ -11,7 +11,6 @@ class CreateEventScreen extends StatefulWidget {
 class _CreateEventScreenState extends State<CreateEventScreen> {
   DateTime dateTime = DateTime.now();
   TimeOfDay time = TimeOfDay.now();
-  Duration duration = Duration();
 
   @override
   Widget build(BuildContext context) {
@@ -212,16 +211,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
                   const SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: () async {
-                      TimeOfDay? pickedTime = await showTimePicker(
-                        context: context,
-                        initialTime: time,
-                      );
-                      if(pickedTime == null) return;
-
-                      setState(() {
-                        time = pickedTime;
-                      });
+                    onPressed: () {
+                      
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
@@ -234,24 +225,24 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       padding: MaterialStateProperty.all(EdgeInsets.zero),
                       elevation: MaterialStateProperty.all(0),
                     ),
-                    child: SizedBox(
+                    child: const SizedBox(
                       height: 50.0,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
                               children: [
-                                const Icon(Icons.access_time, color: Colors.black54),
-                                const SizedBox(width: 10),
+                                Icon(Icons.ios_share_rounded, color: Colors.black54),
+                                SizedBox(width: 10),
                                 Text(
-                                  DateFormat('jm').format(DateTime(dateTime.year, dateTime.month, dateTime.day, time.hour, time.minute)),
-                                  style: const TextStyle(color: Colors.black54)
+                                  'Add participants',
+                                  style: TextStyle(color: Colors.black54)
                                 ),
                               ],
                             ),
-                            const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.black54),
+                            Icon(Icons.keyboard_arrow_down_rounded, color: Colors.black54),
                           ],
                         ),
                       ),
