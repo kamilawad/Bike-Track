@@ -29,9 +29,9 @@ class ChatScreen extends StatelessWidget {
         ),
       ),
 
-      body: const Column(
+      body: Column(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(10),
             child: TextField(
               decoration: InputDecoration(
@@ -47,11 +47,16 @@ class ChatScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListTile(
-              leading: CircleAvatar(),
-              title: Text('User'),
-              subtitle: Text('Last message...'),
-              trailing: Text('12:00 PM'),
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: const CircleAvatar(),
+                  title: Text('User $index'),
+                  subtitle: const Text('Last message...'),
+                  trailing: const Text('12:00 PM'),
+                );
+              },
             ),
           ),
         ],
