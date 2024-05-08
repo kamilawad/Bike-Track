@@ -11,6 +11,15 @@ class TrackScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
+        leading: IconButton(
+          icon: Transform.scale(
+            scale: 0.9,
+            child: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
 
       body: const Center(
@@ -27,7 +36,7 @@ class TrackScreen extends StatelessWidget {
           backgroundColor: const Color(0xFFF05206),
           elevation: 0,
           highlightElevation: 0,
-          child: const Icon(Icons.stop)
+          child: const Icon(Icons.stop, size: 36,)
         ),
       ),
       ),
