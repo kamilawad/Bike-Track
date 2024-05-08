@@ -44,9 +44,7 @@ class CreateEventScreen extends StatelessWidget {
                       keyboardType: TextInputType.text,
                       decoration: const InputDecoration(
                         hintText: "Title",
-                        /*border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromARGB(255, 41, 218, 6)),
-                        ),*/
+                        border: OutlineInputBorder(),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black12),
                         ),
@@ -55,6 +53,35 @@ class CreateEventScreen extends StatelessWidget {
                     ),
                   ),
 
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                    onTap: () {
+                      // Implement your logic to redirect to the map here
+                    },
+                    child: Container(
+                      height: 150.0, // Three times the previous height
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xFFF05206)),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: const Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.map_rounded, color: Color(0xFFF05206)),
+                            SizedBox(width: 10),
+                            Text(
+                              "Add Route",
+                              style: TextStyle(
+                                color: Color(0xFFF05206),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  
                   const SizedBox(height: 60),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
