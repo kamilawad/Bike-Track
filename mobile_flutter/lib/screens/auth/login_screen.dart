@@ -14,7 +14,6 @@ Future<void> login(String email, String password, BuildContext context) async {
     Uri.parse('http://192.168.0.105:3000/auth/login'),
     body: {'email':email, 'password': password},
   );
-  print(response.statusCode);
   if (response.statusCode == 201) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Login successful'))
