@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CreateEventScreen extends StatefulWidget {
   const CreateEventScreen({super.key});
@@ -8,6 +9,8 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
+  DateTime dateTime = DateTime(2024, 4, 22);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,35 +116,49 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   ),
 
                   const SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () {
-                      // Implement your logic to show the time picker here
+                  ElevatedButton(
+                    onPressed: () async {
+                      final date = await pickDate();
+                      if (date == null) return;
+                      setState(() {
+                        dateTime = date;
+                      });
                     },
-                    child: Container(
-                      height: 50.0,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black12),
-                        borderRadius: BorderRadius.circular(5),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          side: const BorderSide(color: Colors.black12),
+                        ),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                      elevation: MaterialStateProperty.all(0),
+                    ),
+                    child: SizedBox(
+                      height: 50.0,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
                               children: [
-                                Icon(Icons.date_range_rounded, color: Colors.black54),
-                                SizedBox(width: 10),
-                                Text("Date"),
+                                const Icon(Icons.date_range_rounded, color: Colors.black54),
+                                const SizedBox(width: 10),
+                                Text(
+                                  DateFormat('MMMM d').format(dateTime),
+                                  style: const TextStyle(color: Colors.black54)
+                                ),
                               ],
                             ),
-                            Icon(Icons.keyboard_arrow_down_rounded, color: Colors.black54),
+                            const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.black54),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 60),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -176,4 +193,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       ),
     );
   }
+
+  Future<DateTime?> pickDate() => showDatePicker(
+    context: context,
+    firstDate: DateTime.now(),
+    lastDate: DateTime(2100, 4, 22),
+    initialDate: DateTime.now(),
+  );
 }
