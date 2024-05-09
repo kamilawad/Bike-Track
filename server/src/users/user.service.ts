@@ -83,22 +83,20 @@ export class UserService {
         return user;
     }
 
-    async unfollowUser(id: string, idToFollow: string) : Promise<User> {
+    async unfollowUser(id: string, idToUnfollow: string) : Promise<User> {
         const user = await this.userModel.findById(id);
         if (!user) {
             throw new NotFoundException('User not found');
         }
-        const userToFollow = await this.userModel.findById(idToFollow);
-        if (!userToFollow) {
+        const userToUnfollow = await this.userModel.findById(idToUnfollow);
+        if (!userToUnfollow) {
             throw new NotFoundException('User not found');
         }
 
-        if (!user.following.includes(userToFollow.id)) {
-            user.following.push(userToFollow.id);
-            userToFollow.followers.push(user.id);
-        }
+        user.following = user.following.filter(userId => userId.toString() !== userToUnfollow._id.toString());
+        userToUnfollow.followers = userToUnfollow.followers.filter(userId => userId.toString() !== user._id.toString());
         await user.save();
-        await userToFollow.save();
+        await userToUnfollow.save();
         return user;
     }
 }
