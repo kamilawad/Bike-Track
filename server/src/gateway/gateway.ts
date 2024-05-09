@@ -4,6 +4,6 @@ import { MessageBody, SubscribeMessage, WebSocketGateway } from "@nestjs/websock
 export class ChatGateway {
     @SubscribeMessage('newMessage')
     onNewMessage(@MessageBody() body: any) {
-        
+        console.log(body);
     }
 }
