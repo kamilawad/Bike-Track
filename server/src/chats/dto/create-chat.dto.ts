@@ -2,8 +2,8 @@ import { IsNotEmpty } from "class-validator";
 
 export class CreateChatDto {
   @IsNotEmpty()
-  user1Id: string;
+  id1: string;
 
   @IsNotEmpty()
-  user2Id: string;
+  id2: string;
 }
