@@ -3,7 +3,7 @@ import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from
 import { Server } from 'socket.io'
 
 @WebSocketGateway()
-export class ChatGateway implements OnModuleInit{
+export class EventsGateway implements OnModuleInit{
     @WebSocketServer()
     server: Server;
 
@@ -14,12 +14,14 @@ export class ChatGateway implements OnModuleInit{
         })
     }
 
-    @SubscribeMessage('newMessage')
+    @SubscribeMessage('message')
+    //handleMessage(client: any, payload: any){
     onNewMessage(@MessageBody() body: any) {
         console.log(body);
         this.server.emit('onMessage', {
             msg: 'new message',
             content: body,
         });
+        //return 'hello';
     }
 }

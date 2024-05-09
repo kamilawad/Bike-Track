@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_flutter/data/static/eventData.dart';
+import 'package:mobile_flutter/data/static/event_data.dart';
 import 'package:mobile_flutter/screens/Home/widgets/event_widget.dart';
 
 class HomeScreen extends StatelessWidget {
