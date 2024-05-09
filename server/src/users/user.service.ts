@@ -92,7 +92,13 @@ export class UserService {
         if (!userToFollow) {
             throw new NotFoundException('User not found');
         }
-      
+
+        if (!user.following.includes(userToFollow.id)) {
+            user.following.push(userToFollow.id);
+            userToFollow.followers.push(user.id);
+        }
+        await user.save();
+        await userToFollow.save();
         return user;
     }
 }
