@@ -11,6 +11,9 @@ export class GroupChat extends Document{
     @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }] })
     members: User[];
 
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }] })
+    admins: User[];
+
     @Prop({ type: [MessageSchema] })
     messages: Message[];
 }
