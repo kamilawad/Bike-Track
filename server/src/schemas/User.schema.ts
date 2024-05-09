@@ -2,6 +2,8 @@ import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
 import { Location, LocationSchema } from "./location.schema";
 import { RoutePlan, RoutePlanDocument, RoutePlanSchema } from "./routeplan.schema";
 import mongoose from "mongoose";
+import { Chat } from "./chat.schema";
+import { GroupChat } from "./groupchat.schema";
 
 export enum UserRole {
     USER = 'user',
@@ -34,6 +36,12 @@ export class User {
 
     @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], default: [] })
     following: User[];
+
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chat" }] })
+    individualChats: Chat[];
+
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "GroupChat" }] })
+    groupChats: GroupChat[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
