@@ -1,4 +1,4 @@
-import { Prop, Schema } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose from "mongoose";
 import { User } from "./user.schema";
 
@@ -13,3 +13,5 @@ export class Message extends Document {
     @Prop({ required: true })
     sentAt: Date;
 }
+
+export const MessageSchema = SchemaFactory.createForClass(Message);
