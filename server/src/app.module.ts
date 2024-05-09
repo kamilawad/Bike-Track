@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { RoutePlanModule } from './routeplans/routeplan.module';
 import { GatewayModule } from './gateway/gateway.module';
+import { ChatModule } from './chats/chat.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { GatewayModule } from './gateway/gateway.module';
   RoutePlanModule,
   AuthModule,
   GatewayModule,
+  ChatModule,
   ],
   controllers: [],
   providers: [],
