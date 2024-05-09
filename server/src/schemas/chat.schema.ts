@@ -6,10 +6,10 @@ import { Message, MessageSchema } from "./message.schema";
 @Schema({ timestamps: true })
 export class Chat extends Document{
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, })
-    sender: User;
+    user1: User;
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, })
-    receiver: User;
+    user2: User;
 
     @Prop({ type: [MessageSchema] })
     messages: Message[];
