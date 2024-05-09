@@ -82,4 +82,17 @@ export class UserService {
         await userToFollow.save();
         return user;
     }
+
+    async unfollowUser(id: string, idToFollow: string) : Promise<User> {
+        const user = await this.userModel.findById(id);
+        if (!user) {
+            throw new NotFoundException('User not found');
+        }
+        const userToFollow = await this.userModel.findById(idToFollow);
+        if (!userToFollow) {
+            throw new NotFoundException('User not found');
+        }
+      
+        return user;
+    }
 }
