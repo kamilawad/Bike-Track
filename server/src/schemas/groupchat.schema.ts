@@ -10,3 +10,5 @@ export class Chat extends Document{
     @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }] })
     members: User[];
 }
+
+export const GroupChatSchema = SchemaFactory.createForClass(GroupChat);
