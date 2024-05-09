@@ -3,7 +3,7 @@ import mongoose, { Document } from "mongoose";
 import { User } from "./user.schema";
 import { Message, MessageSchema } from "./message.schema";
 
-@Schema()
+@Schema({ timestamps: true })
 export class GroupChat extends Document{
     @Prop({ required: true })
     name: string;

@@ -9,9 +9,7 @@ export enum UserRole {
     ADMIN = 'admin'
 }
 
-@Schema({
-    timestamps: true
-})
+@Schema({ timestamps: true })
 export class User {
     @Prop({ required: true })
     fullName: string;
