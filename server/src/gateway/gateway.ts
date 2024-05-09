@@ -8,7 +8,10 @@ export class ChatGateway implements OnModuleInit{
     server: Server;
 
     onModuleInit() {
-        
+        this.server.on('connection', (socket)=>{
+            console.log(socket.id);
+            console.log('connected');
+        })
     }
 
     @SubscribeMessage('newMessage')
