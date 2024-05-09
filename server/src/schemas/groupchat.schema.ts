@@ -1,9 +1,9 @@
-import { Prop, Schema } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Document } from "mongoose";
 import { User } from "./user.schema";
 
 @Schema()
-export class Chat extends Document{
+export class GroupChat extends Document{
     @Prop({ required: true })
     name: string;
 
