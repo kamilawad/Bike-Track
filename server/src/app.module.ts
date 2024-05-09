@@ -4,6 +4,7 @@ import { UserModule } from './users/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { RoutePlanModule } from './routeplans/routeplan.module';
+import { GatewayModule } from './gateway/gateway.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { RoutePlanModule } from './routeplans/routeplan.module';
   UserModule,
   RoutePlanModule,
   AuthModule,
+  GatewayModule,
   ],
   controllers: [],
   providers: [],
