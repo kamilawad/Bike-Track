@@ -1,6 +1,12 @@
-import { Schema } from "@nestjs/mongoose";
+import { Prop, Schema } from "@nestjs/mongoose";
+import mongoose, { Document } from "mongoose";
+import { User } from "./user.schema";
 
 @Schema()
-export class Chat {
+export class Chat extends Document{
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
+    sender: User;
 
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
+    receiver: User;
 }
