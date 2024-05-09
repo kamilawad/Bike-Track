@@ -32,6 +32,7 @@ export class UserController {
 
     @Patch('location')
     @UseGuards(AuthGuard('jwt'))
+    @UsePipes(new ValidationPipe())
     async updateLocation(@Request() req, @Body() location: Location):Promise<User> {
         console.log(req.user.id)
         return this.userService.updateLocation(req.user.id, location);
