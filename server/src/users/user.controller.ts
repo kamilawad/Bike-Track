@@ -56,6 +56,13 @@ export class UserController {
         return this.userService.followUser(req.user.id, id);
     }
 
+    @Patch(':id/unfollow')
+    @UseGuards(AuthGuard('jwt'))
+    @UsePipes(new ValidationPipe())
+    async unfollowUser(@Request() req, @Param('id') id: string):Promise<User> {
+        return this.userService.unfollowUser(req.user.id, id);
+    }
+
     @Delete(':id')
     async deleteUser(@Param('id') id: string) {
         const isValid = mongoose.Types.ObjectId.isValid(id);
