@@ -6,18 +6,29 @@ import { Server, Socket } from 'socket.io';
 export class EventsGateway implements OnModuleInit{
     @WebSocketServer()
     server: Server;
-    //connectedUsers: Map<string, string> = new Map();
+    connectedUsers: Map<string, string> = new Map();
 
     onModuleInit() {
         this.server.on('connection', (socket)=>{
             console.log(socket.id);
             console.log('connected');
 
-            //this.handleConnection(socket);
+            this.handleConnection(socket);
         })
     }
 
-    
+    handleConnection(client: Socket) {
+        client.on('setUserId', (userId: string) => {
+          this.connectedUsers.set(userId, client.id);
+        });
+      
+        client.on('disconnect', () => {
+          const userId = Array.from(this.connectedUsers.entries()).find(([_, socketId]) => socketId === client.id)?.[0];
+          if (userId) {
+            this.connectedUsers.delete(userId);
+          }
+        });
+    }
 
     @SubscribeMessage('message')
     //handleMessage(client: any, payload: any){
