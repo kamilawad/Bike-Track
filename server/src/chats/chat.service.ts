@@ -10,7 +10,7 @@ import { EventsGateway } from "src/gateway/events.gateway";
 @Injectable()
 export class ChatService {
     constructor(
-        private eventCateway: EventsGateway,
+        private eventGateway: EventsGateway,
         @InjectModel(Chat.name) private chatModel: Model<Chat>,
         @InjectModel(User.name) private userModel: Model<User>,
         @InjectModel(Message.name) private messageModel: Model<Message>
@@ -67,11 +67,13 @@ export class ChatService {
           throw new Error("Chat or sender not found");
         }
     
-        const message = new this.messageModel({ sender, content, sentAt: new Date() });
+        const message = new this.messageModel({ sender: senderId, content, sentAt: new Date() });
         const savedMessage = await message.save();
     
         chat.messages.push(savedMessage);
         await chat.save();
+
+        this.eventGateway.sendMessage(savedMessage);
     
         return savedMessage;
     }
