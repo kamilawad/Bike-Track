@@ -26,4 +26,8 @@ export class ChatService {
         const chat = new this.chatModel({ user1, user2, messages: [] });
         return chat.save();
     }
+
+    async getChatById(id: string): Promise<Chat> {
+        return this.chatModel.findById(id).populate("user1 user2 messages.sender");
+    }
 }
