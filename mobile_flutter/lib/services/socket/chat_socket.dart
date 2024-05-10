@@ -9,6 +9,11 @@ class chatSocket {
       'autoConnect': false,
     });
 
-    
+    socket.connect();
+
+    socket.onConnect((data) => print('Connected'));
+    socket.onDisconnect((data) => print('Disconnected'));
+    socket.onConnectError((data) => print('Connect Error: $data'));
+    socket.onError((data) => print('Error: $data'));
   }
 }
