@@ -1,6 +1,7 @@
 import { OnModuleInit } from "@nestjs/common";
 import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Server } from 'socket.io'
+import { Message } from "src/schemas/message.schema";
 
 @WebSocketGateway()
 export class EventsGateway implements OnModuleInit{
@@ -23,5 +24,9 @@ export class EventsGateway implements OnModuleInit{
             content: body,
         });
         //return 'hello';
+    }
+
+    sendMessage(message: Message) {
+        this.server.emit('newMessage', message)
     }
 }
