@@ -30,7 +30,7 @@ export class ChatService {
         const user2 = await this.userModel.findById(user2Id);
       
         if (!user1 || !user2) {
-            throw new Error("One or both users not found");
+            throw new Error("user not found");
         }
       
         const chat = new this.chatModel({ user1, user2, messages: [] });

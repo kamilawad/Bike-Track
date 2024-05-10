@@ -1,4 +1,4 @@
-import { Body, Request, Controller, Post, UseGuards, Param, Get, Put, Delete } from "@nestjs/common";
+import { Body, Request, Controller, Post, UseGuards, Param, Get, Put, Delete, UsePipes, ValidationPipe } from "@nestjs/common";
 import { ChatService } from "./chat.service";
 import { AuthGuard } from "@nestjs/passport";
 import { CreateChatDto } from "./dto/create-chat.dto";
@@ -11,6 +11,7 @@ export class ChatController {
     constructor(private readonly chatService: ChatService) {}
 
     @Post()
+    @UsePipes(new ValidationPipe())
     async createChat(@Request() req, @Body() createChatDto: CreateChatDto) {
         const user1Id = req.user.id;
         const user2Id = createChatDto.user2Id;
@@ -34,6 +35,7 @@ export class ChatController {
     }
 
     @Post(":id/send-message")
+    @UsePipes(new ValidationPipe())
     sendMessage(@Request() req, @Param("id") chatId: string, @Body() sendMessageDto: SendMessageDto) {
         return this.chatService.sendMessage(chatId, req.user.id, sendMessageDto.content);
     }

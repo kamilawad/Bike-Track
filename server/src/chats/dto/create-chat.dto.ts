@@ -1,9 +1,7 @@
-import { IsNotEmpty } from "class-validator";
+import { IsMongoId, IsNotEmpty } from "class-validator";
 
 export class CreateChatDto {
   @IsNotEmpty()
-  user1Id: string;
-
-  @IsNotEmpty()
+  @IsMongoId()
   user2Id: string;
 }
