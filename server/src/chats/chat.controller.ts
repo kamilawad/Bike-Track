@@ -1,4 +1,4 @@
-import { Body, Request, Controller, Post, UseGuards, Param, Get, Put } from "@nestjs/common";
+import { Body, Request, Controller, Post, UseGuards, Param, Get, Put, Delete } from "@nestjs/common";
 import { ChatService } from "./chat.service";
 import { AuthGuard } from "@nestjs/passport";
 import { CreateChatDto } from "./dto/create-chat.dto";
@@ -24,6 +24,11 @@ export class ChatController {
     @Put(":id")
     updateChat(@Param("id") id: string, @Body() updateChatDto: UpdateChatDto) {
         return this.chatService.updateChat(id, updateChatDto);
+    }
+
+    @Delete(":id")
+    deleteChat(@Param("id") id: string) {
+        return this.chatService.deleteChat(id);
     }
 
     @Post(":id/send-message")
