@@ -39,4 +39,21 @@ export class ChatService {
     async deleteChat(id: string): Promise<Chat> {
         return this.chatModel.findByIdAndDelete(id);
     }
+
+    async sendMessage(chatId: string, senderId: string, content: string): Promise<Message> {
+        const chat = await this.chatModel.findById(chatId);
+        const sender = await this.userModel.findById(senderId);
+    
+        if (!chat || !sender) {
+          throw new Error("Chat or sender not found");
+        }
+    
+        const message = new this.messageModel({ sender, content, sentAt: new Date() });
+        const savedMessage = await message.save();
+    
+        chat.messages.push(savedMessage);
+        await chat.save();
+    
+        return savedMessage;
+    }
 }
