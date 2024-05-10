@@ -2,4 +2,13 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class chatSocket {
   late IO.Socket socket;
+
+  initSocket() {
+    socket = IO.io('http://192.168.0.105:3000', <String, dynamic> {
+      'transports': ['websocket'],
+      'autoConnect': false,
+    });
+
+    
+  }
 }
