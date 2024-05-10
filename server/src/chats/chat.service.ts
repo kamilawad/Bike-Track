@@ -48,7 +48,7 @@ export class ChatService {
     }
 
     async getChatById(id: string): Promise<Chat> {
-        return this.chatModel.findById(id).populate("user1 user2 messages.sender");
+        return this.chatModel.findById(id).populate('user1', '_id fullName').populate('user2', '_id fullName').populate('messages.sender', '_id fullName');
     }
 
     async updateChat(id: string, updateChatDto: UpdateChatDto): Promise<Chat> {
