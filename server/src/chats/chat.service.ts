@@ -75,6 +75,6 @@ export class ChatService {
 
         this.eventGateway.sendMessage(savedMessage);
     
-        return savedMessage;
+        return savedMessage.populate({ path: 'sender', select: '_id fullName' });
     }
 }
