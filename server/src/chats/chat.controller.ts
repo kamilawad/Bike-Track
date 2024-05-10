@@ -1,8 +1,9 @@
-import { Body, Request, Controller, Post, UseGuards, Param, Get } from "@nestjs/common";
+import { Body, Request, Controller, Post, UseGuards, Param, Get, Put } from "@nestjs/common";
 import { ChatService } from "./chat.service";
 import { AuthGuard } from "@nestjs/passport";
 import { CreateChatDto } from "./dto/create-chat.dto";
 import { SendMessageDto } from "./dto/send-message.dto";
+import { UpdateChatDto } from "./dto/update-chat.dto";
 
 @Controller('chats')
 @UseGuards(AuthGuard("jwt"))
@@ -18,6 +19,11 @@ export class ChatController {
     @Get(":id")
     getChatById(@Param("id") id: string) {
         return this.chatService.getChatById(id);
+    }
+
+    @Put(":id")
+    updateChat(@Param("id") id: string, @Body() updateChatDto: UpdateChatDto) {
+        return this.chatService.updateChat(id, updateChatDto);
     }
 
     @Post(":id/send-message")
