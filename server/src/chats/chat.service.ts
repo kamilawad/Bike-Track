@@ -60,7 +60,7 @@ export class ChatService {
     }
 
     async sendMessage(chatId: string, senderId: string, content: string): Promise<Message> {
-        const chat = await this.chatModel.findById(chatId);
+        const chat = await this.chatModel.findById(chatId).populate('user1 user2');
         const sender = await this.userModel.findById(senderId);
     
         if (!chat || !sender) {
@@ -73,7 +73,13 @@ export class ChatService {
         chat.messages.push(savedMessage);
         await chat.save();
 
-        this.eventGateway.sendMessage(savedMessage);
+        const recipientUserId = chat.user1.toString() === senderId ? chat.user2.toString() : chat.user1.toString();
+        console.log(chat.user1.toString());
+        const recipientSocketId = this.eventGateway.connectedUsers.get(recipientUserId);
+
+        if (recipientSocketId) {
+            this.eventGateway.server.to(recipientSocketId).emit('newMessage', savedMessage);
+        }
     
         return savedMessage.populate({ path: 'sender', select: '_id fullName' });
     }

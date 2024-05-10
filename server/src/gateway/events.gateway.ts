@@ -1,19 +1,23 @@
 import { OnModuleInit } from "@nestjs/common";
 import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
-import { Server } from 'socket.io'
-import { Message } from "src/schemas/message.schema";
+import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway()
 export class EventsGateway implements OnModuleInit{
     @WebSocketServer()
     server: Server;
+    //connectedUsers: Map<string, string> = new Map();
 
     onModuleInit() {
         this.server.on('connection', (socket)=>{
             console.log(socket.id);
             console.log('connected');
+
+            //this.handleConnection(socket);
         })
     }
+
+    
 
     @SubscribeMessage('message')
     //handleMessage(client: any, payload: any){
@@ -24,9 +28,5 @@ export class EventsGateway implements OnModuleInit{
             content: body,
         });
         //return 'hello';
-    }
-
-    sendMessage(message: Message) {
-        this.server.emit('newMessage', message)
     }
 }
