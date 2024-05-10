@@ -6,4 +6,4 @@ import { EventsGateway } from "./events.gateway";
     providers: [EventsGateway],
     exports: [EventsGateway],
 })
-export class GatewayModule {}
+export class EventsModule {}
