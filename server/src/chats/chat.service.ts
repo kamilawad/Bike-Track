@@ -5,6 +5,7 @@ import { Chat } from "src/schemas/chat.schema";
 import { Message } from "src/schemas/message.schema";
 import { User } from "src/schemas/user.schema";
 import { CreateChatDto } from "./dto/create-chat.dto";
+import { UpdateChatDto } from "./dto/update-chat.dto";
 
 @Injectable()
 export class ChatService {
@@ -33,5 +34,9 @@ export class ChatService {
 
     async updateChat(id: string, updateChatDto: UpdateChatDto): Promise<Chat> {
         return this.chatModel.findByIdAndUpdate(id, updateChatDto, { new: true });
+    }
+
+    async deleteChat(id: string): Promise<Chat> {
+        return this.chatModel.findByIdAndDelete(id);
     }
 }
