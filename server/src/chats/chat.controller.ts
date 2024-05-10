@@ -11,9 +11,11 @@ export class ChatController {
     constructor(private readonly chatService: ChatService) {}
 
     @Post()
-    createChat(@Request() req, @Body() createChatDto: CreateChatDto) {
-        createChatDto.id1 = req.user.id;
-        return this.chatService.createChat(createChatDto);
+    async createChat(@Request() req, @Body() createChatDto: CreateChatDto) {
+        const user1Id = req.user.id;
+        const user2Id = createChatDto.user2Id;
+
+    return this.chatService.createChat(user1Id, user2Id);
     }
 
     @Get(":id")
