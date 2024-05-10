@@ -4,6 +4,7 @@ import { AuthModule } from "src/auth/auth.module";
 import { GroupChat, GroupChatSchema } from "src/schemas/groupchat.schema";
 import { Message, MessageSchema } from "src/schemas/message.schema";
 import { User, UserSchema } from "src/schemas/user.schema";
+import { GroupChatController } from "./group-chat.controller";
 
 @Module({
     imports: [
@@ -14,7 +15,7 @@ import { User, UserSchema } from "src/schemas/user.schema";
         ]),
         AuthModule,
     ],
-    controllers: [],
+    controllers: [GroupChatController],
     providers: [],
 })
 export class GroupChatModule {}
