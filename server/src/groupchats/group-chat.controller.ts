@@ -23,6 +23,7 @@ export class GroupChatController {
     }
 
     @Put(":id")
+    @UsePipes(new ValidationPipe())
     updateGroupChat(@Param("id") id: string,@Body() updateGroupChatDto: UpdateGroupChatDto) {
     return this.groupChatService.updateGroupChat(id, updateGroupChatDto);
     }
