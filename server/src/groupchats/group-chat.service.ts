@@ -18,6 +18,11 @@ export class GroupChatService {
         createGroupChatDto: CreateGroupChatDto, adminId: string): Promise<GroupChat> {
         const { name, memberIds } = createGroupChatDto;
 
+        const existingGroupChat = await this.groupChatModel.findOne({ name });
+        if (existingGroupChat) {
+            return existingGroupChat;
+        }
+
         const members = await this.userModel.find({ _id: { $in: memberIds } });
         const admin = await this.userModel.findById(adminId);
 
