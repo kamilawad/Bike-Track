@@ -34,6 +34,6 @@ export class GroupChatController {
     sendMessage(@Param("id") id: string,@Request() req,@Body() sendMessageDto: SendMessageDto) {
         const senderId = req.user._id;
         const { content } = sendMessageDto;
-        return this.groupChatService;
+        return this.groupChatService.sendMessage(id, senderId, content);
     }
 }
