@@ -48,4 +48,11 @@ export class GroupChatController {
         const userId = req.user._id;
         return this.groupChatService.leftGroupChat(id, userId);
     }
+
+    @Post("/:id/addMember")
+    addMember(@Param("id") id: string, @Request() req, @Body() addMemberDto: AddMemberDto) {
+        const adminId = req.user._id;
+        const { memberId } = addMemberDto;
+        return this.groupChatService.addMember(id, memberId, adminId);
+    }
 }
