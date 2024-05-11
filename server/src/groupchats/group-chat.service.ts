@@ -119,4 +119,23 @@ export class GroupChatService {
     
         return groupChat;
     }
+
+    async addMember( groupChatId: string, memberId: string, adminId: string): Promise<GroupChat> {
+        const groupChat = await this.groupChatModel.findById(groupChatId);
+        const member = await this.userModel.findById(memberId);
+        const admin = await this.userModel.findById(adminId);
+    
+        if (!groupChat || !member || !admin) {
+          throw new Error("Group chat, member, or admin not found");
+        }
+    
+        if (!groupChat.admins.some((a) => a._id.toString() === admin._id.toString())) {
+          throw new Error("User is not an admin of this group chat");
+        }
+    
+        groupChat.members.push(member);
+        await groupChat.save();
+    
+        return groupChat;
+    }
 }
