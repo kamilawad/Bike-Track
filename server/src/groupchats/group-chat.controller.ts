@@ -34,6 +34,7 @@ export class GroupChatController {
     }
 
     @Post(":id/message")
+    @UsePipes(new ValidationPipe())
     sendMessage(@Param("id") id: string,@Request() req,@Body() sendMessageDto: SendMessageDto) {
         const senderId = req.user._id;
         const { content } = sendMessageDto;
