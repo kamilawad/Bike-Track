@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { GroupChat } from "src/schemas/groupchat.schema";
@@ -28,7 +28,7 @@ export class GroupChatService {
         const admin = await this.userModel.findById(adminId);
 
         if (!admin) {
-            throw new Error("admin not found");
+            throw new NotFoundException("admin not found");
         }
 
         const groupChat = new this.groupChatModel({
@@ -66,7 +66,7 @@ export class GroupChatService {
         const sender = await this.userModel.findById(senderId);
     
         if (!groupChat || !sender) {
-          throw new Error("group chat or sender not found");
+          throw new NotFoundException("group chat or sender not found");
         }
     
         const message = new this.messageModel({
@@ -80,5 +80,5 @@ export class GroupChatService {
         await groupChat.save();
     
         return savedMessage;
-      }
+    }
 }

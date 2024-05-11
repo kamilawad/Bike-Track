@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Chat } from "src/schemas/chat.schema";
@@ -32,7 +32,7 @@ export class ChatService {
         const user2 = await this.userModel.findById(user2Id);
       
         if (!user1 || !user2) {
-            throw new Error("user not found");
+            throw new NotFoundException("user not found");
         }
       
         const chat = new this.chatModel({ user1, user2, messages: [] });
@@ -64,7 +64,7 @@ export class ChatService {
         const sender = await this.userModel.findById(senderId);
     
         if (!chat || !sender) {
-          throw new Error("Chat or sender not found");
+          throw new NotFoundException("Chat or sender not found");
         }
     
         const message = new this.messageModel({ sender: senderId, content, sentAt: new Date() });
