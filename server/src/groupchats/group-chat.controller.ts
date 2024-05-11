@@ -3,6 +3,7 @@ import { GroupChatService } from "./group-chat.service";
 import { AuthGuard } from "@nestjs/passport";
 import { CreateGroupChatDto } from "./dto/create-group-chat.dto";
 import { UpdateGroupChatDto } from "./dto/update-group-chat.dto";
+import { SendMessageDto } from "src/chats/dto/send-message.dto";
 
 @Controller()
 @UseGuards(AuthGuard("jwt"))
@@ -27,5 +28,12 @@ export class GroupChatController {
     @Delete("/:id")
     deleteGroupChat(@Param("id") id: string) {
     return this.groupChatService.deleteGroupChat(id);
+    }
+
+    @Post("/:id/message")
+    sendMessage(@Param("id") id: string,@Request() req,@Body() sendMessageDto: SendMessageDto) {
+        const senderId = req.user._id;
+        const { content } = sendMessageDto;
+        return this.groupChatService;
     }
 }
