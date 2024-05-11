@@ -4,6 +4,7 @@ import { AuthGuard } from "@nestjs/passport";
 import { CreateGroupChatDto } from "./dto/create-group-chat.dto";
 import { UpdateGroupChatDto } from "./dto/update-group-chat.dto";
 import { SendMessageDto } from "src/chats/dto/send-message.dto";
+import { AddMemberDto } from "./dto/add-member.dto";
 
 @Controller('groups')
 @UseGuards(AuthGuard("jwt"))
