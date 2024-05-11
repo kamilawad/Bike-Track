@@ -89,6 +89,10 @@ export class GroupChatService {
         if (!groupChat || !user) {
           throw new NotFoundException("group chat or user not found");
         }
+
+        if (groupChat.members.some((member) => member._id.toString() === user._id.toString())) {
+            throw new Error("User is already a member of this group chat");
+        }
     
         groupChat.members.push(user);
         await groupChat.save();
