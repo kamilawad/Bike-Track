@@ -3,7 +3,7 @@ import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import mongoose from "mongoose";
-import { Location } from '../schemas/location.schema';
+import { LocationDetails } from '../schemas/location.schema';
 import { AuthGuard } from "@nestjs/passport";
 import { User } from "src/schemas/user.schema";
 
@@ -33,7 +33,7 @@ export class UserController {
     @Patch('location')
     @UseGuards(AuthGuard('jwt'))
     @UsePipes(new ValidationPipe())
-    async updateLocation(@Request() req, @Body() location: Location):Promise<User> {
+    async updateLocation(@Request() req, @Body() location: LocationDetails):Promise<User> {
         console.log(req.user.id)
         return this.userService.updateLocation(req.user.id, location);
     }

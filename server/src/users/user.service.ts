@@ -4,7 +4,7 @@ import { Model } from "mongoose";
 import { User } from "src/schemas/user.schema";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
-import { Location } from '../schemas/location.schema';
+import { LocationDetails } from '../schemas/location.schema';
 
 @Injectable()
 export class UserService {
@@ -49,17 +49,17 @@ export class UserService {
         return deletedUser;
     }
 
-    async updateLocation(id: string, location: Location): Promise<User> {
+    async updateLocation(id: string, location: LocationDetails): Promise<User> {
         const user = await this.userModel.findById(id);
         if (!user) {
           throw new NotFoundException('User not found');
         }
 
-        if (!user.location) {
-            user.location = location;
+        if (!user.locationDetails) {
+            user.locationDetails = location;
         } else {
-            user.location.latitude = location.latitude;
-            user.location.longitude = location.longitude;
+            user.locationDetails.latitude = location.latitude;
+            user.locationDetails.longitude = location.longitude;
         }
         return user.save();
     }
