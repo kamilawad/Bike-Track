@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Request, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from "@nestjs/common";
 import { GroupChatService } from "./group-chat.service";
 import { AuthGuard } from "@nestjs/passport";
 import { CreateGroupChatDto } from "./dto/create-group-chat.dto";
@@ -22,5 +22,10 @@ export class GroupChatController {
     @Put("/:id")
     updateGroupChat(@Param("id") id: string,@Body() updateGroupChatDto: UpdateGroupChatDto) {
     return this.groupChatService.updateGroupChat(id, updateGroupChatDto);
+    }
+
+    @Delete("/:id")
+    deleteGroupChat(@Param("id") id: string) {
+    return this.groupChatService.deleteGroupChat(id);
     }
 }
