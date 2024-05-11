@@ -60,4 +60,25 @@ export class GroupChatService {
     async deleteGroupChat(id: string): Promise<GroupChat> {
         return this.groupChatModel.findByIdAndDelete(id);
     }
+
+    async sendMessage(groupChatId: string, senderId: string, content: string): Promise<Message> {
+        const groupChat = await this.groupChatModel.findById(groupChatId);
+        const sender = await this.userModel.findById(senderId);
+    
+        if (!groupChat || !sender) {
+          throw new Error("group chat or sender not found");
+        }
+    
+        const message = new this.messageModel({
+          sender,
+          content,
+          sentAt: new Date(),
+        });
+    
+        const savedMessage = await message.save();
+        groupChat.messages.push(savedMessage);
+        await groupChat.save();
+    
+        return savedMessage;
+      }
 }
