@@ -41,6 +41,10 @@ export class GroupChatService {
     }
 
     async getGroupChatById(id: string): Promise<GroupChat> {
-        return this.groupChatModel.findById(id).populate("members admins messages.sender");
+        return this.groupChatModel
+            .findById(id)
+            .populate('members', '_id fullName')
+            .populate('admins', '_id fullName')
+            .populate('messages');
     }
 }
