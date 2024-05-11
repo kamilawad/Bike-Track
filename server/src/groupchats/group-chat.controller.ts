@@ -54,6 +54,7 @@ export class GroupChatController {
     }
 
     @Post(":id/addMember")
+    @UsePipes(new ValidationPipe())
     addMember(@Param("id") id: string, @Request() req, @Body() addMemberDto: AddMemberDto) {
         const adminId = req.user._id;
         const { memberId } = addMemberDto;
