@@ -91,10 +91,30 @@ export class GroupChatService {
         }
 
         if (groupChat.members.some((member) => member._id.toString() === user._id.toString())) {
-            throw new Error("User is already a member of this group chat");
+            throw new Error("user is already a member of this group chat");
         }
     
         groupChat.members.push(user);
+        await groupChat.save();
+    
+        return groupChat;
+    }
+
+    async leftGroupChat(groupChatId: string, userId: string): Promise<GroupChat> {
+        const groupChat = await this.groupChatModel.findById(groupChatId);
+        const user = await this.userModel.findById(userId);
+    
+        if (!groupChat || !user) {
+          throw new NotFoundException("group chat or user not found");
+        }
+
+        if (groupChat.members.some((member) => member._id.toString() === user._id.toString())) {
+            throw new Error("user is already a member of this group chat");
+        }
+
+        groupChat.members = groupChat.members.filter(
+            (member) => member._id.toString() !== user._id.toString());
+      
         await groupChat.save();
     
         return groupChat;
