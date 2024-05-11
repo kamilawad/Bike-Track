@@ -66,13 +66,13 @@ export class GroupChatService {
         const sender = await this.userModel.findById(senderId);
     
         if (!groupChat || !sender) {
-          throw new NotFoundException("group chat or sender not found");
+            throw new NotFoundException("group chat or sender not found");
         }
     
         const message = new this.messageModel({
-          sender,
-          content,
-          sentAt: new Date(),
+            sender,
+            content,
+            sentAt: new Date(),
         });
     
         const savedMessage = await message.save();
@@ -87,7 +87,7 @@ export class GroupChatService {
         const user = await this.userModel.findById(userId);
     
         if (!groupChat || !user) {
-          throw new NotFoundException("group chat or user not found");
+            throw new NotFoundException("group chat or user not found");
         }
 
         if (groupChat.members.some((member) => member._id.toString() === user._id.toString())) {
@@ -105,7 +105,7 @@ export class GroupChatService {
         const user = await this.userModel.findById(userId);
     
         if (!groupChat || !user) {
-          throw new NotFoundException("group chat or user not found");
+            throw new NotFoundException("group chat or user not found");
         }
 
         if (groupChat.members.some((member) => member._id.toString() === user._id.toString())) {
@@ -126,11 +126,15 @@ export class GroupChatService {
         const admin = await this.userModel.findById(adminId);
     
         if (!groupChat || !member || !admin) {
-          throw new Error("Group chat, member, or admin not found");
+            throw new Error("group chat, member, or admin not found");
         }
     
         if (!groupChat.admins.some((a) => a._id.toString() === admin._id.toString())) {
-          throw new Error("User is not an admin of this group chat");
+            throw new Error("user is not an admin of this group chat");
+        }
+
+        if (groupChat.members.some((m) => m._id.toString() === member._id.toString())) {
+            throw new Error("member already exists in the group chat");
         }
     
         groupChat.members.push(member);
