@@ -5,7 +5,7 @@ import { CreateGroupChatDto } from "./dto/create-group-chat.dto";
 import { UpdateGroupChatDto } from "./dto/update-group-chat.dto";
 import { SendMessageDto } from "src/chats/dto/send-message.dto";
 
-@Controller()
+@Controller('groups')
 @UseGuards(AuthGuard("jwt"))
 export class GroupChatController {
     constructor(private readonly groupChatService: GroupChatService) {}
