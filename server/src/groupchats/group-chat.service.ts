@@ -81,4 +81,18 @@ export class GroupChatService {
     
         return savedMessage;
     }
+
+    async joinGroupChat(groupChatId: string, userId: string): Promise<GroupChat> {
+        const groupChat = await this.groupChatModel.findById(groupChatId);
+        const user = await this.userModel.findById(userId);
+    
+        if (!groupChat || !user) {
+          throw new NotFoundException("group chat or user not found");
+        }
+    
+        groupChat.members.push(user);
+        await groupChat.save();
+    
+        return groupChat;
+    }
 }
