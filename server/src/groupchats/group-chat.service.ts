@@ -56,4 +56,8 @@ export class GroupChatService {
     async updateGroupChat(id: string, updateGroupChatDto: UpdateGroupChatDto): Promise<GroupChat> {
         return this.groupChatModel.findByIdAndUpdate(id, updateGroupChatDto, { new: true });
     }
+
+    async deleteGroupChat(id: string): Promise<GroupChat> {
+        return this.groupChatModel.findByIdAndDelete(id);
+    }
 }
