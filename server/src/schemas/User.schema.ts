@@ -1,7 +1,7 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { Location, LocationSchema } from "./location.schema";
+import { LocationDetails, LocationSchema } from "./location.schema";
 import { RoutePlan, RoutePlanDocument, RoutePlanSchema } from "./routeplan.schema";
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { Chat } from "./chat.schema";
 import { GroupChat } from "./groupchat.schema";
 
@@ -12,7 +12,7 @@ export enum UserRole {
 }
 
 @Schema({ timestamps: true })
-export class User {
+export class User extends Document{
     @Prop({ required: true })
     fullName: string;
 
@@ -26,7 +26,7 @@ export class User {
     role: UserRole;
 
     @Prop({ type: LocationSchema })
-    location: Location;
+    locationDetails: LocationDetails;
 
     @Prop({ type: [RoutePlanSchema], default: [] })
     savedRoutes: RoutePlanDocument[];
