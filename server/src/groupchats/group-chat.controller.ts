@@ -36,4 +36,10 @@ export class GroupChatController {
         const { content } = sendMessageDto;
         return this.groupChatService.sendMessage(id, senderId, content);
     }
+
+    @Post("/:id/join")
+    joinGroupChat(@Param("id") id: string, @Request() req) {
+        const userId = req.user._id;
+        return this.groupChatService.joinGroupChat(id, userId);
+    }
 }
