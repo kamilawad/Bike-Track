@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { RoutePlanModule } from './routeplans/routeplan.module';
 import { EventsModule } from './gateway/Events.module';
 import { ChatModule } from './chats/chat.module';
+import { GroupChatModule } from './groupchats/group-chat.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ChatModule } from './chats/chat.module';
   AuthModule,
   EventsModule,
   ChatModule,
+  GroupChatModule
   ],
   controllers: [],
   providers: [],
