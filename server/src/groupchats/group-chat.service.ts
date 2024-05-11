@@ -5,6 +5,7 @@ import { GroupChat } from "src/schemas/groupchat.schema";
 import { Message } from "src/schemas/message.schema";
 import { User } from "src/schemas/user.schema";
 import { CreateGroupChatDto } from "./dto/create-group-chat.dto";
+import { UpdateGroupChatDto } from "./dto/update-group-chat.dto";
 
 @Injectable()
 export class GroupChatService {
@@ -50,5 +51,9 @@ export class GroupChatService {
                 path: 'messages',
                 options: { sort: { sentAt: 1 } },
             });
+    }
+
+    async updateGroupChat(id: string, updateGroupChatDto: UpdateGroupChatDto): Promise<GroupChat> {
+        return this.groupChatModel.findByIdAndUpdate(id, updateGroupChatDto, { new: true });
     }
 }
