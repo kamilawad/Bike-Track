@@ -45,6 +45,10 @@ export class GroupChatService {
             .findById(id)
             .populate('members', '_id fullName')
             .populate('admins', '_id fullName')
-            .populate('messages');
+            //.populate('messages', 'content sentAt sender')
+            .populate({
+                path: 'messages',
+                options: { sort: { sentAt: 1 } },
+            });
     }
 }
