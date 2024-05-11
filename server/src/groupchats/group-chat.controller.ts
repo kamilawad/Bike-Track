@@ -16,41 +16,41 @@ export class GroupChatController {
     return this.groupChatService.createGroupChat(createGroupChatDto, req.user._id);
     }
 
-    @Get("/:id")
+    @Get(":id")
     getGroupChatById(@Param("id") id: string) {
     return this.groupChatService.getGroupChatById(id);
     }
 
-    @Put("/:id")
+    @Put(":id")
     updateGroupChat(@Param("id") id: string,@Body() updateGroupChatDto: UpdateGroupChatDto) {
     return this.groupChatService.updateGroupChat(id, updateGroupChatDto);
     }
 
-    @Delete("/:id")
+    @Delete(":id")
     deleteGroupChat(@Param("id") id: string) {
     return this.groupChatService.deleteGroupChat(id);
     }
 
-    @Post("/:id/message")
+    @Post(":id/message")
     sendMessage(@Param("id") id: string,@Request() req,@Body() sendMessageDto: SendMessageDto) {
         const senderId = req.user._id;
         const { content } = sendMessageDto;
         return this.groupChatService.sendMessage(id, senderId, content);
     }
 
-    @Post("/:id/join")
+    @Post(":id/join")
     joinGroupChat(@Param("id") id: string, @Request() req) {
         const userId = req.user._id;
         return this.groupChatService.joinGroupChat(id, userId);
     }
 
-    @Post("/:id/leave")
+    @Post(":id/leave")
     leftGroupChat(@Param("id") id: string, @Request() req) {
         const userId = req.user._id;
         return this.groupChatService.leftGroupChat(id, userId);
     }
 
-    @Post("/:id/addMember")
+    @Post(":id/addMember")
     addMember(@Param("id") id: string, @Request() req, @Body() addMemberDto: AddMemberDto) {
         const adminId = req.user._id;
         const { memberId } = addMemberDto;
