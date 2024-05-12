@@ -8,3 +8,7 @@ const socket = io(SERVER_URL, {
         userId: USER_ID,
     },
 });
+
+socket.on('connect', () => {
+    console.log('Connected to the server.');
+});
