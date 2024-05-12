@@ -49,6 +49,7 @@ export class ChatGateway {
 
         const message = await this.chatService.sendMessage(chatId, senderId, content);
         const chat = await this.chatService.getChatById(chatId);
+        const recipientId = chat.user1._id.toString() === senderId ? chat.user2._id.toString() : chat.user1._id.toString();
     }
 
     private getUserIdFromClient(client: Socket): string {
