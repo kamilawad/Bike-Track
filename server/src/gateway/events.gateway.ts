@@ -1,4 +1,4 @@
-import { OnModuleInit } from "@nestjs/common";
+/*import { OnModuleInit } from "@nestjs/common";
 import { MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Server, Socket } from 'socket.io';
 
@@ -40,4 +40,4 @@ export class EventsGateway implements OnModuleInit{
       });
       //return 'hello';
   }
-}
+}*/
