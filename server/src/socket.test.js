@@ -24,3 +24,11 @@ socket.on('newMessage', (message) => {
         console.error('An error occurred while handling a new message:', error);
     }
 });
+
+socket.on('userConnected', (data) => {
+    try {
+        console.log('A user has connected:', data);
+    } catch (error) {
+        console.error('An error occurred while handling a user connection:', error);
+    }
+});
