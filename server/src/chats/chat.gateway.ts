@@ -26,6 +26,7 @@ export class ChatGateway {
         for (const chat of chats) {
             const otherUserId = chat.user1._id.toString() === userId ? chat.user2._id.toString() : chat.user1._id.toString();
             client.join(`chat-${chat._id}`);
+            client.to(`chat-${chat._id}`).emit('userConnected', { userId, otherUserId });
         }
     }
 
