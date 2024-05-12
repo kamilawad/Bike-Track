@@ -1,4 +1,4 @@
-import { WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
+import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Server, Socket } from 'socket.io';
 import { ChatService } from "./chat.service";
 
@@ -12,6 +12,8 @@ export class ChatGateway {
     constructor(private readonly chatService: ChatService) {}
 
     async handleConnection(client: Socket) {}
+
+    async handleDisconnect(client: Socket) {}
 
     private getUserIdFromClient(client: Socket): string {
         return client.handshake.auth.userId;
