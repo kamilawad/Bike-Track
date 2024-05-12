@@ -11,4 +11,8 @@ const socket = io(SERVER_URL, {
 
 socket.on('connect', () => {
     console.log('Connected to the server.');
+
+    const chatId = '66406fcdccbd803409b21468';
+    const content = 'Hello from sender';
+    socket.emit('sendMessage', { chatId, content });
 });
