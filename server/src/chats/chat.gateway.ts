@@ -7,6 +7,8 @@ export class ChatGateway {
     @WebSocketServer()
     server: Server;
 
+    private connectedUsers = new Map<string, Socket>();
+
     constructor(private readonly chatService: ChatService) {}
 
     async handleConnection(client: Socket) {}
