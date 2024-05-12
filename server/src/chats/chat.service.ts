@@ -71,13 +71,13 @@ export class ChatService {
         chat.messages.push(savedMessage);
         await chat.save();
 
-        const recipientUserId = chat.user1.toString() === senderId ? chat.user2.toString() : chat.user1.toString();
+        /*const recipientUserId = chat.user1.toString() === senderId ? chat.user2.toString() : chat.user1.toString();
         const recipientSocketId = this.eventGateway.connectedUsers.get(recipientUserId);
         console.log(recipientSocketId)
 
         if (recipientSocketId) {
             this.eventGateway.server.to(recipientSocketId).emit('newMessage', savedMessage);
-        }
+        }*/
     
         return savedMessage.populate({ path: 'sender', select: '_id fullName' });
     }
