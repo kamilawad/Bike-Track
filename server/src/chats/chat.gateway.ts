@@ -32,6 +32,7 @@ export class ChatGateway {
 
     async handleDisconnect(client: Socket) {
         const userId = this.getUserIdFromClient(client);
+        this.connectedUsers.delete(userId);
     }
 
     async handleSendMessage() {}
