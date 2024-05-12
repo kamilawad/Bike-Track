@@ -52,7 +52,9 @@ export class ChatGateway {
         const recipientId = chat.user1._id.toString() === senderId ? chat.user2._id.toString() : chat.user1._id.toString();
 
         const recipientSocket = this.connectedUsers.get(recipientId);
-        
+        if (recipientSocket) {
+            recipientSocket.to(`chat-${chatId}`).emit('newMessage', message);
+        }
     }
 
     private getUserIdFromClient(client: Socket): string {
