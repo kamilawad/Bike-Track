@@ -43,7 +43,7 @@ export class ChatGateway {
     }
 
     @SubscribeMessage('sendMessage')
-    async handleSendMessage(@MessageBody() data: { chatId: string; content: string }) {
+    async handleSendMessage(@MessageBody() data: { chatId: string; content: string }, @ConnectedSocket() client: Socket) {
         
     }
 
