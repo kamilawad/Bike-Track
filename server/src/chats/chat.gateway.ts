@@ -44,7 +44,7 @@ export class ChatGateway {
 
     @SubscribeMessage('sendMessage')
     async handleSendMessage(@MessageBody() data: { chatId: string; content: string }, @ConnectedSocket() client: Socket) {
-        
+        const senderId = this.getUserIdFromClient(client);
     }
 
     private getUserIdFromClient(client: Socket): string {
