@@ -16,3 +16,11 @@ socket.on('connect', () => {
     const content = 'Hello from sender';
     socket.emit('sendMessage', { chatId, content });
 });
+
+socket.on('newMessage', (message) => {
+    try {
+        console.log('Received a new message:', message);
+    } catch (error) {
+        console.error('An error occurred while handling a new message:', error);
+    }
+});
