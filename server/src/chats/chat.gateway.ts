@@ -35,6 +35,9 @@ export class ChatGateway {
         this.connectedUsers.delete(userId);
 
         const chats = await this.chatService.getUserChats(userId);
+        for (const chat of chats) {
+            client.leave(`chat-${chat._id}`);
+        }
     }
 
     async handleSendMessage() {}
