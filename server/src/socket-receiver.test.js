@@ -18,10 +18,14 @@ socket.on('connect', () => {
     socket.emit('sendMessage', { chatId, content });
   });
   
-  socket.on('newMessage', (message) => {
+socket.on('newMessage', (message) => {
     try {
         console.log('Received a new message:', message);
     } catch (error) {
         console.error('An error occurred while handling a new message:', error);
     }
+});
+
+socket.on('disconnect', () => {
+    console.log('Disconnected from the server.');
 });
