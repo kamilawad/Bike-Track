@@ -6,7 +6,6 @@ import { Message, MessageSchema } from "src/schemas/message.schema";
 import { User, UserSchema } from "src/schemas/user.schema";
 import { ChatController } from "./chat.controller";
 import { ChatService } from "./chat.service";
-import { EventsModule } from "src/gateway/Events.module";
 
 @Module({
     imports: [
@@ -16,7 +15,6 @@ import { EventsModule } from "src/gateway/Events.module";
           { name: Message.name, schema: MessageSchema },
         ]),
         AuthModule,
-        EventsModule,
     ],
     controllers: [ChatController],
     providers: [ChatService],
