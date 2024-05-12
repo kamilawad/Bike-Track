@@ -12,4 +12,8 @@ export class ChatGateway {
     constructor(private readonly chatService: ChatService) {}
 
     async handleConnection(client: Socket) {}
+
+    private getUserIdFromClient(client: Socket): string {
+        return client.handshake.auth.userId;
+    }
 }
