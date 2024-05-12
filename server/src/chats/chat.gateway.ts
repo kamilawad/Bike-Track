@@ -55,6 +55,7 @@ export class ChatGateway {
         if (recipientSocket) {
             recipientSocket.to(`chat-${chatId}`).emit('newMessage', message);
         }
+        client.to(`chat-${chatId}`).emit('newMessage', message);
     }
 
     private getUserIdFromClient(client: Socket): string {
