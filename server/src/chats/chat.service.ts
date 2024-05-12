@@ -49,6 +49,14 @@ export class ChatService {
         return this.chatModel.findById(id).populate('user1', '_id fullName').populate('user2', '_id fullName').populate('messages.sender', '_id fullName');
     }
 
+    async getUserChats(userId: string): Promise<Chat[]> {
+        const user = await this.userModel.findById(userId).populate('individualChats');
+        if (!user) {
+            throw new NotFoundException('User not found');
+        }
+        return user.individualChats;
+    }
+
     async updateChat(id: string, updateChatDto: UpdateChatDto): Promise<Chat> {
         return this.chatModel.findByIdAndUpdate(id, updateChatDto, { new: true });
     }
