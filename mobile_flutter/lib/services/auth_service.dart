@@ -19,4 +19,18 @@ class AuthService {
       throw Exception('Signup failed');
     }
   }
+
+  Future<UserModel> login(String email, String password) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/login'),
+      body: {'email': email, 'password': password},
+    );
+
+    if (response.statusCode == 201) {
+      final userData = jsonDecode(response.body)['user'];
+      return UserModel.fromJson(userData);
+    } else {
+      throw Exception('Login failed');
+    }
+  }
 }
