@@ -32,3 +32,11 @@ socket.on('userConnected', (data) => {
         console.error('An error occurred while handling a user connection:', error);
     }
 });
+
+socket.on('userDisconnected', (data) => {
+    try {
+        console.log('A user has disconnected:', data);
+    } catch (error) {
+        console.error('An error occurred while handling a user disconnection:', error);
+    }
+});
