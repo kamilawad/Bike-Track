@@ -23,6 +23,9 @@ export class ChatGateway {
         this.connectedUsers.set(userId, client);
 
         const chats = await this.chatService.getUserChats(userId);
+        for (const chat of chats) {
+            client.join(`chat-${chat._id}`);
+        }
     }
 
     async handleDisconnect(client: Socket) {}
