@@ -18,6 +18,9 @@ export class ChatGateway {
         } catch (error) {
             console.error('An error occurred during connection:', error);
         }
+
+        const userId = this.getUserIdFromClient(client);
+        this.connectedUsers.set(userId, client);
     }
 
     async handleDisconnect(client: Socket) {}
