@@ -11,7 +11,14 @@ export class ChatGateway {
 
     constructor(private readonly chatService: ChatService) {}
 
-    async handleConnection(client: Socket) {}
+    async handleConnection(client: Socket) {
+        try {
+            console.log('A new connection was established.');
+            console.log('Client ID:', client.id);
+        } catch (error) {
+            console.error('An error occurred during connection:', error);
+        }
+    }
 
     async handleDisconnect(client: Socket) {}
 
