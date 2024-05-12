@@ -8,3 +8,20 @@ const socket = io(SERVER_URL, {
     userId: RECIPIENT_USER_ID,
   },
 });
+
+socket.on('connect', () => {
+    console.log('Connected to the server.');
+  
+    const chatId = process.env.CHAT_ID;
+    const content = 'Hello from the recipient!';
+  
+    socket.emit('sendMessage', { chatId, content });
+  });
+  
+  socket.on('newMessage', (message) => {
+    try {
+        console.log('Received a new message:', message);
+    } catch (error) {
+        console.error('An error occurred while handling a new message:', error);
+    }
+});
