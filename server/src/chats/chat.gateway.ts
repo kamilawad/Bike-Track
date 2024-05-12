@@ -30,7 +30,9 @@ export class ChatGateway {
         }
     }
 
-    async handleDisconnect(client: Socket) {}
+    async handleDisconnect(client: Socket) {
+        const userId = this.getUserIdFromClient(client);
+    }
 
     async handleSendMessage() {}
 
