@@ -24,6 +24,11 @@ export class ChatController {
         return this.chatService.getChatById(id);
     }
 
+    @Get()
+    getUserChats(@Request() req) {
+        return this.chatService.getUserChats(req.user.id);
+    }
+
     @Put(":id")
     updateChat(@Param("id") id: string, @Body() updateChatDto: UpdateChatDto) {
         return this.chatService.updateChat(id, updateChatDto);
