@@ -1,5 +1,5 @@
 import { WebSocketGateway } from "@nestjs/websockets";
 
 
-@WebSocketGateway()
+@WebSocketGateway({ namespace: '/chat' })
 export class ChatGateway {}
