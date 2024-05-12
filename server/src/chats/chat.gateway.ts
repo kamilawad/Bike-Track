@@ -46,6 +46,8 @@ export class ChatGateway {
     async handleSendMessage(@MessageBody() data: { chatId: string; content: string }, @ConnectedSocket() client: Socket) {
         const senderId = this.getUserIdFromClient(client);
         const { chatId, content } = data;
+
+        const message = await this.chatService.sendMessage(chatId, senderId, content);
     }
 
     private getUserIdFromClient(client: Socket): string {
