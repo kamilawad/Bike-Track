@@ -5,12 +5,10 @@ import { Chat } from "src/schemas/chat.schema";
 import { Message } from "src/schemas/message.schema";
 import { User } from "src/schemas/user.schema";
 import { UpdateChatDto } from "./dto/update-chat.dto";
-import { EventsGateway } from "src/gateway/events.gateway";
 
 @Injectable()
 export class ChatService {
     constructor(
-        private eventGateway: EventsGateway,
         @InjectModel(Chat.name) private chatModel: Model<Chat>,
         @InjectModel(User.name) private userModel: Model<User>,
         @InjectModel(Message.name) private messageModel: Model<Message>
