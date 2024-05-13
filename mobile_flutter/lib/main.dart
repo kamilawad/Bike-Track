@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         "/event": (context) => const CreateEventScreen(),
         "/main": (context) => const MainScreen(),
         "/track":(context) => const TrackScreen(),
-        "/chat":(context) => const ChatScreen(),
+        "/chat":(context) => const ChatPage(),
       }
     );
   }
