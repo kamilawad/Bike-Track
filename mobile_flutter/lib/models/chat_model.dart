@@ -12,6 +12,15 @@ class Chat {
     required this.user2,
     required this.messages,
   });
+
+  factory Chat.fromJson(Map<String, dynamic> json) {
+    return Chat(
+      id: json['_id'],
+      user1: UserModel.fromJson(json['user1']),
+      user2: UserModel.fromJson(json['user2']),
+      messages: List<Message>.from(json['messages'].map((x) => Message.fromJson(x))),
+    );
+  }
 }
 
 class Message {
