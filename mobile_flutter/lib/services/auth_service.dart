@@ -14,8 +14,7 @@ class AuthService {
     );
 
     if (response.statusCode == 201) {
-      final userData = jsonDecode(response.body)['user'];
-      return UserModel.fromJson(userData);
+      return jsonDecode(response.body);
     } else {
       throw Exception('Signup failed');
     }
@@ -28,8 +27,7 @@ class AuthService {
     );
 
     if (response.statusCode == 201) {
-      final userData = jsonDecode(response.body)['user'];
-      return UserModel.fromJson(userData);
+      return jsonDecode(response.body);
     } else {
       throw Exception('Login failed');
     }
