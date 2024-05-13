@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_flutter/providers/auth_provider.dart';
 import 'package:mobile_flutter/screens/Auth/login_screen.dart';
 import 'package:mobile_flutter/screens/Auth/signup_screen.dart';
 import 'package:mobile_flutter/screens/Home/chat_screen.dart';
@@ -9,10 +10,16 @@ import 'package:mobile_flutter/screens/Onboarding/onboarding_screen.dart';
 import 'package:mobile_flutter/screens/main_screen.dart';
 import 'package:mobile_flutter/screens/splash_screen.dart';
 import 'package:mobile_flutter/screens/Onboarding/welcome_screen.dart';
+import 'package:provider/provider.dart';
 import 'utils/theme_util.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => AuthProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
