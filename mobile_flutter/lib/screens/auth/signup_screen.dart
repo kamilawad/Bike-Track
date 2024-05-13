@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_flutter/models/user_model.dart';
 import 'package:mobile_flutter/providers/auth_provider.dart';
@@ -129,7 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(height: 60),
                   ElevatedButton(
                     onPressed: () {
-                    signUp(nameController.text, emailController.text, passwordController.text, context);
+                    _signUp(context);
                     },
                     child: Container(
                       height: 50,
