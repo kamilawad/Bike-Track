@@ -10,7 +10,52 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  
+
+  late IO.Socket socket;
+  final TextEditingController _messageController = TextEditingController();
+  final List<String> _messages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _connectToServer();
+  }
+
+  void _connectToServer() {
+    socket = IO.io(
+    'http://192.168.0.105:3000/chat',
+    IO.OptionBuilder()
+      .setTransports(['websocket'])
+      .setAuth({'userId': "663d70bfaaafc2eab3b8b59e"})
+      .build(),
+    );
+
+    socket.onConnect((data) {
+      print('Connected');
+    });
+
+    socket.on('newMessage', (data) {
+      setState(() {
+        _messages.add(data['content']);
+      });
+    });
+
+    socket.connect();
+  }
+
+  void _sendMessage() {
+    final message = _messageController.text.trim();
+    if (message.isNotEmpty) {
+      socket.emit('sendMessage', {'chatId': '66406fcdccbd803409b21468', 'content': message});
+      _messageController.clear();
+    }
+  }
+
+  @override
+  void dispose() {
+    socket.disconnect();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
