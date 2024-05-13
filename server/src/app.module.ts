@@ -15,10 +15,10 @@ import { GroupChatModule } from './groupchats/group-chat.module';
   }),
   MongooseModule.forRoot(process.env.DB_URI),
   UserModule,
-  RoutePlanModule,
+  //RoutePlanModule,
   AuthModule,
   ChatModule,
-  GroupChatModule
+  //GroupChatModule
   ],
   controllers: [],
   providers: [],

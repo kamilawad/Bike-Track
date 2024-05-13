@@ -2,7 +2,12 @@ import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSo
 import { Server, Socket } from 'socket.io';
 import { ChatService } from "./chat.service";
 
-@WebSocketGateway({ namespace: '/chat' })
+@WebSocketGateway({ 
+    namespace: '/chat' ,
+    cors: {
+        origin: '*',
+    },
+})
 export class ChatGateway {
     @WebSocketServer()
     server: Server;
@@ -21,6 +26,8 @@ export class ChatGateway {
 
         const userId = this.getUserIdFromClient(client);
         this.connectedUsers.set(userId, client);
+
+        console.log(`User ${userId} connected`);
 
         const chats = await this.chatService.getUserChats(userId);
         for (const chat of chats) {
