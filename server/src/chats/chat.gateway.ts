@@ -41,6 +41,8 @@ export class ChatGateway {
         const userId = this.getUserIdFromClient(client);
         this.connectedUsers.delete(userId);
 
+        console.log(`User ${userId} disconnected`);
+
         const chats = await this.chatService.getUserChats(userId);
         for (const chat of chats) {
             const otherUserId = chat.user1._id.toString() === userId ? chat.user2._id.toString() : chat.user1._id.toString();
