@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'widgets/event_card.dart';
+
 class EventScreen extends StatelessWidget {
   const EventScreen({super.key});
 
@@ -9,18 +11,27 @@ class EventScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          bottom: TabBar(
+          bottom: const TabBar(
             tabs: [
               Tab(text: "Events"),
               Tab(text: "Public Events"),
             ],
           ),
-          title: Text('Event Screen'),
+          title: const Text('Event Screen'),
         ),
         body: TabBarView(
           children: [
-            Center(child: Text("Screen 1")),
-            Center(child: Text("Screen 2")),
+            ListView(
+              children: [
+                EventCard(
+                  imagePath: 'assets/onboarding3.png',
+                  title: 'Mount Bike',
+                  participants: 20,
+                  date: DateTime.now(),
+                ),
+              ],
+            ),
+            const Center(child: Text("Screen 2")),
           ],
         ),
       ),
