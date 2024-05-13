@@ -26,4 +26,13 @@ class Message {
     required this.content,
     required this.sentAt,
   });
+
+  factory Message.fromJson(Map<String, dynamic> json) {
+    return Message(
+      id: json['_id'],
+      sender: UserModel.fromJson(json['sender']),
+      content: json['content'],
+      sentAt: DateTime.parse(json['sentAt']),
+    );
+  }
 }
