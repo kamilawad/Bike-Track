@@ -1,14 +1,15 @@
 import 'package:http/http.dart' as http;
+import 'package:mobile_flutter/utils/constants.dart';
 import 'dart:convert';
 
 import '../models/user_model.dart';
 
 class AuthService {
-  static const String baseUrl = 'http://192.168.0.105:3000/auth';
+  final String authUrl = Constants.authUrl;
 
   Future<UserModel> signUp(String fullName, String email, String password) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/signup'),
+      Uri.parse('$authUrl/signup'),
       body: {'fullName': fullName, 'email': email, 'password': password},
     );
 
@@ -22,7 +23,7 @@ class AuthService {
 
   Future<UserModel> login(String email, String password) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/login'),
+      Uri.parse('$authUrl/login'),
       body: {'email': email, 'password': password},
     );
 
