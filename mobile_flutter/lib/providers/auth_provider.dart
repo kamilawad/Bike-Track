@@ -8,7 +8,7 @@ class AuthProvider extends ChangeNotifier {
   UserModel? get user => _user;
   String? get token => _token;
 
-  void setUser(UserModel? user) {
+  void setUserAndToken(UserModel? user, String? token) {
     _user = user;
     _token = token;
     notifyListeners();

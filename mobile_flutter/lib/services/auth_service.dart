@@ -7,7 +7,7 @@ import '../models/user_model.dart';
 class AuthService {
   final String authUrl = Constants.authUrl;
 
-  Future<UserModel> signUp(String fullName, String email, String password) async {
+  Future<Map<String, dynamic>> signUp(String fullName, String email, String password) async {
     final response = await http.post(
       Uri.parse('$authUrl/signup'),
       body: {'fullName': fullName, 'email': email, 'password': password},

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_flutter/models/user_model.dart';
+import 'package:mobile_flutter/providers/auth_provider.dart';
+import 'package:mobile_flutter/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -9,29 +13,35 @@ class SignupScreen extends StatefulWidget {
   State<SignupScreen> createState() => _SignupScreenState();
 }
 
-Future<void> signUp(String fullName, String email, String password, BuildContext context) async {
-  final response = await http.post(
-    Uri.parse('http://192.168.0.105:3000/auth/signup'),
-    body: {'fullName': fullName, 'email':email, 'password': password},
-  );
-
-  if (response.statusCode == 201) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Signup successful'))
-    );
-    Navigator.of(context).popAndPushNamed("/welcome");
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Signup not successful'))
-    );
-  }
-}
-
 class _SignupScreenState extends State<SignupScreen> {
   //final _formkey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  Future<void> _signUp(BuildContext context) async {
+    try {
+      final authProvider = context.read<AuthProvider>();
+      final authService = AuthService();
+      final response = await authService.signUp(
+        nameController.text,
+        emailController.text,
+        passwordController.text,
+      );
+
+      final userModel = UserModel.fromJson(response['user']);
+      authProvider.setUserAndToken(userModel, response['token']);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Signup successful')),
+      );
+      Navigator.of(context).popAndPushNamed("/welcome");
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Signup failed: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
