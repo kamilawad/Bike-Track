@@ -13,10 +13,12 @@ export class GroupChatGateway {
     async handleConnection(client: Socket) {
         const userId = this.getUserIdFromClient(client);
         this.connectedUsers.set(userId, client);
+        console.log(`User ${userId} connected`);
 
         const groupChats = await this.groupChatService.getUserGroupChats(userId);
         for (const groupChat of groupChats) {
             client.join(`group-chat-${groupChat._id}`);
+            this.server.to(`group-chat-${groupChat._id}`).emit('userJoined', { userId });
         }
     }
 
@@ -27,6 +29,7 @@ export class GroupChatGateway {
         const groupChats = await this.groupChatService.getUserGroupChats(userId);
         for (const groupChat of groupChats) {
             client.leave(`group-chat-${groupChat._id}`);
+            this.server.to(`group-chat-${groupChat._id}`).emit('userLeft', { userId });
         }
     }
 
