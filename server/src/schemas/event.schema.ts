@@ -4,10 +4,8 @@ import { User } from './user.schema';
 import { RoutePlan, RoutePlanSchema } from './routeplan.schema';
 import { GroupChat } from './groupchat.schema';
 
-export type EventDocument = Event & Document;
-
 @Schema()
-export class Event {
+export class Event extends Document{
   @Prop({ required: true })
   title: string;
 
@@ -52,7 +50,7 @@ export class Event {
   })
   location: { type: string; coordinates: number[] };
 
-  @Prop({ type: [User] })
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }] })
   members: User[];
 
   @Prop({ type: [User] })
