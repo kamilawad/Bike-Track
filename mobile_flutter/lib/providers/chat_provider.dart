@@ -51,4 +51,15 @@ class ChatProvider extends ChangeNotifier {
       print('Failed to fetch chats: $e');
     }
   }
+
+  Future<void> fetchMessages(String chatId) async {
+    try {
+      final messages = await _chatService.fetchMessages(chatId, _authProvider);
+      _messages = messages;
+      _currentChat = _chats.firstWhere((chat) => chat.id == chatId);
+      notifyListeners();
+    } catch (e) {
+      print('Failed to fetch messages: $e');
+    }
+  }
 }
