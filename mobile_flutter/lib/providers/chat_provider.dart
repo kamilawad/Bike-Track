@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mobile_flutter/models/chat_model.dart';
 import 'package:mobile_flutter/providers/auth_provider.dart';
 import 'package:mobile_flutter/services/chat_service.dart';
+import 'package:mobile_flutter/utils/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class ChatProvider extends ChangeNotifier {
   final ChatService _chatService = ChatService();
+  final String socketUrl = Constants.chatSocketUrl;
 
   List<Chat> _chats = [];
   Chat? _currentChat;
@@ -22,11 +24,11 @@ class ChatProvider extends ChangeNotifier {
     final userId = authProvider.user!.id;
 
     _socket = io.io(
-      'http://192.168.0.105:3000/chat',
+      socketUrl,
       io.OptionBuilder()
-          .setTransports(['websocket'])
-          .setAuth({'userId': userId})
-          .build(),
+        .setTransports(['websocket'])
+        .setAuth({'userId': userId})
+        .build(),
     );
 
     _socket.onConnect((data) {
