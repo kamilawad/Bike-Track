@@ -1,15 +1,12 @@
 import 'dart:convert';
-
 import 'package:mobile_flutter/models/chat_model.dart';
-import 'package:mobile_flutter/providers/auth_provider.dart';
 import 'package:mobile_flutter/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class ChatService {
   final String chatUrl = Constants.baseUrl;
 
-  Future<List<Chat>> fetchChats(AuthProvider authProvider) async {
-    final token = authProvider.token;
+  Future<List<Chat>> fetchChats(String token) async {
     final url = Uri.parse(chatUrl);
     final headers = {'Authorization': 'Bearer $token'};
 
@@ -23,8 +20,7 @@ class ChatService {
     }
   }
 
-  Future<List<Message>> fetchMessages(String chatId, AuthProvider authProvider) async {
-    final token = authProvider.token;
+  Future<List<Message>> fetchMessages(String chatId, String token) async {
     final url = Uri.parse('$chatUrl/$chatId');
     final headers = {'Authorization': 'Bearer $token'};
 
@@ -38,8 +34,7 @@ class ChatService {
     }
   }
 
-  Future<Message> sendMessage(String chatId, String content, AuthProvider authProvider) async {
-    final token = authProvider.token;
+  Future<Message> sendMessage(String chatId, String content, String token) async {
     final url = Uri.parse('$chatUrl/$chatId/send-message');
     final headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
     final body = jsonEncode({'content': content});
