@@ -53,6 +53,14 @@ export class GroupChatService {
             });
     }
 
+    async getUserGroupChats(userId: string): Promise<GroupChat[]> {
+        const user = await this.userModel.findById(userId).populate('groupChats');
+        if (!user) {
+            throw new NotFoundException('User not found');
+        }
+        return user.groupChats;
+    }
+
     async updateGroupChat(id: string, updateGroupChatDto: UpdateGroupChatDto): Promise<GroupChat> {
         return this.groupChatModel.findByIdAndUpdate(id, updateGroupChatDto, { new: true });
     }
