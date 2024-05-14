@@ -6,4 +6,6 @@ export class GroupChatGateway {
     @WebSocketServer() server: Server;
 
     private connectedUsers = new Map<string, Socket>();
+
+    constructor(private readonly groupChatService: GroupChatService) {}
 }
