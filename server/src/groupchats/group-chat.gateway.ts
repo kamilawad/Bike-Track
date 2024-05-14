@@ -1,4 +1,4 @@
-import { WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
+import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Server, Socket } from 'socket.io';
 import { GroupChatService } from "./group-chat.service";
 
@@ -28,6 +28,16 @@ export class GroupChatGateway {
         for (const groupChat of groupChats) {
             client.leave(`group-chat-${groupChat._id}`);
         }
+    }
+
+    @SubscribeMessage('sendGroupMessage')
+    async handleSendGroupMessage( @MessageBody() data: { groupChatId: string; content: string }, @ConnectedSocket() client: Socket) {
+        const senderId = this.getUserIdFromClient(client);
+        const { groupChatId, content } = data;
+
+        const message = await this.groupChatService.sendMessage(groupChatId, senderId, content);
+
+        this.server.to(`group-chat-${groupChatId}`).emit('newGroupMessage', message);
     }
 
     private getUserIdFromClient(client: Socket): string {
