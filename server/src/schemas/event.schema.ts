@@ -46,6 +46,12 @@ export class Event {
   })
   route: { type: string; coordinates: number[][]; };
 
+  @Prop({
+    type: { type: String, enum: ['Point'], required: true },
+    coordinates: { type: [Number], required: true },
+  })
+  location: { type: string; coordinates: number[] };
+
   @Prop({ type: [User] })
   members: User[];
 
