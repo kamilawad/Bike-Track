@@ -10,6 +10,16 @@ export class GroupChatGateway {
 
     constructor(private readonly groupChatService: GroupChatService) {}
 
+    async handleConnection(client: Socket) {
+        const userId = this.getUserIdFromClient(client);
+        this.connectedUsers.set(userId, client);
+
+        const groupChats = await this.groupChatService.getUserGroupChats(userId);
+        for (const groupChat of groupChats) {
+            client.join(`group-chat-${groupChat._id}`);
+        }
+    }
+
     private getUserIdFromClient(client: Socket): string {
         return client.handshake.auth.userId;
     }
