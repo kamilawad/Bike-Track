@@ -20,6 +20,16 @@ export class GroupChatGateway {
         }
     }
 
+    async handleDisconnect(client: Socket) {
+        const userId = this.getUserIdFromClient(client);
+        this.connectedUsers.delete(userId);
+
+        const groupChats = await this.groupChatService.getUserGroupChats(userId);
+        for (const groupChat of groupChats) {
+            client.leave(`group-chat-${groupChat._id}`);
+        }
+    }
+
     private getUserIdFromClient(client: Socket): string {
         return client.handshake.auth.userId;
     }
