@@ -60,4 +60,12 @@ export class EventService {
     async findAll(): Promise<Event[]> {
         return this.eventModel.find().populate('organizer', 'fullName').populate('participants', 'fullName');
     }
+
+    async findById(id: string): Promise<Event> {
+        const event = await this.eventModel.findById(id).populate('organizer', 'fullName').populate('participants', 'fullName');
+        if (!event) {
+          throw new NotFoundException(`Event with ID ${id} not found`);
+        }
+        return event;
+    }
 }
