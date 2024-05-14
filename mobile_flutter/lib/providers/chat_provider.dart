@@ -62,4 +62,15 @@ class ChatProvider extends ChangeNotifier {
       print('Failed to fetch messages: $e');
     }
   }
+
+  Future<void> sendMessage(String chatId, String content) async {
+    try {
+      final message = await _chatService.sendMessage(chatId, content, _authProvider);
+      _messages.add(message);
+      _socket.emit('sendMessage', {'chatId': chatId, 'content': content});
+      notifyListeners();
+    } catch (e) {
+      print('Failed to send message: $e');
+    }
+  }
 }
