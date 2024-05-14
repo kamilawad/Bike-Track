@@ -22,6 +22,12 @@ export class GroupChatController {
     return this.groupChatService.getGroupChatById(id);
     }
 
+    @Get()
+    getUserGroupChats(@Request() req) {
+        const userId = req.user._id;
+        return this.groupChatService.getUserGroupChats(userId);
+    }
+
     @Put(":id")
     @UsePipes(new ValidationPipe())
     updateGroupChat(@Param("id") id: string,@Body() updateGroupChatDto: UpdateGroupChatDto) {
