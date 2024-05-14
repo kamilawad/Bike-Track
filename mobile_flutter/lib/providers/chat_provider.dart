@@ -20,3 +20,25 @@ class ChatProvider extends ChangeNotifier {
   List<Chat> get chats => _chats;
   Chat? get currentChat => _currentChat;
   List<Message> get messages => _messages;
+
+  void _connectToServer() {
+    _socket = IO.io(
+      'http://192.168.0.105:3000/chat',
+      IO.OptionBuilder()
+          .setTransports(['websocket'])
+          .setAuth({'userId': _authProvider.user!.id})
+          .build(),
+    );
+
+    _socket.onConnect((data) {
+      print('Connected');
+    });
+
+    _socket.on('newMessage', (data) {
+      _messages.add(Message.fromJson(data));
+      notifyListeners();
+    });
+
+    _socket.connect();
+  }
+}
