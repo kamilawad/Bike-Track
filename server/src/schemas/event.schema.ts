@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { User } from './user.schema';
 import { RoutePlan, RoutePlanSchema } from './routeplan.schema';
+import { GroupChat } from './groupchat.schema';
 
 export type EventDocument = Event & Document;
 
@@ -11,16 +12,25 @@ export class Event {
   title: string;
 
   @Prop({ required: true })
+  description: string;
+
+  @Prop({ required: true })
   startTime: Date;
 
   @Prop({ required: true })
   endTime: Date;
 
-  @Prop({ required: true })
+  @Prop()
   duration: number;
 
   @Prop({ required: true })
   distance: number;
+
+  @Prop({ required: true, enum: ['public', 'private'] })
+  eventType: string;
+
+  @Prop()
+  elevationProfile: number[];
 
   @Prop({ required: true, enum: ['upcoming', 'ongoing', 'completed'], default: 'upcoming' })
   status: string;
@@ -36,6 +46,9 @@ export class Event {
 
   @Prop({ type: [User] })
   invitedUsers: User[];
+
+  @Prop({ type: Types.ObjectId, ref: 'GroupChat' })
+  groupChat: GroupChat;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);
