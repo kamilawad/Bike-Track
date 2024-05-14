@@ -2,7 +2,12 @@ import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSo
 import { Server, Socket } from 'socket.io';
 import { GroupChatService } from "./group-chat.service";
 
-@WebSocketGateway({ namespace: '/group-chat' })
+@WebSocketGateway({
+    namespace: '/group-chat',
+    cors: {
+        origin: '*',
+    }, 
+})
 export class GroupChatGateway {
     @WebSocketServer() server: Server;
 
