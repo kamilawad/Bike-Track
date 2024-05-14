@@ -67,6 +67,14 @@ export class ChatGateway {
         client.to(`chat-${chatId}`).emit('newMessage', message);
     }
 
+    @SubscribeMessage('typing')
+    async handleTypingEvent( @MessageBody() data: { chatId: string; isTyping: boolean }, @ConnectedSocket() client: Socket ) {
+        const { chatId, isTyping } = data;
+        const userId = this.getUserIdFromClient(client);
+
+        client.to(`chat-${chatId}`).emit('typing', { userId, isTyping });
+    }
+
     private getUserIdFromClient(client: Socket): string {
         return client.handshake.auth.userId;
     }
