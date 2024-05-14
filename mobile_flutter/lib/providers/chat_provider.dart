@@ -41,4 +41,14 @@ class ChatProvider extends ChangeNotifier {
 
     _socket.connect();
   }
+
+  Future<void> fetchChats() async {
+    try {
+      final chats = await _chatService.fetchChats(_authProvider);
+      _chats = chats;
+      notifyListeners();
+    } catch (e) {
+      print('Failed to fetch chats: $e');
+    }
+  }
 }
