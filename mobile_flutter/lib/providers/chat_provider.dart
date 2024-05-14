@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:mobile_flutter/models/chat_model.dart';
 import 'package:mobile_flutter/providers/auth_provider.dart';
 import 'package:mobile_flutter/services/chat_service.dart';
@@ -6,27 +7,25 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class ChatProvider extends ChangeNotifier {
   final ChatService _chatService = ChatService();
-  final AuthProvider _authProvider;
 
   List<Chat> _chats = [];
   Chat? _currentChat;
   List<Message> _messages = [];
   late IO.Socket _socket;
 
-  ChatProvider(this._authProvider) {
-    _connectToServer();
-  }
-
   List<Chat> get chats => _chats;
   Chat? get currentChat => _currentChat;
   List<Message> get messages => _messages;
 
-  void _connectToServer() {
+  void _connectToServer(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final userId = authProvider.user!.id;
+
     _socket = IO.io(
       'http://192.168.0.105:3000/chat',
       IO.OptionBuilder()
           .setTransports(['websocket'])
-          .setAuth({'userId': _authProvider.user!.id})
+          .setAuth({'userId': userId})
           .build(),
     );
 
@@ -42,9 +41,10 @@ class ChatProvider extends ChangeNotifier {
     _socket.connect();
   }
 
-  Future<void> fetchChats() async {
+  Future<void> fetchChats(BuildContext context) async {
     try {
-      final chats = await _chatService.fetchChats(_authProvider);
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final chats = await _chatService.fetchChats(authProvider);
       _chats = chats;
       notifyListeners();
     } catch (e) {
@@ -52,9 +52,10 @@ class ChatProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchMessages(String chatId) async {
+  Future<void> fetchMessages(String chatId, BuildContext context) async {
     try {
-      final messages = await _chatService.fetchMessages(chatId, _authProvider);
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final messages = await _chatService.fetchMessages(chatId, authProvider);
       _messages = messages;
       _currentChat = _chats.firstWhere((chat) => chat.id == chatId);
       notifyListeners();
@@ -63,9 +64,10 @@ class ChatProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> sendMessage(String chatId, String content) async {
+  Future<void> sendMessage(String chatId, String content, BuildContext context) async {
     try {
-      final message = await _chatService.sendMessage(chatId, content, _authProvider);
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final message = await _chatService.sendMessage(chatId, content, authProvider);
       _messages.add(message);
       _socket.emit('sendMessage', {'chatId': chatId, 'content': content});
       notifyListeners();
