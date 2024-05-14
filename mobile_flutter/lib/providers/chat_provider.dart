@@ -73,4 +73,10 @@ class ChatProvider extends ChangeNotifier {
       print('Failed to send message: $e');
     }
   }
+
+  @override
+  void dispose() {
+    _socket.disconnect();
+    super.dispose();
+  }
 }
