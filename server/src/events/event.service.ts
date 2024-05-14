@@ -56,4 +56,8 @@ export class EventService {
       
         return savedEvent;
     }
+
+    async findAll(): Promise<Event[]> {
+        return this.eventModel.find().populate('organizer', 'fullName').populate('participants', 'fullName');
+    }
 }
