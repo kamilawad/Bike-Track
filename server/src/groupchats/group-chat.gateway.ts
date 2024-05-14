@@ -1,7 +1,9 @@
 import { WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway({ namespace: '/group-chat' })
 export class GroupChatGateway {
     @WebSocketServer() server: Server;
+
+    private connectedUsers = new Map<string, Socket>();
 }
