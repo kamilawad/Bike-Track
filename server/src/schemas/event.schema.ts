@@ -38,8 +38,13 @@ export class Event {
   @Prop({ type: User, required: true })
   organizer: User;
 
-  @Prop({ type: RoutePlanSchema, required: true })
-  routePlan: RoutePlan;
+  //@Prop({ type: RoutePlanSchema, required: true })
+  //routePlan: RoutePlan;
+  @Prop({
+    type: { type: String, enum: ['LineString'], required: true },
+    coordinates: { type: [[Number]], required: true },
+  })
+  route: { type: string; coordinates: number[][]; };
 
   @Prop({ type: [User] })
   members: User[];
