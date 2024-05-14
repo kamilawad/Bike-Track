@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_flutter/providers/auth_provider.dart';
+import 'package:mobile_flutter/providers/chat_provider.dart';
 import 'package:mobile_flutter/screens/Auth/login_screen.dart';
 import 'package:mobile_flutter/screens/Auth/signup_screen.dart';
 import 'package:mobile_flutter/screens/Home/chat_screen.dart';
@@ -15,8 +16,11 @@ import 'utils/theme_util.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => AuthProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => ChatProvider()),
+      ],
       child: const MyApp(),
     ),
   );
