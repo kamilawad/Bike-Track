@@ -1,7 +1,7 @@
 const io = require('socket.io-client');
 
 const SERVER_URL = 'http://localhost:3000/chat';
-const RECIPIENT_USER_ID = '663d7123aaafc2eab3b8b5a0';
+const RECIPIENT_USER_ID = '6644e75506c40d7d61553e50';
 
 const socket = io(SERVER_URL, {
   auth: {
@@ -12,7 +12,7 @@ const socket = io(SERVER_URL, {
 socket.on('connect', () => {
     console.log('Connected to the server.');
   
-    const chatId = '66406fcdccbd803409b21468';
+    const chatId = '6644e996ffd67d0303986fef';
     const content = 'Hello from the recipient!';
   
     socket.emit('sendMessage', { chatId, content });
