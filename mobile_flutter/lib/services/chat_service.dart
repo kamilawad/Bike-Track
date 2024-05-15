@@ -4,19 +4,25 @@ import 'package:mobile_flutter/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class ChatService {
-  final String chatUrl = Constants.baseUrl;
+  final String chatUrl = Constants.chatUrl;
 
   Future<List<Chat>> fetchChats(String token) async {
+    print('this is me token $token');
     final url = Uri.parse(chatUrl);
     final headers = {'Authorization': 'Bearer $token'};
 
     final response = await http.get(url, headers: headers);
+    final status = response.statusCode;
+    print('this is me response $status');
+
 
     if (response.statusCode == 200) {
+      print(response.body);
       final List<dynamic> jsonChats = jsonDecode(response.body);
+      print(jsonChats);
       return jsonChats.map((json) => Chat.fromJson(json)).toList();
     } else {
-      throw Exception('Failed to fetch chats');
+      throw Exception('Failed to fetch chats ${response.statusCode} ${response.body}');
     }
   }
 

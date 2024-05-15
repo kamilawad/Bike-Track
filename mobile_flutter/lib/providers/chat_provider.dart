@@ -2,51 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:mobile_flutter/models/chat_model.dart';
 import 'package:mobile_flutter/providers/auth_provider.dart';
 import 'package:mobile_flutter/services/chat_service.dart';
-import 'package:mobile_flutter/utils/constants.dart';
+import 'package:mobile_flutter/services/chat_socket.dart';
 import 'package:provider/provider.dart';
-import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class ChatProvider extends ChangeNotifier {
   final ChatService _chatService = ChatService();
-  final String socketUrl = Constants.chatSocketUrl;
-
+  final WebSocketService _webSocketService = WebSocketService();
   List<Chat> _chats = [];
   Chat? _currentChat;
   List<Message> _messages = [];
-  late io.Socket _socket;
+  List<Map<String, dynamic>> _userChatsWithLastMessage = [];
 
+  List<Map<String, dynamic>> get userChatsWithLastMessage => _userChatsWithLastMessage;
   List<Chat> get chats => _chats;
   Chat? get currentChat => _currentChat;
   List<Message> get messages => _messages;
 
-  void _connectToServer(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final userId = authProvider.user!.id;
+  void connectToWebSocket(BuildContext context) {
+    _webSocketService.connect(context);
+    _webSocketService.registerNewMessageListener(_handleNewMessage);
+  }
 
-    _socket = io.io(
-      socketUrl,
-      io.OptionBuilder()
-        .setTransports(['websocket'])
-        .setAuth({'userId': userId})
-        .build(),
-    );
-
-    _socket.onConnect((data) {
-      print('Connected');
-    });
-
-    _socket.on('newMessage', (data) {
-      _messages.add(Message.fromJson(data));
-      notifyListeners();
-    });
-
-    _socket.connect();
+  void _handleNewMessage(Message message) {
+    _messages.add(message);
+    notifyListeners();
   }
 
   Future<void> fetchChats(BuildContext context) async {
     try {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      print('authhhhh nnn:${authProvider.token}');
       final chats = await _chatService.fetchChats(authProvider.token!);
+      print(chats);
       _chats = chats;
       notifyListeners();
     } catch (e) {
@@ -71,7 +58,7 @@ class ChatProvider extends ChangeNotifier {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final message = await _chatService.sendMessage(chatId, content, authProvider.token!);
       _messages.add(message);
-      _socket.emit('sendMessage', {'chatId': chatId, 'content': content});
+      _webSocketService.sendMessage(chatId, content);
       notifyListeners();
     } catch (e) {
       print('Failed to send message: $e');
@@ -80,7 +67,7 @@ class ChatProvider extends ChangeNotifier {
 
   @override
   void dispose() {
-    _socket.disconnect();
+    _webSocketService.disconnect();
     super.dispose();
   }
 }

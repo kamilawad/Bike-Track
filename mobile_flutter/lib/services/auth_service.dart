@@ -2,8 +2,6 @@ import 'package:http/http.dart' as http;
 import 'package:mobile_flutter/utils/constants.dart';
 import 'dart:convert';
 
-import '../models/user_model.dart';
-
 class AuthService {
   final String authUrl = Constants.authUrl;
 
@@ -20,7 +18,7 @@ class AuthService {
     }
   }
 
-  Future<UserModel> login(String email, String password) async {
+  Future<Map<String, dynamic>> login(String email, String password) async {
     final response = await http.post(
       Uri.parse('$authUrl/login'),
       body: {'email': email, 'password': password},

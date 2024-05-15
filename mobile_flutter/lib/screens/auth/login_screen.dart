@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
+import 'package:mobile_flutter/models/user_model.dart';
+import 'package:mobile_flutter/providers/auth_provider.dart';
+import 'package:mobile_flutter/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -9,26 +12,32 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-Future<void> login(String email, String password, BuildContext context) async {
-  final response = await http.post(
-    Uri.parse('http://192.168.0.105:3000/auth/login'),
-    body: {'email':email, 'password': password},
-  );
-  if (response.statusCode == 201) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Login successful'))
-    );
-    Navigator.of(context).popAndPushNamed("/welcome");
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Login not successful'))
-    );
-  }
-}
-
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  Future<void> _login(BuildContext context) async {
+  try {
+    final authProvider = context.read<AuthProvider>();
+    final authService = AuthService();
+    final response = await authService.login(
+      emailController.text,
+      passwordController.text,
+    );
+
+    final userModel = UserModel.fromJson(response['user']);
+    authProvider.setUserAndToken(userModel, response['token']);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Login successful')),
+    );
+    Navigator.of(context).popAndPushNamed("/welcome");
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Login failed: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 60),
                   ElevatedButton(
                     onPressed: () {
-                      login(emailController.text, passwordController.text, context);
+                      _login(context);
                     },
                     child: Container(
                       height: 50,
