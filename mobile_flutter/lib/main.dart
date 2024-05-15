@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_flutter/providers/auth_provider.dart';
 import 'package:mobile_flutter/providers/chat_provider.dart';
 import 'package:mobile_flutter/screens/Auth/login_screen.dart';
@@ -14,7 +15,8 @@ import 'package:mobile_flutter/screens/Onboarding/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import 'utils/theme_util.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   runApp(
     MultiProvider(
       providers: [
