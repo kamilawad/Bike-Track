@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -8,6 +9,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  static const LatLng _location = LatLng(33.854, 35.8623);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +22,12 @@ class _MapScreenState extends State<MapScreen> {
       ),
 
       body: const Center(
-        child: Text('Map'),
+        child: GoogleMap(
+          initialCameraPosition: CameraPosition(
+            target: _location,
+            zoom: 12,
+          )
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
