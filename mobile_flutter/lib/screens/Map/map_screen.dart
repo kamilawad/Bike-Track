@@ -15,6 +15,13 @@ class _MapScreenState extends State<MapScreen> {
   Location _locationController = new Location();
 
   static const LatLng _location = LatLng(33.854, 35.8623);
+  LatLng? _currentP = null;
+
+  @override
+  void initState() {
+    super.initState();
+    getLocationUpdates();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,5 +83,14 @@ class _MapScreenState extends State<MapScreen> {
         return;
       }
     }
+
+    _locationController.onLocationChanged.listen((LocationData currentLocation) {
+      if (currentLocation.latitude != null && currentLocation.longitude != null) {
+        setState(() {
+          _currentP = LatLng(currentLocation.latitude!, currentLocation.longitude!);
+          print(_currentP);
+        });
+      }
+    });
   }
 }
