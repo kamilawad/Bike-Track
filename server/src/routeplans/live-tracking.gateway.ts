@@ -18,6 +18,13 @@ export class LiveTrackingGateway {
         console.log(`User ${userId} started tracking`);
     }
 
+    @SubscribeMessage('stopTracking')
+    handleStopTracking(@ConnectedSocket() client: Socket) {
+        const userId = this.getUserIdFromClient(client);
+        this.connectedUsers.delete(userId);
+        console.log(`User ${userId} stopped tracking`);
+    }
+
     private getUserIdFromClient(client: Socket): string {
         return client.handshake.auth.userId;
     }
