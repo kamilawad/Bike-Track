@@ -16,17 +16,19 @@ class _MapScreenState extends State<MapScreen> {
   Location _locationController = new Location();
 
   final Completer<GoogleMapController> _mapController = Completer<GoogleMapController>();
-  static const LatLng _location = LatLng(33.854, 35.8623);
+  static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848);
+  //static const LatLng _pApplePark = LatLng(37.3346, -122.0090);
   LatLng? _currentP = null;
+
+  Map<PolylineId, Polyline> polylines = {};
 
   @override
   void initState() {
     super.initState();
-    getLocationUpdates();
     getLocationUpdates().then(
       (_) => {
         getPolylinePoints().then((coordinates) => {
-          print(coordinates),
+          generatePolyLineFromPoints(coordinates),
         }),
       },
     );
@@ -46,7 +48,7 @@ class _MapScreenState extends State<MapScreen> {
       child: GoogleMap(
         onMapCreated: ( (GoogleMapController controller) => _mapController.complete(controller)),
         initialCameraPosition: const CameraPosition(
-          target: _location,
+          target: _pGooglePlex,
           zoom: 13,
         ),
         markers: {
@@ -56,6 +58,7 @@ class _MapScreenState extends State<MapScreen> {
             position: _currentP!,
           ),
         },
+        polylines: Set<Polyline>.of(polylines.values),
       ),
     ),
     floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -125,7 +128,7 @@ class _MapScreenState extends State<MapScreen> {
   Future<List<LatLng>> getPolylinePoints() async {
     List<LatLng> polylineCoordinates = [];
     PolylinePoints polylinePoints = PolylinePoints();
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates("AIzaSyB23mdww8kGOa4BnrL3higCEWp0H-KzkQo", PointLatLng(33.888630, 35.495480), PointLatLng(35.3729, 33.5571), travelMode: TravelMode.bicycling);
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates("", PointLatLng(33.8938, 35.5018), PointLatLng(34.1236, 35.6511), travelMode: TravelMode.driving);
     if (result.points.isNotEmpty) {
       result.points.forEach((PointLatLng point) {
       polylineCoordinates.add(LatLng(point.latitude, point.longitude));
@@ -134,5 +137,18 @@ class _MapScreenState extends State<MapScreen> {
       print(result.errorMessage);
     }
     return polylineCoordinates;
+  }
+
+  void generatePolyLineFromPoints(List<LatLng> polylineCoordinates) async {
+    PolylineId id = PolylineId("poly");
+    Polyline polyline = Polyline(
+      polylineId: id,
+      color: Color(0xFFF05206),
+      points: polylineCoordinates,
+      width: 8,
+    );
+    setState(() {
+      polylines[id] = polyline;
+    });
   }
 }
