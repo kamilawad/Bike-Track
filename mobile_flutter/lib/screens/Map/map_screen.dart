@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:location/location.dart';
 
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class _MapScreenState extends State<MapScreen> {
 
   Location _locationController = new Location();
 
+  final Completer<GoogleMapController> _mapController = Completer<GoogleMapController>();
   static const LatLng _location = LatLng(33.854, 35.8623);
   LatLng? _currentP = null;
 
@@ -35,6 +38,7 @@ class _MapScreenState extends State<MapScreen> {
 
       body: _currentP == null ? const Center(child:Text("Loading...")) : Center(
       child: GoogleMap(
+        onMapCreated: ( (GoogleMapController controller) => _mapController.complete(controller)),
         initialCameraPosition: const CameraPosition(
           target: _location,
           zoom: 13,
@@ -71,6 +75,16 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
+  Future<void> _camerToPosition(LatLng pos) async {
+    final GoogleMapController controller = await _mapController.future;
+    CameraPosition _newCameraPosition = CameraPosition(
+      target: pos, zoom: 13
+    );
+    await controller.animateCamera(
+      CameraUpdate.newCameraPosition(_newCameraPosition)
+    );
+  }
+
   Future<void> getLocationUpdates() async {
     bool _serviceEnabled;
     PermissionStatus _permissionGranted;
@@ -95,6 +109,7 @@ class _MapScreenState extends State<MapScreen> {
       if (currentLocation.latitude != null && currentLocation.longitude != null) {
         setState(() {
           _currentP = LatLng(currentLocation.latitude!, currentLocation.longitude!);
+          _camerToPosition(_currentP!);
           print(_currentP);
         });
       }
