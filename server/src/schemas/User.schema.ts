@@ -4,6 +4,7 @@ import { RoutePlan, RoutePlanDocument, RoutePlanSchema } from "./routeplan.schem
 import mongoose, { Document } from "mongoose";
 import { Chat } from "./chat.schema";
 import { GroupChat } from "./groupchat.schema";
+import { Profile, ProfileSchema } from "./profile.shema";
 
 export enum UserRole {
     USER = 'user',
@@ -42,6 +43,9 @@ export class User extends Document{
 
     @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "GroupChat" }] })
     groupChats: GroupChat[];
+
+    @Prop({ type: ProfileSchema })
+    profile: Profile;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
