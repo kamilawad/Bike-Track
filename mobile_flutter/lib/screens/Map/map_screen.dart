@@ -33,16 +33,23 @@ class _MapScreenState extends State<MapScreen> {
         centerTitle: true,
       ),
 
-      body: const Center(
-        child: GoogleMap(
-          initialCameraPosition: CameraPosition(
-            target: _location,
-            zoom: 12,
-          )
+      body: _currentP == null ? const Center(child:Text("Loading...")) : Center(
+      child: GoogleMap(
+        initialCameraPosition: const CameraPosition(
+          target: _location,
+          zoom: 13,
         ),
+        markers: {
+          Marker(
+            markerId: const MarkerId("_currentLocation"),
+            icon: BitmapDescriptor.defaultMarker,
+            position: _currentP!,
+          ),
+        },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
+    ),
+    floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    floatingActionButton: Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: SizedBox(
         height: 70,
