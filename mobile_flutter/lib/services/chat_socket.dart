@@ -8,16 +8,30 @@ import 'package:socket_io_client/socket_io_client.dart' as io;
 class WebSocketService {
   late io.Socket _socket;
 
+  WebSocketService._internal();
+
+  static WebSocketService? _instance;
+
+  factory WebSocketService(BuildContext context) {
+    if (_instance == null) {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final userId = authProvider.user!.id;
+      _instance = WebSocketService._internal();
+      _instance!._socket = io.io(
+        Constants.chatSocketUrl,
+        io.OptionBuilder()
+            .setTransports(['websocket'])
+            .setAuth({'userId': userId})
+            .build(),
+      );
+    }
+    return _instance!;
+  }
+
   void connect(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final userId = authProvider.user!.id;
-    _socket = io.io(
-      Constants.chatSocketUrl,
-      io.OptionBuilder()
-          .setTransports(['websocket'])
-          .setAuth({'userId': userId})
-          .build(),
-    );
+     _socket.io.options?['auth'] = {'userId': userId};
 
     _socket.onConnect((data) {
       print('Connected');
