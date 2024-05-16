@@ -75,6 +75,12 @@ export class ChatGateway {
         client.to(`chat-${chatId}`).emit('typing', { userId, isTyping });
     }
 
+    @SubscribeMessage('locationUpdate')
+    async handleLocationUpdate(@MessageBody() data: { latitude: number; longitude: number }, @ConnectedSocket() client: Socket) {
+        const userId = this.getUserIdFromClient(client);
+        this.server.emit('locationUpdate', { userId, ...data });
+    }
+
     private getUserIdFromClient(client: Socket): string {
         return client.handshake.auth.userId;
     }
