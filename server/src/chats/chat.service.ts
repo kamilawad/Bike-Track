@@ -46,7 +46,18 @@ export class ChatService {
     }
 
     async getChatById(id: string): Promise<Chat> {
-        return this.chatModel.findById(id).populate('user1', '_id fullName').populate('user2', '_id fullName').populate('messages.sender', '_id fullName');
+        return this.chatModel.findById(id).populate('user1', '_id fullName')
+            .populate('user2', '_id fullName').populate({
+            path: 'messages',
+            populate: {
+                path: 'sender',
+                select: '_id fullName'
+            },
+            options: {
+                sort: { createdAt: -1 },
+                limit: 1
+            }
+        });
     }
 
     async getUserChats(userId: string): Promise<Chat[]> {
@@ -54,7 +65,12 @@ export class ChatService {
         if (!user) {
             throw new NotFoundException('User not found');
         }
-        return user.individualChats;
+        const chats = await Promise.all(user.individualChats.map(async (chat) => {
+            const populatedChat = await this.getChatById(chat._id);
+            return populatedChat;
+          }));
+        
+        return chats;
     }
 
     async updateChat(id: string, updateChatDto: UpdateChatDto): Promise<Chat> {
