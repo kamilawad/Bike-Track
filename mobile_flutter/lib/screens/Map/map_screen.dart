@@ -1,3 +1,5 @@
+import 'package:location/location.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -50,5 +52,10 @@ class _MapScreenState extends State<MapScreen> {
       ),
       ),
     );
+  }
+
+  Future<void> getLocationUpdates() async {
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
   }
 }
