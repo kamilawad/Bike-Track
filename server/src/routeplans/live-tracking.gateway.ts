@@ -1,4 +1,4 @@
-import { ConnectedSocket, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
+import { ConnectedSocket, SubscribeMessage, WebSocketGateway, WebSocketServer, MessageBody } from "@nestjs/websockets";
 import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway({
@@ -24,6 +24,15 @@ export class LiveTrackingGateway {
         this.connectedUsers.delete(userId);
         console.log(`User ${userId} stopped tracking`);
     }
+
+    @SubscribeMessage('locationUpdate')
+    handleLocationUpdate(@MessageBody() data: { latitude: number; longitude: number }, @ConnectedSocket() client: Socket) {
+        const userId = this.getUserIdFromClient(client);
+        const { latitude, longitude } = data;
+
+        this.server.emit('locationUpdate', { userId, latitude, longitude });
+    }
+
 
     private getUserIdFromClient(client: Socket): string {
         return client.handshake.auth.userId;
