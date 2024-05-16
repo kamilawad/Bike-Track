@@ -23,6 +23,13 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     getLocationUpdates();
+    getLocationUpdates().then(
+      (_) => {
+        getPolylinePoints().then((coordinates) => {
+          print(coordinates),
+        }),
+      },
+    );
   }
 
   @override
@@ -113,5 +120,19 @@ class _MapScreenState extends State<MapScreen> {
         });
       }
     });
+  }
+
+  Future<List<LatLng>> getPolylinePoints() async {
+    List<LatLng> polylineCoordinates = [];
+    PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates("AIzaSyB23mdww8kGOa4BnrL3higCEWp0H-KzkQo", PointLatLng(33.888630, 35.495480), PointLatLng(35.3729, 33.5571), travelMode: TravelMode.bicycling);
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
+      polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    } else {
+      print(result.errorMessage);
+    }
+    return polylineCoordinates;
   }
 }
