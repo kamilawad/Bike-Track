@@ -23,6 +23,14 @@ class Chat {
   }
 }
 
+UserModel getOtherUser(Chat chat, String currentUserId) {
+  if (chat.user1.id == currentUserId) {
+    return chat.user2;
+  } else {
+    return chat.user1;
+  }
+}
+
 class Message {
   final String id;
   final UserModel sender;
