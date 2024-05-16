@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_flutter/screens/Event/single_event_screen.dart';
 
 import 'widgets/event_card.dart';
 
@@ -23,11 +24,23 @@ class EventScreen extends StatelessWidget {
           children: [
             ListView(
               children: [
-                EventCard(
-                  imagePath: 'assets/onboarding3.png',
-                  title: 'Mount Bike',
-                  participants: 20,
-                  date: DateTime.now(),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SingleEventScreen(
+                        imagePath: 'assets/onboarding3.png',
+                        title: 'Mount Bike',
+                        description: 'This is a description of the event.',
+                      )),
+                    );
+                  },
+                  child: EventCard(
+                    imagePath: 'assets/onboarding3.png',
+                    title: 'Mount Bike',
+                    participants: 20,
+                    date: DateTime.now(),
+                  ),
                 ),
               ],
             ),
