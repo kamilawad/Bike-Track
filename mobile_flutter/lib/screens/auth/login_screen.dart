@@ -28,14 +28,10 @@ class _LoginScreenState extends State<LoginScreen> {
     final userModel = UserModel.fromJson(response['user']);
     authProvider.setUserAndToken(userModel, response['token']);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Login successful')),
-    );
+    
     Navigator.of(context).popAndPushNamed("/welcome");
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login failed: $e')),
-      );
+      print('Signup failed: $e');
     }
   }
 
