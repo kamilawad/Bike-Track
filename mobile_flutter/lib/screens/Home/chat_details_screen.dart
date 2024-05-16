@@ -17,6 +17,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   late WebSocketService _webSocketService;
   late AuthProvider _authProvider;
   final TextEditingController _messageController = TextEditingController();
+  List<Message> _messages = [];
 
   @override
   void initState() {
@@ -24,18 +25,31 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     _authProvider = Provider.of<AuthProvider>(context, listen: false);
     _webSocketService = WebSocketService(context);
     _webSocketService.registerNewMessageListener(_handleNewMessage);
+    _messages = widget.chat.messages;
   }
 
   void _handleNewMessage(Message message) {
     setState(() {
-      // Update the chat messages with the new message
+      _messages.add(message);
     });
   }
 
   void _sendMessage() {
-    final message = _messageController.text;
-    if (message.isNotEmpty) {
-      _webSocketService.sendMessage(widget.chat.id, message);
+    final messageContent = _messageController.text;
+    if (messageContent.isNotEmpty) {
+      final newMessage = Message(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        sender: _authProvider.user!,
+        content: messageContent,
+        sentAt: DateTime.now(),
+      );
+
+      setState(() {
+        _messages.add(newMessage);
+      });
+
+      _webSocketService.sendMessage(widget.chat.id, messageContent);
+
       _messageController.clear();
     }
   }
@@ -46,17 +60,37 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(otherUser.fullName),
+        elevation: 0,
       ),
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: widget.chat.messages.length,
+              itemCount: _messages.length,
               itemBuilder: (context, index) {
-                final message = widget.chat.messages[index];
-                return ListTile(
-                  title: Text(message.content),
-                  // Add additional UI elements for message metadata, etc.
+                final message = _messages[index];
+                final isOwnMessage = message.sender.id == _authProvider.user!.id;
+                return Column(
+                  crossAxisAlignment: isOwnMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: isOwnMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            color: isOwnMessage ? Colors.green : Colors.grey,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Text(message.content),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      message.sender.fullName,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 );
               },
             ),
