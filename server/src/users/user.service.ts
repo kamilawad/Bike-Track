@@ -5,6 +5,8 @@ import { User } from "src/schemas/user.schema";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { LocationDetails } from '../schemas/location.schema';
+//import { join } from "path";
+//import { promises as fs } from 'fs';
 
 @Injectable()
 export class UserService {
@@ -99,4 +101,17 @@ export class UserService {
         await userToUnfollow.save();
         return user;
     }
+
+    /*async saveAvatar(file: Express.Multer.File, userId: string) {
+        const user = await this.userModel.findById(userId);
+        if (!user) {
+            throw new NotFoundException('User not found');
+        }
+        
+        const uploadDir = join(__dirname, '..', 'uploads', 'avatars');
+        await fs.mkdir(uploadDir, { recursive: true });
+        const filePath = join(uploadDir, `${userId}.${file.originalname.split('.').pop()}`);
+        await fs.writeFile(filePath, file.buffer);
+        return { path: filePath };
+    }*/
 }
