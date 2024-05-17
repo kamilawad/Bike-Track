@@ -14,7 +14,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
-  List<Widget> screens = [const HomeScreen(), const MapScreen(), const RouteScreen(), const EventScreen(), const ProfileScreen()];
+  List<Widget> screens = [const HomeScreen(), LiveTrackingScreen(), const RouteScreen(), const EventScreen(), const ProfileScreen()];
 
   int currentScreen = 0;
 

@@ -16,25 +16,61 @@ export class EventService {
         private groupChatService: GroupChatService,
     ) {}
 
-    async createEvent(createEventDto: CreateEventDto, userId: string): Promise<Event> {
-        const user = await this.userModel.findById(userId);
-    
-        if (createEventDto.eventType === 'private' && user.role !== 'organizer') {
-          throw new ForbiddenException('Only organizers can create private events');
-        }
-    
-        const newEvent = new this.eventModel({ ...createEventDto, organizer: user });
-        const savedEvent = await newEvent.save();
-    
-        const groupChat = new this.groupChatModel({
-          name: `${savedEvent.title} Group Chat`,
-          members: [user],
-          admins: [user],
-        });
-        const savedGroupChat = await groupChat.save();
-    
-        savedEvent.groupChat = savedGroupChat;
-        return savedEvent.save();
+    async createEvent(createEventDto: CreateEventDto, organizerId: string): Promise<Event> {
+      const { title, description, startTime, endTime, duration, distance, startLocation, endLocation } = createEventDto;
+  
+      const organizer = await this.userModel.findById(organizerId);
+      if (!organizer) {
+        throw new NotFoundException('Organizer not found');
+      }
+  
+      const groupChat = new this.groupChatModel({
+        name: title,
+        members: [organizer],
+        admins: [organizer],
+        messages: [],
+      });
+      const savedGroupChat = await groupChat.save();
+  
+      const event = new this.eventModel({
+        title,
+        description,
+        startTime,
+        endTime,
+        duration,
+        distance,
+        organizer,
+        startLocation,
+        endLocation,
+        members: [organizer],
+        groupChat: savedGroupChat,
+      });
+  
+      return event.save();
+    }
+
+    async addMember(eventId: string, memberId: string): Promise<Event> {
+      console.log(eventId);
+      console.log(memberId);
+      const event = await this.eventModel.findById(eventId);
+      const member = await this.userModel.findById(memberId);
+      const groupChat = await this.groupChatModel.findById(event.groupChat);
+  
+      if (!event || !member || !groupChat) {
+        throw new NotFoundException('Event, member, or group chat not found');
+      }
+  
+      if (event.members.some((m) => m._id.toString() === member._id.toString())) {
+        throw new Error('Member already part of the event');
+      }
+  
+      event.members.push(member);
+      groupChat.members.push(member);
+  
+      await event.save();
+      await groupChat.save();
+  
+      return event;
     }
 
     async joinEvent(eventId: string, userId: string): Promise<Event> {

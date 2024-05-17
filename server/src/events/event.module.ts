@@ -6,6 +6,7 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { GroupChat, GroupChatSchema } from "src/schemas/groupchat.schema";
 import { User, UserSchema } from "src/schemas/user.schema";
 import { Event, EventSchema } from "src/schemas/event.schema";
+import { GroupChatModule } from "src/groupchats/group-chat.module";
 
 @Module({
     imports: [
@@ -15,6 +16,7 @@ import { Event, EventSchema } from "src/schemas/event.schema";
             { name: Event.name, schema: EventSchema }
         ]),
         AuthModule,
+        GroupChatModule,
     ],
     controllers: [EventController],
     providers: [EventService]

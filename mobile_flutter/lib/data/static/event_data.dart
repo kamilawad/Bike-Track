@@ -2,14 +2,14 @@ import 'package:mobile_flutter/data/model/event_model.dart';
 
 List<EventModel> events = [
   EventModel(
-      eventName: 'Event 1',
-      eventDescription: 'Description 1',
+      eventName: 'Mount Bike',
+      eventDescription: "Let's bike together",
       imagePath: 'assets/onboarding3.png',
   ),
 
   EventModel(
-      eventName: 'Event 2',
-      eventDescription: 'Description 2',
+      eventName: "Beirut Race",
+      eventDescription: "Let's go for a ride",
       imagePath: 'assets/onboarding2.png',
   ),
 

@@ -1,24 +1,37 @@
-import { IsString, IsDateString, IsNumber, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsString, IsDateString, IsOptional, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { LocationDetails } from 'src/schemas/location.schema';
 
 export class CreateEventDto {
+  @IsNotEmpty()
   @IsString()
   title: string;
 
+  @IsNotEmpty()
   @IsString()
   description: string;
 
+  @IsNotEmpty()
   @IsDateString()
   startTime: Date;
 
+  @IsOptional()
   @IsDateString()
   endTime: Date;
 
-  @IsNumber()
+  @IsOptional()
+  duration: number;
+
+  @IsNotEmpty()
   distance: number;
 
-  @IsEnum(['public', 'private'])
-  eventType: string;
+  @IsNotEmpty()
+  @ValidateNested()
+  @Type(() => LocationDetails)
+  startLocation: LocationDetails;
 
-  @IsNumber({}, { each: true })
-  elevationProfile?: number[];
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => LocationDetails)
+  endLocation: LocationDetails;
 }

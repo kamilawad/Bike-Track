@@ -70,51 +70,70 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
               itemBuilder: (context, index) {
                 final message = _messages[index];
                 final isOwnMessage = message.sender.id == _authProvider.user!.id;
-                return Column(
-                  crossAxisAlignment: isOwnMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: isOwnMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            color: isOwnMessage ? Colors.green : Colors.grey,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Text(message.content),
+                final isSameUserAsLastMessage =
+                    index > 0 && _messages[index - 1].sender.id == message.sender.id;
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    isOwnMessage ? 64.0 : 16.0,
+                    isSameUserAsLastMessage ? 4.0 : 16.0,
+                    isOwnMessage ? 16.0 : 64.0,
+                    isSameUserAsLastMessage ? 4.0 : 16.0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: isOwnMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                        decoration: BoxDecoration(
+                          color: isOwnMessage ? Color(0xFFF05206) : Colors.grey[300],
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
-                      ],
-                    ),
-                    Text(
-                      message.sender.fullName,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                        child: Text(
+                          message.content,
+                          style: TextStyle(
+                            color: isOwnMessage ? Colors.white : Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
           ),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _messageController,
-                  decoration: const InputDecoration(
-                    hintText: 'Type a message...',
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _messageController,
+                    decoration: InputDecoration(
+                      hintText: 'Type a message...',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                    ),
                   ),
                 ),
-              ),
-              IconButton(
-                onPressed: _sendMessage,
-                icon: const Icon(Icons.send),
-              ),
-            ],
+                SizedBox(width: 8.0),
+                MaterialButton(
+                  onPressed: _sendMessage,
+                  color: Color(0xFFF05206),
+                  shape: CircleBorder(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Icon(Icons.send, color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      );
+    }
 
   @override
   void dispose() {

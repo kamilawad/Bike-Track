@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { RoutePlanModule } from './routeplans/routeplan.module';
 import { ChatModule } from './chats/chat.module';
 import { GroupChatModule } from './groupchats/group-chat.module';
+import { EventModule } from './events/event.module';
 
 @Module({
   imports: [
@@ -15,10 +16,11 @@ import { GroupChatModule } from './groupchats/group-chat.module';
   }),
   MongooseModule.forRoot(process.env.DB_URI),
   UserModule,
-  //RoutePlanModule,
+  RoutePlanModule,
   AuthModule,
   ChatModule,
-  //GroupChatModule
+  GroupChatModule,
+  EventModule,
   ],
   controllers: [],
   providers: [],

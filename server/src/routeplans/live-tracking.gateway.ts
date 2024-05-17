@@ -1,5 +1,8 @@
+import { InjectModel } from "@nestjs/mongoose";
 import { ConnectedSocket, SubscribeMessage, WebSocketGateway, WebSocketServer, MessageBody } from "@nestjs/websockets";
+import { Model } from "mongoose";
 import { Server, Socket } from 'socket.io';
+import { User } from "src/schemas/user.schema";
 
 @WebSocketGateway({
     namespace: '/live-tracking',
@@ -8,6 +11,10 @@ import { Server, Socket } from 'socket.io';
     },
 })
 export class LiveTrackingGateway {
+    constructor(
+        @InjectModel(User.name)
+        private userModel: Model<User>,
+    ) {}
     @WebSocketServer() server: Server;
     private connectedUsers = new Map<string, Socket>();
 
@@ -26,11 +33,16 @@ export class LiveTrackingGateway {
     }
 
     @SubscribeMessage('locationUpdate')
-    handleLocationUpdate(@MessageBody() data: { latitude: number; longitude: number }, @ConnectedSocket() client: Socket) {
+    async handleLocationUpdate(@MessageBody() data: { latitude: number; longitude: number; userName: string },@ConnectedSocket() client: Socket,) {
         const userId = this.getUserIdFromClient(client);
-        const { latitude, longitude } = data;
+        const { latitude, longitude, userName } = data;
 
-        this.server.emit('locationUpdate', { userId, latitude, longitude });
+        this.server.emit('locationUpdate', {
+            userId,
+            latitude,
+            longitude,
+            userName,
+        });
     }
 
 

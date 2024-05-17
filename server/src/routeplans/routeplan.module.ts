@@ -5,6 +5,7 @@ import { RoutePlan, RoutePlanSchema } from "src/schemas/routeplan.schema";
 import { RoutePlanService } from "./routeplan.service"
 import { RoutePlanController } from "./routeplan.controller";
 import { UserModule } from "src/users/user.module";
+import { LiveTrackingGateway } from "./live-tracking.gateway";
 
 @Module({
     imports: [
@@ -17,8 +18,8 @@ import { UserModule } from "src/users/user.module";
             }
         ])
     ],
-    providers: [RoutePlanService],
+    providers: [RoutePlanService, LiveTrackingGateway],
     controllers: [RoutePlanController],
-    exports: [RoutePlanService]
+    exports: [RoutePlanService, LiveTrackingGateway]
 })
 export class RoutePlanModule {}

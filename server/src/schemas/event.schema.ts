@@ -1,11 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { User } from './user.schema';
-import { RoutePlan, RoutePlanSchema } from './routeplan.schema';
 import { GroupChat } from './groupchat.schema';
+import { LocationDetails } from './location.schema';
 
 @Schema()
-export class Event extends Document{
+export class Event extends Document {
   @Prop({ required: true })
   title: string;
 
@@ -15,7 +15,7 @@ export class Event extends Document{
   @Prop({ required: true })
   startTime: Date;
 
-  @Prop({ required: true })
+  @Prop()
   endTime: Date;
 
   @Prop()
@@ -24,37 +24,17 @@ export class Event extends Document{
   @Prop({ required: true })
   distance: number;
 
-  @Prop({ required: true, enum: ['public', 'private'] })
-  eventType: string;
-
-  @Prop()
-  elevationProfile: number[];
-
-  @Prop({ required: true, enum: ['upcoming', 'ongoing', 'completed'], default: 'upcoming' })
-  status: string;
-
-  @Prop({ type: User, required: true })
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   organizer: User;
 
-  //@Prop({ type: RoutePlanSchema, required: true })
-  //routePlan: RoutePlan;
-  @Prop({
-    type: { type: String, enum: ['LineString'], required: true },
-    coordinates: { type: [[Number]], required: true },
-  })
-  route: { type: string; coordinates: number[][]; };
+  @Prop()
+  startLocation: LocationDetails;
 
-  @Prop({
-    type: { type: String, enum: ['Point'], required: true },
-    coordinates: { type: [Number], required: true },
-  })
-  location: { type: string; coordinates: number[] };
+  @Prop()
+  endLocation: LocationDetails;
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }] })
   members: User[];
-
-  @Prop({ type: [User] })
-  invitedUsers: User[];
 
   @Prop({ type: Types.ObjectId, ref: 'GroupChat' })
   groupChat: GroupChat;

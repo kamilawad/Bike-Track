@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class CreateEventScreen extends StatefulWidget {
   const CreateEventScreen({super.key});
@@ -9,12 +11,69 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
-  DateTime dateTime = DateTime.now();
-  TimeOfDay time = TimeOfDay.now();
+  final _formKey = GlobalKey<FormState>();
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  DateTime _dateTime = DateTime.now();
+  TimeOfDay _time = TimeOfDay.now();
+  String? _startLocation;
+  String? _endLocation;
+  String _eventType = 'public';
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      final title = _titleController.text;
+      final description = _descriptionController.text;
+      final startTime = DateTime(_dateTime.year, _dateTime.month, _dateTime.day, _time.hour, _time.minute);
+      final eventType = _eventType;
+
+      final createEventDto = {
+        'title': title,
+        'description': description,
+        'startTime': startTime.toIso8601String(),
+        'startLocationType': 'Point',
+        'startLocationCoordinates': _startLocation?.split(','),
+        'endLocationType': 'Point',
+        'endLocationCoordinates': _endLocation?.split(','),
+        'eventType': eventType,
+      };
+
+      try {
+        final response = await http.post(
+          Uri.parse('https://your-backend.com/events'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(createEventDto),
+        );
+
+        if (response.statusCode == 201) {
+          // Event created successfully
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Event created successfully')),
+          );
+        } else {
+          // Error creating event
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error creating event: ${response.statusCode}')),
+          );
+        }
+      } catch (e) {
+        // Error handling
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('An error occurred')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -38,34 +97,48 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
           },
         ),
       ),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Center(
             child: Form(
+              key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 50.0,
-                    child: TextFormField(
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                        hintText: "Title",
-                        border: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12),
-                        ),
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                      ),
+                  TextFormField(
+                    controller: _titleController,
+                    decoration: const InputDecoration(
+                      hintText: "Title",
+                      border: OutlineInputBorder(),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a title';
+                      }
+                      return null;
+                    },
                   ),
-
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _descriptionController,
+                    decoration: const InputDecoration(
+                      hintText: "Description",
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a description';
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(height: 10),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      // Handle route selection
+                    },
                     child: Container(
                       height: 150.0,
                       decoration: BoxDecoration(
@@ -89,10 +162,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 10),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      // Handle poster selection
+                    },
                     child: Container(
                       height: 150.0,
                       decoration: BoxDecoration(
@@ -116,15 +190,20 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () async {
-                      final date = await pickDate();
-                      if (date == null) return;
-                      setState(() {
-                        dateTime = date;
-                      });
+                      final date = await showDatePicker(
+                        context: context,
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(2100, 4, 22),
+                        initialDate: _dateTime,
+                      );
+                      if (date != null) {
+                        setState(() {
+                          _dateTime = date;
+                        });
+                      }
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
@@ -148,8 +227,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                               children: [
                                 const Icon(Icons.date_range_rounded, color: Colors.black54),
                                 const SizedBox(width: 10),
-                                Text(
-                                  DateFormat('MMMM d').format(dateTime),
+                                Text( DateFormat('MMMM d').format(_dateTime),
                                   style: const TextStyle(color: Colors.black54)
                                 ),
                               ],
@@ -160,19 +238,18 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () async {
-                      TimeOfDay? pickedTime = await showTimePicker(
+                      final pickedTime = await showTimePicker(
                         context: context,
-                        initialTime: time,
+                        initialTime: TimeOfDay.fromDateTime(_dateTime),
                       );
-                      if(pickedTime == null) return;
-
-                      setState(() {
-                        time = pickedTime;
-                      });
+                      if (pickedTime != null) {
+                        setState(() {
+                          _time = pickedTime;
+                        });
+                      }
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
@@ -203,7 +280,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                 const Icon(Icons.access_time, color: Colors.black54),
                                 const SizedBox(width: 10),
                                 Text(
-                                  DateFormat('jm').format(DateTime(dateTime.year, dateTime.month, dateTime.day, time.hour, time.minute)),
+                                  DateFormat('jm').format(DateTime(_dateTime.year, _dateTime.month, _dateTime.day, _time.hour, _time.minute)),
                                   style: const TextStyle(color: Colors.black54)
                                 ),
                               ],
@@ -214,22 +291,35 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       ),
                     ),
                   ),
-
+                  const SizedBox(height: 10),
+                  DropdownButtonFormField<String>(
+                    value: _eventType,
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          _eventType = value;
+                        });
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Event Type',
+                    ),
+                    items: const [
+                      DropdownMenuItem(
+                        value: 'public',
+                        child: Text('Public'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'private',
+                        child: Text('Private'),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            height: MediaQuery.of(context).size.height * 0.5,
-                            color: Colors.white,
-                            child: const Center(
-                              child: Text('Partcipants'),
-                            ),
-                          );
-                        },
-                      );
+                      // Handle participant selection
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),
@@ -271,7 +361,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 60),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -279,8 +368,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       side: const BorderSide(color: Color(0xFFF05206)),
                       elevation: 0,
                     ),
-                    
-                    onPressed: () {},
+                    onPressed: _submitForm,
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
@@ -306,11 +394,4 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       ),
     );
   }
-
-  Future<DateTime?> pickDate() => showDatePicker(
-    context: context,
-    firstDate: DateTime.now(),
-    lastDate: DateTime(2100, 4, 22),
-    initialDate: DateTime.now(),
-  );
 }
