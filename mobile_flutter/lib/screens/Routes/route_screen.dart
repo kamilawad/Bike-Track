@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:mobile_flutter/screens/Routes/location_service.dart';
 
 class RouteScreen extends StatefulWidget {
@@ -16,13 +15,9 @@ class _RouteScreenState extends State<RouteScreen> {
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController _originController = TextEditingController();
   TextEditingController _destinationController = TextEditingController();
-
   Set<Marker> _markers = Set<Marker>();
-  Set<Polygon> _polygons = Set<Polygon>();
   Set<Polyline> _polylines = Set<Polyline>();
-  List<LatLng> polygonLatLngs = <LatLng>[];
-
-  int _polygonIdCounter = 1;
+  List<LatLng> polylinePoints = <LatLng>[];
   int _polylineIdCounter = 1;
 
   static final CameraPosition _initialCameraPosition = CameraPosition(
@@ -46,34 +41,15 @@ class _RouteScreenState extends State<RouteScreen> {
     });
   }
 
-  void _setPolygon() {
-    final String polygonIdVal = 'polygon_$_polygonIdCounter';
-    _polygonIdCounter++;
-
-    _polygons.add(
-      Polygon(
-        polygonId: PolygonId(polygonIdVal),
-        points: polygonLatLngs,
-        strokeWidth: 2,
-        fillColor: Colors.transparent,
-      ),
-    );
-  }
-
-  void _setPolyline(List<PointLatLng> points) {
+  void _setPolyline(List<LatLng> points) {
     final String polylineIdVal = 'polyline_$_polylineIdCounter';
     _polylineIdCounter++;
-
     _polylines.add(
       Polyline(
         polylineId: PolylineId(polylineIdVal),
         width: 3,
         color: Colors.blue,
-        points: points
-            .map(
-              (point) => LatLng(point.latitude, point.longitude),
-            )
-            .toList(),
+        points: points,
       ),
     );
   }
@@ -178,7 +154,6 @@ class _RouteScreenState extends State<RouteScreen> {
             child: GoogleMap(
               mapType: MapType.normal,
               markers: _markers,
-              polygons: _polygons,
               polylines: _polylines,
               initialCameraPosition: _initialCameraPosition,
               onMapCreated: (GoogleMapController controller) {
@@ -186,8 +161,8 @@ class _RouteScreenState extends State<RouteScreen> {
               },
               onTap: (point) {
                 setState(() {
-                  polygonLatLngs.add(point);
-                  _setPolygon();
+                  polylinePoints.add(point);
+                  _setPolyline(polylinePoints);
                 });
               },
             ),
