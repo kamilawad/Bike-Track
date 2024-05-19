@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:mobile_flutter/screens/loading_screen.dart';
 
 class RouteScreen extends StatefulWidget {
   @override
@@ -15,10 +16,16 @@ class _RouteScreenState extends State<RouteScreen> {
   List<LatLng> polylinePoints = [];
   Map<MarkerId, Marker> markers = {};
   LatLng? startPoint;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   Future<List<LatLng>> getPolylinePoints(List<LatLng> points) async {
@@ -49,7 +56,7 @@ class _RouteScreenState extends State<RouteScreen> {
     PolylineId id = PolylineId("poly");
     Polyline polyline = Polyline(
       polylineId: id,
-      color: Colors.red,
+      color: const Color(0xFFF05206),
       points: polylineCoordinates,
       width: 4,
     );
@@ -112,7 +119,7 @@ class _RouteScreenState extends State<RouteScreen> {
     final Marker endMarker = Marker(
       markerId: endMarkerId,
       position: end,
-      infoWindow: InfoWindow(title: 'End'),
+      infoWindow: const InfoWindow(title: 'End'),
       icon: BitmapDescriptor.defaultMarkerWithHue(
         BitmapDescriptor.hueRed,
       ),
@@ -127,20 +134,22 @@ class _RouteScreenState extends State<RouteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Route Map'),
+        title: const Text('Route Map'),
         elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
             onPressed: resetRoute,
           ),
         ],
       ),
-      body: GoogleMap(
+      body: _isLoading
+          ? LoadingScreen()
+          : GoogleMap(
         onMapCreated: (GoogleMapController controller) {
           _mapController.complete(controller);
         },
-        initialCameraPosition: CameraPosition(
+        initialCameraPosition: const CameraPosition(
           target: LatLng(33.8938, 35.5018),
           zoom: 12.0,
         ),

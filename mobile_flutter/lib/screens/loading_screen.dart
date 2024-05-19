@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
-class LoadingScreen extends StatefulWidget {
+class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});
 
   @override
-  State<LoadingScreen> createState() => _LoadingScreenState();
-}
-
-class _LoadingScreenState extends State<LoadingScreen> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildUI()
-    );
-  }
-
-  Widget _buildUI() {
     return Center(
-      child: Image.asset("assets/loading.gif")
+      child: LottieBuilder.asset(
+        "assets/animations/loading.json",
+      ),
     );
   }
 }
