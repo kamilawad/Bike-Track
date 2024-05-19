@@ -28,11 +28,7 @@ class EventScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SingleEventScreen(
-                        imagePath: 'assets/onboarding3.png',
-                        title: 'Mount Bike',
-                        description: 'This is a description of the event.',
-                      )),
+                      MaterialPageRoute(builder: (context) => EventCollaborationRoom()),
                     );
                   },
                   child: EventCard(

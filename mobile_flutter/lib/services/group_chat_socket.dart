@@ -5,20 +5,18 @@ import 'package:mobile_flutter/utils/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
-class WebSocketService {
+class GroupChatSocketService {
   late io.Socket _socket;
+  GroupChatSocketService._internal();
+  static GroupChatSocketService? _instance;
 
-  WebSocketService._internal();
-
-  static WebSocketService? _instance;
-
-  factory WebSocketService(BuildContext context) {
+  factory GroupChatSocketService(BuildContext context) {
     if (_instance == null) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final userId = authProvider.user!.id;
-      _instance = WebSocketService._internal();
+      _instance = GroupChatSocketService._internal();
       _instance!._socket = io.io(
-        Constants.chatSocketUrl,
+        Constants.groupChatSocketUrl,
         io.OptionBuilder()
             .setTransports(['websocket'])
             .setAuth({'userId': userId})
@@ -31,28 +29,26 @@ class WebSocketService {
   void connect(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final userId = authProvider.user!.id;
-     _socket.io.options?['auth'] = {'userId': userId};
-
+    _socket.io.options?['auth'] = {'userId': userId};
     _socket.onConnect((data) {
-      print('Connected');
+      print('Connected to group chat socket');
     });
-
     _socket.connect();
-    print('Attempting WebSocket connection...');
+    print('Attempting WebSocket connection for group chats...');
   }
 
   void disconnect() {
     _socket.disconnect();
   }
 
-  void registerNewMessageListener(Function(Message) onNewMessage) {
-    _socket.on('newMessage', (data) {
+  void registerNewGroupMessageListener(Function(Message) onNewGroupMessage) {
+    _socket.on('newGroupMessage', (data) {
       final message = Message.fromJson(data);
-      onNewMessage(message);
+      onNewGroupMessage(message);
     });
   }
 
-  void sendMessage(String chatId, String content) {
-    _socket.emit('sendMessage', {'chatId': chatId, 'content': content});
+  void sendGroupMessage(String groupChatId, String content) {
+    _socket.emit('sendGroupMessage', {'groupChatId': groupChatId, 'content': content});
   }
 }

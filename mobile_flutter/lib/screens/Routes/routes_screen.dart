@@ -47,16 +47,18 @@ class RoutesScreen extends StatelessWidget {
                     Positioned(
                       top: 16.0,
                       left: 16.0,
-                      child: Text(
-                        'Explore new routes',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24.0,
-                              color: Colors.white,
-                            ),
+                      child: Center(
+                        child: Text(
+                          'Explore new routes',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24.0,
+                                color: Colors.white,
+                              ),
+                        ),
                       ),
                     ),
                     Positioned(

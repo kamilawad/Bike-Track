@@ -4,4 +4,5 @@ class Constants {
   static const String chatUrl = '$baseUrl/chats';
 
   static const String chatSocketUrl = '$baseUrl/chat';
+  static const String groupChatSocketUrl = '$baseUrl/group-chat';
 }
