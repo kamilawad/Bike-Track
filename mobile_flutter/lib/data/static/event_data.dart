@@ -1,4 +1,4 @@
-import 'package:mobile_flutter/data/model/event_model.dart';
+import 'package:mobile_flutter/models/event_model.dart';
 
 List<EventModel> events = [
   EventModel(

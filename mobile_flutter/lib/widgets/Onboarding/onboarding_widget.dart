@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mobile_flutter/data/model/onboarding_model.dart';
+import 'package:mobile_flutter/models/onboarding_model.dart';
 
 class OnboardingWidget extends StatelessWidget {
   

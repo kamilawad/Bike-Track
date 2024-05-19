@@ -31,14 +31,9 @@ class _SignupScreenState extends State<SignupScreen> {
       final userModel = UserModel.fromJson(response['user']);
       authProvider.setUserAndToken(userModel, response['token']);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Signup successful')),
-      );
       Navigator.of(context).popAndPushNamed("/welcome");
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Signup failed: $e')),
-      );
+      print("failed");
     }
   }
 
