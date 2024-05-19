@@ -28,7 +28,7 @@ class EventScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => EventCollaborationRoom()),
+                      MaterialPageRoute(builder: (context) => EventCollaborationRoom(groupChat: null,)),
                     );
                   },
                   child: EventCard(

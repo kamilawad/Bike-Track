@@ -5,7 +5,7 @@ import 'package:mobile_flutter/services/group_chat_socket.dart';
 import 'package:provider/provider.dart';
 
 class EventCollaborationRoom extends StatefulWidget {
-  final GroupChat groupChat;
+  final Chat groupChat;
 
   const EventCollaborationRoom({super.key, required this.groupChat});
 

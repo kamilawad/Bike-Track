@@ -23,17 +23,17 @@
 ###  Bike Track is built using the following technologies:
 
 - This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web.
-- For persistent storage (database), the app uses the [Hive](https://hivedb.dev/) package which allows the app to create a custom storage schema and save it to a local database.
-- To send local push notifications, the app uses the [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) package which supports Android, iOS, and macOS.
-  - 🚨 Currently, notifications aren't working on macOS. This is a known issue that we are working to resolve!
-- The app uses the font ["Work Sans"](https://fonts.google.com/specimen/Work+Sans) as its main font, and the design of the app adheres to the material design guidelines.
+- This project uses Provider for state management. Provider is a popular solution in the Flutter ecosystem. By using Provider, you can efficiently manage app-wide state, making data flow predictable and organized.
+- The backend of Bike Track is developed using the [NestJS framework](https://docs.nestjs.com/). NestJS, built on top of Express.js, provides a structured and scalable architecture for APIs.
+- To power live features like chat, and real-time tracking, Bike Track integrates Socket.IO. Socket.IO enables seamless communication between clients and servers.
+- Our app integrates the Google Maps SDK, users can explore biking trails, discover new areas, and plan their rides effectively using detailed maps.
 
 <br><br>
 <!-- UI UX -->
 <img src="./readme/title4.svg"/>
 
 
-> We designed Coffee Express using wireframes and mockups, iterating on the design until we reached the ideal layout for easy navigation and a seamless user experience.
+> We designed Bike Track using wireframes and mockups, iterating on the design until we reached the ideal layout for easy navigation and a seamless user experience.
 
 - Project Figma design [figma](https://www.figma.com/design/7EXIgrAfR7oMNQCGds6CHq/Bike-Track?node-id=317-683&t=0OrgyyHj8OOd6srD-0)
 
