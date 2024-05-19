@@ -6,8 +6,8 @@ import 'package:mobile_flutter/screens/Auth/signup_screen.dart';
 import 'package:mobile_flutter/screens/Home/chat_screen.dart';
 import 'package:mobile_flutter/screens/Home/create_event.dart';
 import 'package:mobile_flutter/screens/Home/home_screen.dart';
-import 'package:mobile_flutter/screens/Map/test_screen.dart';
 import 'package:mobile_flutter/screens/Map/tracking_screen.dart';
+import 'package:mobile_flutter/screens/Onboarding/onboarding_screen.dart';
 import 'package:mobile_flutter/screens/main_screen.dart';
 import 'package:mobile_flutter/screens/Onboarding/welcome_screen.dart';
 import 'package:mobile_flutter/screens/splash_screen.dart';
@@ -43,8 +43,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       routes: {
-        "/": (context) => TestScreen(),
-        "/onboarding": (context) => const SplashScreen(),
+        "/": (context) => const SplashScreen(),
+        "/onboarding": (context) => const OnboardingScreen(),
         "/welcome":(context) => const WelcomeScreen(),
         "/signup": (context) => const SignupScreen(),
         "/login": (context) => const LoginScreen(),
