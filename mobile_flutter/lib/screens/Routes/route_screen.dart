@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:mobile_flutter/screens/Routes/widgets/save_dialog.dart';
 import 'package:mobile_flutter/screens/loading_screen.dart';
 
 class RouteScreen extends StatefulWidget {
@@ -134,12 +135,22 @@ class _RouteScreenState extends State<RouteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Route Map'),
+        title: const Text('Plan your route'),
         elevation: 0,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: resetRoute,
+          ),
+          if (polylinePoints.length >= 2)
+          IconButton(
+            icon: const Icon(Icons.save),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => SaveRouteDialog(polylinePoints: polylinePoints),
+                );
+              },
           ),
         ],
       ),
