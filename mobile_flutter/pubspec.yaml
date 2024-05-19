@@ -88,6 +88,10 @@ flutter:
     - assets/onboarding2.png
     - assets/onboarding3.png
     - assets/welcome.png
+    - assets/hero.png
+    - assets/plan.png
+    - assets/biker.png
+    - assets/map.png
     - assets/loading.gif
     - assets/animations/loading.json
     - assets/animations/loading-1.json
