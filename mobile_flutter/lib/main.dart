@@ -8,6 +8,7 @@ import 'package:mobile_flutter/screens/Home/create_event.dart';
 import 'package:mobile_flutter/screens/Home/home_screen.dart';
 import 'package:mobile_flutter/screens/Map/tracking_screen.dart';
 import 'package:mobile_flutter/screens/Onboarding/onboarding_screen.dart';
+import 'package:mobile_flutter/screens/Routes/route_screen.dart';
 import 'package:mobile_flutter/screens/main_screen.dart';
 import 'package:mobile_flutter/screens/Onboarding/welcome_screen.dart';
 import 'package:mobile_flutter/screens/splash_screen.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         "/main": (context) => const MainScreen(),
         "/track":(context) => const TrackScreen(),
         "/chat":(context) => const ChatScreen(),
+        '/route': (context) => RouteScreen(),
       }
     );
   }
