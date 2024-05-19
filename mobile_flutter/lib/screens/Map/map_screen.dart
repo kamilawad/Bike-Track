@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart' as geo;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:mobile_flutter/providers/auth_provider.dart';
@@ -27,7 +27,6 @@ class _LiveTrackingScreenState extends State<LiveTrackingScreen> {
   void initState() {
     super.initState();
     _authProvider = Provider.of<AuthProvider>(context, listen: false);
-    print(_authProvider.user!.email);
     _initSocket();
     _requestPermissions();
   }
@@ -40,8 +39,9 @@ class _LiveTrackingScreenState extends State<LiveTrackingScreen> {
   }
 
   void _initSocket() {
+    print(_authProvider.user!.fullName);
     _socket = IO.io(
-      'http://172.20.10.5:3000/live-tracking',
+      'http://192.168.0.105:3000/live-tracking',
       IO.OptionBuilder()
           .setTransports(['websocket'])
           .setAuth({'userId': _authProvider.user!.id})
@@ -82,11 +82,11 @@ class _LiveTrackingScreenState extends State<LiveTrackingScreen> {
   }
 
   void _stopLiveTracking() {
-    setState(() {
+
       _isTracking = false;
       _markers.clear();
       _userLocationHistory.clear();
-    });
+
     _socket.emit('stopTracking');
     _socket.disconnect();
   }
@@ -110,6 +110,8 @@ class _LiveTrackingScreenState extends State<LiveTrackingScreen> {
         return;
       }
     }
+
+    await _locationService.changeSettings(accuracy: LocationAccuracy.high);
   }
 
   void _startLiveTracking() {
@@ -127,30 +129,46 @@ class _LiveTrackingScreenState extends State<LiveTrackingScreen> {
 
   void _sendLocationUpdates() {
     _locationService.onLocationChanged.listen((LocationData currentLocation) {
-      if (currentLocation.latitude != null && currentLocation.longitude != null) {
+      if (currentLocation.latitude != null &&
+          currentLocation.longitude != null &&
+          currentLocation.accuracy != null &&
+          currentLocation.accuracy! < 10.0) {
         final currentLatLng = LatLng(currentLocation.latitude!, currentLocation.longitude!);
 
-        setState(() {
-          if (_userLocationHistory.isNotEmpty) {
-            final previousLatLng = _userLocationHistory.last;
-            _totalDistanceTraveled += Geolocator.distanceBetween(
-              previousLatLng.latitude,
-              previousLatLng.longitude,
-              currentLatLng.latitude,
-              currentLatLng.longitude,
-            );
-          } else {
-            _startTrackingTime = DateTime.now();
+        if (_userLocationHistory.isNotEmpty) {
+          final previousLatLng = _userLocationHistory.last;
+          final distance = geo.Geolocator.distanceBetween(
+            previousLatLng.latitude,
+            previousLatLng.longitude,
+            currentLatLng.latitude,
+            currentLatLng.longitude,
+          );
+
+          if (distance > 10.0) {
+            setState(() {
+              final smoothedDistance = (_totalDistanceTraveled + distance) / 2;
+              _totalDistanceTraveled = smoothedDistance;
+              _userLocationHistory.add(currentLatLng);
+            });
+
+            _socket.emit('locationUpdate', {
+              'latitude': currentLocation.latitude,
+              'longitude': currentLocation.longitude,
+              'userName': _authProvider.user!.fullName,
+            });
           }
+        } else {
+          setState(() {
+            _startTrackingTime = DateTime.now();
+            _userLocationHistory.add(currentLatLng);
+          });
 
-          _userLocationHistory.add(currentLatLng);
-        });
-
-        _socket.emit('locationUpdate', {
-          'latitude': currentLocation.latitude,
-          'longitude': currentLocation.longitude,
-          'userName': _authProvider.user!.fullName,
-        });
+          _socket.emit('locationUpdate', {
+            'latitude': currentLocation.latitude,
+            'longitude': currentLocation.longitude,
+            'userName': _authProvider.user!.fullName,
+          });
+        }
       }
     });
   }
@@ -173,7 +191,7 @@ class _LiveTrackingScreenState extends State<LiveTrackingScreen> {
         polylines: _userLocationHistory.isNotEmpty
           ? {
               Polyline(
-                polylineId: PolylineId('userTrackingRoute'),
+                polylineId: const PolylineId('userTrackingRoute'),
                 points: _userLocationHistory,
                 color: Colors.blue,
                 width: 3,
@@ -198,48 +216,59 @@ class _LiveTrackingScreenState extends State<LiveTrackingScreen> {
 
 
   Widget _buildTrackingInfoWidget() {
-    final averageSpeedKmh = _startTrackingTime != null
-        ? (DateTime.now().difference(_startTrackingTime!).inSeconds >= 5
-            ? (_totalDistanceTraveled / (DateTime.now().difference(_startTrackingTime!).inSeconds / 3600)) * 3.6
-            : 0.0)
-        : null;
 
-  return Container(
-    padding: EdgeInsets.all(16.0),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(8.0),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 2,
-          blurRadius: 5,
-          offset: Offset(0, 3),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Total Distance: ${(_totalDistanceTraveled / 1000).toStringAsFixed(2)} km',
-          style: TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
+    double _calculateAverageSpeed() {
+      if (_userLocationHistory.isEmpty || _startTrackingTime == null) {
+        return 0.0;
+      }
+
+      final movingTimeInSeconds = DateTime.now().difference(_startTrackingTime!).inSeconds;
+      final movingDistanceInMeters = _totalDistanceTraveled;
+
+      if (movingTimeInSeconds >= 5) {
+        final averageSpeedKmh = (movingDistanceInMeters / movingTimeInSeconds) * 3.6;
+        return averageSpeedKmh;
+      } else {
+        return 0.0;
+      }
+    }
+
+    final averageSpeedKmh = _calculateAverageSpeed();
+
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
           ),
-        ),
-        if (averageSpeedKmh != null)
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Total Distance: ${(_totalDistanceTraveled / 1000).toStringAsFixed(2)} km',
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           Text(
             'Average Speed: ${averageSpeedKmh.toStringAsFixed(2)} km/h',
             style: TextStyle(
               fontSize: 16.0,
             ),
           ),
-      ],
-    ),
-  );
-}
-
+        ],
+      ),
+    );
+  }
 }
 
 
