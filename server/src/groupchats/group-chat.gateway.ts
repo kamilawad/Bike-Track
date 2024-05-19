@@ -2,53 +2,52 @@ import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSo
 import { Server, Socket } from 'socket.io';
 import { GroupChatService } from "./group-chat.service";
 
-@WebSocketGateway({
-    namespace: '/group-chat',
-    cors: {
-        origin: '*',
-    }, 
-})
+@WebSocketGateway({ namespace: '/group-chat', cors: { origin: '*', }, })
 export class GroupChatGateway {
-    @WebSocketServer() server: Server;
+  @WebSocketServer() server: Server;
+  private connectedUsers = new Map<string, Set<string>>();
 
-    private connectedUsers = new Map<string, Socket>();
+  constructor(private readonly groupChatService: GroupChatService) {}
 
-    constructor(private readonly groupChatService: GroupChatService) {}
-
-    async handleConnection(client: Socket) {
-        const userId = this.getUserIdFromClient(client);
-        this.connectedUsers.set(userId, client);
-        console.log(`User ${userId} connected`);
-
-        const groupChats = await this.groupChatService.getUserGroupChats(userId);
-        for (const groupChat of groupChats) {
-            client.join(`group-chat-${groupChat._id}`);
-            this.server.to(`group-chat-${groupChat._id}`).emit('userJoined', { userId });
-        }
+  async handleConnection(client: Socket) {
+    const userId = this.getUserIdFromClient(client);
+    if (!this.connectedUsers.has(userId)) {
+      this.connectedUsers.set(userId, new Set());
     }
-
-    async handleDisconnect(client: Socket) {
-        const userId = this.getUserIdFromClient(client);
-        this.connectedUsers.delete(userId);
-
-        const groupChats = await this.groupChatService.getUserGroupChats(userId);
-        for (const groupChat of groupChats) {
-            client.leave(`group-chat-${groupChat._id}`);
-            this.server.to(`group-chat-${groupChat._id}`).emit('userLeft', { userId });
-        }
+    console.log(`User ${userId} connected`);
+    const groupChats = await this.groupChatService.getUserGroupChats(userId);
+    for (const groupChat of groupChats) {
+      const groupChatId = groupChat._id.toString();
+      this.connectedUsers.get(userId)?.add(groupChatId);
+      client.join(`group-chat-${groupChatId}`);
+      this.server.to(`group-chat-${groupChatId}`).emit('userJoined', { userId });
     }
+  }
 
-    @SubscribeMessage('sendGroupMessage')
-    async handleSendGroupMessage( @MessageBody() data: { groupChatId: string; content: string }, @ConnectedSocket() client: Socket) {
-        const senderId = this.getUserIdFromClient(client);
-        const { groupChatId, content } = data;
-
-        const message = await this.groupChatService.sendMessage(groupChatId, senderId, content);
-
-        this.server.to(`group-chat-${groupChatId}`).emit('newGroupMessage', message);
+  async handleDisconnect(client: Socket) {
+    const userId = this.getUserIdFromClient(client);
+    if (this.connectedUsers.has(userId)) {
+      const groupChats = this.connectedUsers.get(userId);
+      for (const groupChatId of groupChats!) {
+        client.leave(`group-chat-${groupChatId}`);
+        this.server.to(`group-chat-${groupChatId}`).emit('userLeft', { userId });
+      }
+      this.connectedUsers.delete(userId);
     }
+  }
 
-    private getUserIdFromClient(client: Socket): string {
-        return client.handshake.auth.userId;
-    }
+  @SubscribeMessage('sendGroupMessage')
+  async handleSendGroupMessage(
+    @MessageBody() data: { groupChatId: string; content: string },
+    @ConnectedSocket() client: Socket
+  ) {
+    const senderId = this.getUserIdFromClient(client);
+    const { groupChatId, content } = data;
+    const message = await this.groupChatService.sendMessage(groupChatId, senderId, content);
+    this.server.to(`group-chat-${groupChatId}`).emit('newGroupMessage', message);
+  }
+
+  private getUserIdFromClient(client: Socket): string {
+    return client.handshake.auth.userId;
+  }
 }
