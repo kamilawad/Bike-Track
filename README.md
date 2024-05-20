@@ -21,6 +21,8 @@
 ### Organizer
 
 - As an organizer, I want to create events on the app, so I can invite users to participate.
+- As an organizer, I want to create room chats, so I can communicate with the event memebers.
+- As an organizer, I want to manage chat rooms for my events, so I can ensure a well organized event.
 
 <br><br>
 <!-- Tech stack -->
@@ -69,9 +71,9 @@
 ### User Screens (Mobile)
 | Login screen  | Register screen | Landing screen | Loading screen |
 | ---| ---| ---| ---|
-| ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
+| ![Landing](./readme/demo/login_screen.png) | ![fsdaf](./readme/demo/register.png) | ![fsdaf](./readme/demo/home_screen.png) | ![fsdaf](./readme/demo/routes_screen.png) |
 | Home screen  | Menu Screen | Order Screen | Checkout Screen |
-| ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
+| ![Landing](./readme/demo/home_screen.png) | ![fsdaf](./readme/demo/welcome.png) | ![fsdaf](./readme/demo/chats.png) | ![fsdaf](https://placehold.co/900x1600) |
 <br><br>
 
 <!-- AWS Deployment -->
