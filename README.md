@@ -73,7 +73,7 @@
 | ---| ---| ---| ---|
 | ![Landing](./readme/demo/login_screen.png) | ![fsdaf](./readme/demo/register.png) | ![fsdaf](./readme/demo/home_screen.png) | ![fsdaf](./readme/demo/routes_screen.png) |
 | Home screen  | Menu Screen | Order Screen | Checkout Screen |
-| ![Landing](./readme/demo/home_screen.png) | ![fsdaf](./readme/demo/welcome.png) | ![fsdaf](./readme/demo/chats.png) | ![fsdaf](https://placehold.co/900x1600) |
+| ![Landing](./readme/demo/home_screen.png) | ![fsdaf](./readme/demo/welcome.png) | ![fsdaf](./readme/demo/chats.png) | ![fsdaf](./readme/demo/onboarding_screens.gif) |
 <br><br>
 
 <!-- AWS Deployment -->
