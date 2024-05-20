@@ -10,10 +10,16 @@
 > Bike Track aims to bring bike riders together by providing a user-friendly platform where bike drivers can find new places with our route feature and makes every ride fun and social. We believe in enhancing the cycling experience by providing real-time tracking, efficient route planning, and fostering a community of cyclists.
 
 ### User Stories
+
+### User
+
 - As a user, I want to plan routes for my rides, so I can discover new biking trails and explore different areas.
 - As a user, I want to join collaborative events, so I can participate in group rides and meet other cycling.
 - As a user, I want to use the chat feature, so I can communicate with other users and share my experiences.
 - As a user, I want to participate in event races and marathons, so I can challenge myself and compete with others.
+
+### Organizer
+
 - As an organizer, I want to create events on the app, so I can invite users to participate.
 
 <br><br>
@@ -104,8 +110,10 @@ First install npm and Nest CLI globally
 ### Installation
 
 1. Get a Google Map API Key at [google cloud console](https://console.cloud.google.com/)
+
 2. Clone the repo
    git clone [github](https://github.com/kamilawad/Bike-Track)
+   
 3. Enter your API in `config.js`
    ```js
    const GOOGLE_MAP_API_KEY = 'ENTER YOUR API';
