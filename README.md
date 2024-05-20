@@ -109,6 +109,8 @@ First install npm and Nest CLI globally
   npm install -g @nestjs/cli
   ```
 
+Install Flutter [SDK](https://docs.flutter.dev/get-started/install).
+
 ### Installation
 
 1. Get a Google Map API Key at [google cloud console](https://console.cloud.google.com/)
