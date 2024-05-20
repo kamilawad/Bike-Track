@@ -25,8 +25,8 @@
 - This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web.
 - This project uses Provider for state management. Provider is a popular solution in the Flutter ecosystem. By using Provider, you can efficiently manage app-wide state, making data flow predictable and organized.
 - The backend of Bike Track is developed using the [NestJS framework](https://docs.nestjs.com/). NestJS, built on top of Express.js, provides a structured and scalable architecture for APIs.
-- To power live features like chat, and real-time tracking, Bike Track integrates Socket.IO. Socket.IO enables seamless communication between clients and servers.
-- Our app integrates the Google Maps SDK, users can explore biking trails, discover new areas, and plan their rides effectively using detailed maps.
+- To power live features like chat, and real-time tracking, Bike Track integrates [Socket.IO](https://socket.io/). Socket.IO enables seamless communication between clients and servers.
+- Our app integrates the [Google Maps SDK](https://developers.google.com/maps/documentation), users can explore biking trails, discover new areas, and plan their rides effectively using detailed maps.
 
 <br><br>
 <!-- UI UX -->
@@ -39,9 +39,9 @@
 
 
 ### Mockups
-| Home screen  | Menu Screen | Order Screen |
+| Onboarding screen  | Login Screen | Order Screen |
 | ---| ---| ---|
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
+| ![Landing](./readme/demo/onboarding.png) | ![fsdaf](./readme/demo/Login.png) | ![fsdaf](./readme/demo/Home.png) |
 
 <br><br>
 
@@ -66,24 +66,6 @@
 | ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
 | Home screen  | Menu Screen | Order Screen | Checkout Screen |
 | ![Landing](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) | ![fsdaf](https://placehold.co/900x1600) |
-
-### Admin Screens (Web)
-| Login screen  | Register screen |  Landing screen |
-| ---| ---| ---|
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
-| Home screen  | Menu Screen | Order Screen |
-| ![Landing](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) | ![fsdaf](./readme/demo/1440x1024.png) |
-
-<br><br>
-
-
-<!-- Prompt Engineering -->
-<img src="./readme/title7.svg"/>
-
-###  Mastering AI Interaction: Unveiling the Power of Prompt Engineering:
-
-- This project uses advanced prompt engineering techniques to optimize the interaction with natural language processing models. By skillfully crafting input instructions, we tailor the behavior of the models to achieve precise and efficient language understanding and generation for various tasks and preferences.
-
 <br><br>
 
 <!-- AWS Deployment -->
@@ -108,30 +90,34 @@
 <!-- How to run -->
 <img src="./readme/title10.svg"/>
 
-> To set up Coffee Express locally, follow these steps:
+> To set up Bike Track locally, follow these steps:
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+First install npm and Nest CLI globally
 * npm
   ```sh
   npm install npm@latest -g
+  npm install -g @nestjs/cli
   ```
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [example](https://example.com)
+1. Get a Google Map API Key at [google cloud console](https://console.cloud.google.com/)
 2. Clone the repo
-   git clone [github](https://github.com/your_username_/Project-Name.git)
-3. Install NPM packages
+   git clone [github](https://github.com/kamilawad/Bike-Track)
+3. Enter your API in `config.js`
+   ```js
+   const GOOGLE_MAP_API_KEY = 'ENTER YOUR API';
+   ```
+4. Install NPM packages
    ```sh
+   cd server
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+5. Run NestJs server
+```sh
+   npm run start:dev
    ```
 
-Now, you should be able to run Coffee Express locally and explore its features.
+Now, you should be able to run Bike Track locally and explore its features.
