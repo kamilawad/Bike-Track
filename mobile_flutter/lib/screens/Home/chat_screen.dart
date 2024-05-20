@@ -46,6 +46,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chats'),
+        elevation: 0,
       ),
       body: FutureBuilder<List<Chat>>(
         future: _chatService.fetchChats(_authProvider.token!),

@@ -18,6 +18,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   late AuthProvider _authProvider;
   final TextEditingController _messageController = TextEditingController();
   List<Message> _messages = [];
+  final ScrollController _scrollController = ScrollController();
+
 
   @override
   void initState() {
@@ -32,6 +34,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     setState(() {
       _messages.add(message);
     });
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
   }
 
   void _sendMessage() {
@@ -51,6 +58,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       _webSocketService.sendMessage(widget.chat.id, messageContent);
 
       _messageController.clear();
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     }
   }
 
@@ -66,6 +78,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         children: [
           Expanded(
             child: ListView.builder(
+              controller: _scrollController,
               itemCount: _messages.length,
               itemBuilder: (context, index) {
                 final message = _messages[index];

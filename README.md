@@ -69,11 +69,11 @@
 
 
 ### User Screens (Mobile)
-| Login screen  | Register screen | Landing screen | Loading screen |
+| Onboarding screens  | Register screen | Login screen | Loading screen |
 | ---| ---| ---| ---|
-| ![Landing](./readme/demo/login_screen.png) | ![fsdaf](./readme/demo/register.png) | ![fsdaf](./readme/demo/home_screen.png) | ![fsdaf](./readme/demo/routes_screen.png) |
-| Home screen  | Menu Screen | Order Screen | Checkout Screen |
-| ![Landing](./readme/demo/home_screen.png) | ![fsdaf](./readme/demo/welcome.png) | ![fsdaf](./readme/demo/chats.png) | ![fsdaf](./readme/demo/onboarding_screens.gif) |
+| ![Landing](./readme/demo/onboarding_screens.gif) | ![fsdaf](./readme/demo/register.png) | ![fsdaf](./readme/demo/login.png) | ![fsdaf](./readme/demo/welcome.png) |
+| Home screen  | Routes Screen | Chats Screen | Checkout Screen |
+| ![Landing](./readme/demo/home_screen.png) | ![fsdaf](./readme/demo/routes_screen.png) | ![fsdaf](./readme/demo/chats.png) | ![fsdaf](./readme/demo/welcome.png) |
 <br><br>
 
 <!-- AWS Deployment -->

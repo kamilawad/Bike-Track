@@ -5,9 +5,9 @@ import 'package:mobile_flutter/services/group_chat_socket.dart';
 import 'package:provider/provider.dart';
 
 class EventCollaborationRoom extends StatefulWidget {
-  final Chat groupChat;
+  //final Chat groupChat;
 
-  const EventCollaborationRoom({super.key, required this.groupChat});
+  const EventCollaborationRoom({super.key});
 
   @override
   _EventCollaborationRoomState createState() => _EventCollaborationRoomState();
@@ -25,7 +25,7 @@ class _EventCollaborationRoomState extends State<EventCollaborationRoom> {
     _authProvider = Provider.of<AuthProvider>(context, listen: false);
     _groupChatSocketService = GroupChatSocketService(context);
     _groupChatSocketService.registerNewGroupMessageListener(_handleNewGroupMessage);
-    _messages = widget.groupChat.messages;
+    //_messages = widget.groupChat.messages;
   }
 
   void _handleNewGroupMessage(Message message) {
@@ -46,7 +46,7 @@ class _EventCollaborationRoomState extends State<EventCollaborationRoom> {
       setState(() {
         _messages.add(newMessage);
       });
-      _groupChatSocketService.sendGroupMessage(widget.groupChat.id, messageContent);
+      //_groupChatSocketService.sendGroupMessage(widget.groupChat.id, messageContent);
       _messageController.clear();
     }
   }
@@ -55,7 +55,7 @@ class _EventCollaborationRoomState extends State<EventCollaborationRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.groupChat.name),
+        //title: Text(widget.groupChat.name),
         elevation: 0,
       ),
       body: Column(

@@ -12,4 +12,12 @@ class UserModel {
       email: json['email'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'fullName': fullName,
+      'email': email,
+    };
+  }
 }
