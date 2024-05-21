@@ -70,7 +70,7 @@
 ### User Screens (Mobile)
 | Onboarding screens  | Register screen | Login screen | Loading screen |
 | ---| ---| ---| ---|
-| <img src="./readme/demo/onboarding_screens.gif" width="200"> | <img src="./readme/demo/register.png" width="200"> | <img src="./readme/demo/login.png" width="200"> | <img src="./readme/demo/welcome.png" width="200"> |
+| <img src="./readme/demo/onboarding_screens.gif" width="200"> | <img src="./readme/demo/register.png" width="200"> | <img src="./readme/demo/login_screen.png" width="200"> | <img src="./readme/demo/welcome.png" width="200"> |
 | Home Screen  | Routes Screen | Chats Screen | PlanRoute Screen |
 | <img src="./readme/demo/home_screen.png" width="200"> | <img src="./readme/demo/routes_screen.png" width="200"> | <img src="./readme/demo/chats.gif" width="200"> | <img src="./readme/demo/plan_route.gif" width="200"> |
 <br><br>
