@@ -16,7 +16,6 @@
 - As a user, I want to plan routes for my rides, so I can discover new biking trails and explore different areas.
 - As a user, I want to join collaborative events, so I can participate in group rides and meet other cycling.
 - As a user, I want to use the chat feature, so I can communicate with other users and share my experiences.
-- As a user, I want to participate in event races and marathons, so I can challenge myself and compete with others.
 
 ### Organizer
 
@@ -58,7 +57,7 @@
 
 ###  Architecting Data Excellence: Innovative Database Design Strategies:
 
-- Insert ER Diagram here
+<img src="./readme/demo/schema.png" />
 
 
 <br><br>
@@ -72,8 +71,8 @@
 | Onboarding screens  | Register screen | Login screen | Loading screen |
 | ---| ---| ---| ---|
 | ![Landing](./readme/demo/onboarding_screens.gif) | ![fsdaf](./readme/demo/register.png) | ![fsdaf](./readme/demo/login.png) | ![fsdaf](./readme/demo/welcome.png) |
-| Home screen  | Routes Screen | Chats Screen | Checkout Screen |
-| ![Landing](./readme/demo/home_screen.png) | ![fsdaf](./readme/demo/routes_screen.png) | ![fsdaf](./readme/demo/chats.png) | ![fsdaf](./readme/demo/welcome.png) |
+| Home Screen  | Routes Screen | Chats Screen | PlanRoute Screen |
+| ![Landing](./readme/demo/home_screen.png) | ![fsdaf](./readme/demo/routes_screen.png) | ![fsdaf](./readme/demo/chats.gif) | ![fsdaf](./readme/demo/plan_route.gif) |
 <br><br>
 
 <!-- AWS Deployment -->
