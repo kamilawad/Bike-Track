@@ -70,9 +70,9 @@
 ### User Screens (Mobile)
 | Onboarding screens  | Register screen | Login screen | Loading screen |
 | ---| ---| ---| ---|
-| ![Landing](./readme/demo/onboarding_screens.gif) | ![fsdaf](./readme/demo/register.png) | ![fsdaf](./readme/demo/login.png) | ![fsdaf](./readme/demo/welcome.png) |
+| <img src="./readme/demo/onboarding_screens.gif" width="200"> | <img src="./readme/demo/register.png" width="200"> | <img src="./readme/demo/login.png" width="200"> | <img src="./readme/demo/welcome.png" width="200"> |
 | Home Screen  | Routes Screen | Chats Screen | PlanRoute Screen |
-| ![Landing](./readme/demo/home_screen.png) | ![fsdaf](./readme/demo/routes_screen.png) | ![fsdaf](./readme/demo/chats.gif) | ![fsdaf](./readme/demo/plan_route.gif) |
+| <img src="./readme/demo/home_screen.png" width="200"> | <img src="./readme/demo/routes_screen.png" width="200"> | <img src="./readme/demo/chats.gif" width="200"> | <img src="./readme/demo/plan_route.gif" width="200"> |
 <br><br>
 
 <!-- AWS Deployment -->
