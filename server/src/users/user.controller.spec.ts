@@ -12,6 +12,15 @@ const mockUser = {
   role: 'user',
 };
 
+import mongoose from 'mongoose';
+jest.mock('mongoose', () => ({
+  Types: {
+    ObjectId: {
+      isValid: jest.fn().mockReturnValue(true), // Adjust as needed for testing invalid IDs
+    },
+  },
+}));
+
 const mockUserService = {
   createUser: jest.fn().mockResolvedValue(mockUser),
   getUsers: jest.fn().mockResolvedValue([mockUser]),

@@ -12,12 +12,21 @@ const mockUser = {
   role: 'user',
   followers: [],
   following: [],
+  save: jest.fn().mockResolvedValue(this),
 };
 
 const mockUserModel = {
+  new: jest.fn().mockResolvedValue(mockUser),
+  constructor: jest.fn().mockResolvedValue(mockUser),
+  create: jest.fn().mockImplementation((dto) => ({
+    ...dto,
+    _id: '1',
+    save: jest.fn().mockResolvedValue({ ...dto, _id: '1' }),
+  })),
+  findById: jest.fn().mockReturnValue({
+    exec: jest.fn().mockResolvedValue(mockUser),
+  }),
   find: jest.fn().mockResolvedValue([mockUser]),
-  findById: jest.fn().mockResolvedValue(mockUser),
-  create: jest.fn().mockResolvedValue(mockUser),
   findByIdAndDelete: jest.fn().mockResolvedValue(mockUser),
 };
 
@@ -51,8 +60,9 @@ describe('UserService', () => {
       password: 'password',
       role: UserRole.USER,
     };
+
     const result = await service.createUser(createUserDto);
-    expect(result).toEqual(mockUser);
+    expect(result).toEqual(expect.objectContaining(createUserDto));
   });
 
   it('should return all users', async () => {

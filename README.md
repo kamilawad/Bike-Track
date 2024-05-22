@@ -46,7 +46,7 @@
 
 
 ### Mockups
-| Onboarding screen  | Login Screen | Order Screen |
+| Onboarding screen  | Login Screen | Home Screen |
 | ---| ---| ---|
 | ![Landing](./readme/demo/onboarding.png) | ![fsdaf](./readme/demo/Login.png) | ![fsdaf](./readme/demo/Home.png) |
 
@@ -78,9 +78,93 @@
 <!-- AWS Deployment -->
 <img src="./readme/title8.svg"/>
 
-###  Efficient AI Deployment: Unleashing the Potential with AWS Integration:
+###  Efficient Deployment: Unleashing the Potential with AWS Integration:
 
-- This project leverages AWS deployment strategies to seamlessly integrate and deploy natural language processing models. With a focus on scalability, reliability, and performance, we ensure that AI applications powered by these models deliver robust and responsive solutions for diverse use cases.
+- This project leverages AWS deployment strategies to seamlessly integrate and deploy the backend services. With a focus on scalability, reliability, and performance, we ensure that Bike Track deliver robust and responsive solutions for diverse use cases.
+<img src="./readme/demo/postman.png"/>
+
+_A demo of a Postman request to the KLUBJAM backend running on an AWS EC2 instance._
+
+Below were the steps taken to deploy BikeTrack's backend to AWS, after connecting to the AWS EC2 instance through SSH.
+
+- **Step 1**: Update Packages
+  ```sh
+  sudo apt update
+  sudo apt upgrade -y
+  ```
+- **Step 2**: Install Git, Node.js, NestJs and npm
+  ````sh
+  sudo apt install git -y
+  sudo apt install nodejs -y
+  sudo apt install npm -y
+  sudo npm install -g @nestjs/cli
+  ````
+- **Step 3**: Clone the Repository
+  ```sh
+  git clone https://github.com/kamilawad/Bike-Track.git
+  ```
+- **Step 4**: Install Dependencies
+
+  ```sh
+  npm install
+  ```
+
+- **Step 5**: Install MongoDB packages
+  ```sh
+  sudo apt-get install -y mongodb-org
+  ```
+- **Step 6**: Start MongoDB 
+  ```sh
+  sudo systemctl enable mongod
+
+   sudo service mongod start
+  ```
+- **Step 7**: Create a .env file in the root directory and add the following:
+
+```env
+DB_URI = mongodb://localhost:27017/biketrackdb
+
+```
+
+- **Step 8**: Set Up Caddy for Reverse Proxy
+- install Caddy
+
+```sh
+sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo apt-key add -
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo apt update
+sudo apt install caddy
+```
+
+- Configure Caddy:
+
+```sh
+sudo nano /etc/caddy/Caddyfile
+```
+
+- Add the following configuration:
+
+```caddy
+your-domain.com {
+  reverse_proxy localhost:3000
+}
+```
+
+- Reload Caddy:
+
+```sh
+sudo systemctl reload caddy
+```
+
+- **Step 9**: Start the NestJs Server
+
+```sh
+npm run start:prod
+```
+
+Now your Bike Track backend should be up and running on your AWS EC2 instance with NestJS, MongoDB, and Caddy for reverse proxy.
+
 
 <br><br>
 
