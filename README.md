@@ -83,7 +83,7 @@
 - This project leverages AWS deployment strategies to seamlessly integrate and deploy the backend services. With a focus on scalability, reliability, and performance, we ensure that Bike Track deliver robust and responsive solutions for diverse use cases.
 <img src="./readme/demo/postman.png"/>
 
-_A demo of a Postman request to the KLUBJAM backend running on an AWS EC2 instance._
+_A demo of a Postman request to the Bike-Track backend running on an AWS EC2 instance._
 
 Below were the steps taken to deploy BikeTrack's backend to AWS, after connecting to the AWS EC2 instance through SSH.
 
